@@ -62,11 +62,14 @@ def data_info(data):
 
 @app.route('/info/<name>')
 def hello(name):
-    name = name.replace("#","-")
-    profile = api_profile(name)
-    quick_allheors = api_quick_allheros(name)
-    competitive = api_competitive_allheros(name)
-    achievements = api_achievements(name)
+    try:
+        name = name.replace("#","-")
+        profile = api_profile(name)
+        quick_allheors = api_quick_allheros(name)
+        competitive = api_competitive_allheros(name)
+        achievements = api_achievements(name)
+    except:
+        return "no username"
 
     return "complete"
 
