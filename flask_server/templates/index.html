@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>이것은 제목</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function enterkey()
+      {
+        if (window.event.keyCode == 13) { search(); }
+      }
+      var search = function()
+      {
+        var tag = document.getElementById("battle_tag").value.replace("#","-");
+        document.location.href = "/info/" + tag;
+      }
+    </script>
+    이것은 검색
+    <input onkeyup="enterkey();" type="text" value="만능#31452" id="battle_tag">
+    <button id="btn_search" type="button" onclick="search()" style="height:50px; width:50px">검색!!!</button>
+    이것은 버튼
+
+  </body>
+</html>

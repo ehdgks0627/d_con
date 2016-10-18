@@ -1,0 +1,57 @@
+0����
+������
+{
+GET /{platform}/{region}/{tag}/profile
+V_https://api.lootbox.eu/pc/kr/%EB%A7%8C%EB%8A%A5-31452/profile
+}
+
+data
+	levelFrame
+	playtime
+		quick
+		competitive
+	avatar
+	username
+	star
+	level
+	games
+		quick
+			wins
+		competitive
+			played
+			lost
+			wins
+	competitive
+		rank_img
+		rank
+
+
+������
+{
+GET /{platform}/{region}/{tag}/{mode}/hero/{heroes}/
+
+}
+
+1����
+��������
+{
+GET /{platform}/{region}/{tag}/{mode}/allHeroes/
+V_https://api.lootbox.eu/pc/kr/%EB%A7%8C%EB%8A%A5-31452/competitive-play/allHeroes/
+}
+['MeleeFinalBlows', 'SoloKills', 'ObjectiveKills', 'FinalBlows', 'DamageDone', 'Eliminations', 'EnvironmentalKills', 'Multikills', 'HealingDone', 'TeleporterPadDestroyed', 'Eliminations-MostinGame', 'FinalBlows-MostinGame', 'DamageDone-MostinGame', 'HealingDone-MostinGame', 'DefensiveAssists-MostinGame', 'OffensiveAssists-MostinGame', 'ObjectiveKills-MostinGame', 'ObjectiveTime-MostinGame', 'Multikill-Best', 'SoloKills-MostinGame', 'TimeSpentonFire-MostinGame', 'MeleeFinalBlows-Average', 'TimeSpentonFire-Average', 'SoloKills-Average', 'ObjectiveTime-Average', 'ObjectiveKills-Average', 'HealingDone-Average', 'FinalBlows-Average', 'Deaths-Average', 'DamageDone-Average', 'Eliminations-Average', 'Deaths', 'EnvironmentalDeaths', 'Cards', 'Medals', 'Medals-Gold', 'Medals-Silver', 'Medals-Bronze', 'GamesPlayed', 'GamesWon', 'TimeSpentonFire', 'ObjectiveTime', 'TimePlayed', 'MeleeFinalBlows-MostinGame', 'GamesTied', 'GamesLost', 'DefensiveAssists', 'DefensiveAssists-Average', 'OffensiveAssists', 'OffensiveAssists-Average']
+
+
+
+
+2����
+����
+{
+GET /{platform}/{region}/{tag}/achievements
+V_https://api.lootbox.eu/pc/kr/%EB%A7%8C%EB%8A%A5-31452/achievements
+}
+
+�÷��̽ð�
+{
+GET /{platform}/{region}/{tag}/{mode}/heroes
+https://api.lootbox.eu/pc/kr/%EB%A7%8C%EB%8A%A5-31452/competitive-play/heroes
+}
