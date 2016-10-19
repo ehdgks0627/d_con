@@ -9,6 +9,9 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=async_mode)
 
+server_domain = '192.168.43.230'
+server_port = 5001
+
 @app.route('/')
 def index():
     return render_template('chat.html', async_mode=socketio.async_mode)
@@ -51,4 +54,4 @@ def send_room_message(message):
          room=message['room'])
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host="192.168.43.230")
+    socketio.run(app, host=server_domain, port=server_port, debug=True)

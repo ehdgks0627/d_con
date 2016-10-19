@@ -8,7 +8,7 @@
         $(document).ready(function() {
             var domain = "192.168.43.230";
             var port = "5000";
-            var namespace = '/test';
+            var namespace = '/chat_base';
             var socket = io.connect('http://' + domain + ':' + port + namespace);
 
             socket.on('connect', function() {
