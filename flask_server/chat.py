@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=async_mode)
 
-server_domain = '192.168.43.230'
+server_domain = '0.0.0.0'
 server_port = 5001
 
 @app.route('/')

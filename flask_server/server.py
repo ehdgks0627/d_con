@@ -13,7 +13,7 @@ user_no = 1
 app = Flask(__name__)
 app.secret_key = 'secret'
 
-server_domain = '192.168.43.230'
+server_domain = '0.0.0.0'
 server_port = 5000
 
 def api_profile(name):
