@@ -31,6 +31,8 @@ data
 GET /{platform}/{region}/{tag}/{mode}/hero/{heroes}/
 
 }
+['Ana', 'Bastion', 'DVa', 'Genji', 'Hanzo', 'Junkrat', 'Lucio', 'Mccree', 'Mei', 'Mercy', 'Pharah', 'Reaper', 'Reinhardt', 'Roadhog', 'Soldier76', 'Symmetra', 'Torbjoern', 'Tracer', 'Widowmaker', 'Winston', 'Zarya', 'Zenyatta']
+
 
 1����
 ��������
