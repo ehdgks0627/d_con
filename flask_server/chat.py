@@ -16,13 +16,14 @@ server_port = 5001
 def index():
     return render_template('chat.html', async_mode=socketio.async_mode)
 
-@socketio.on('write_message', namespace='/test')
+@socketio.on('write_message', namespace='/chat_base')
 def test_message(message):
     session['receive_count'] = session.get('receive_count', 0) + 1
+    print ('1')
     emit('write',
          {'data': message['data'], 'count': session['receive_count']})
 
-@socketio.on('join', namespace='/test')
+@socketio.on('join', namespace='/chat_base')
 def join(message):
     join_room(message['room'])
     session['receive_count'] = session.get('receive_count', 0) + 1
@@ -30,7 +31,7 @@ def join(message):
          {'data': 'In rooms: ' + ', '.join(rooms()),
           'count': session['receive_count']})
 
-@socketio.on('leave', namespace='/test')
+@socketio.on('leave', namespace='/chat_base')
 def leave(message):
     leave_room(message['room'])
     session['receive_count'] = session.get('receive_count', 0) + 1
@@ -38,7 +39,7 @@ def leave(message):
          {'data': 'In rooms: ' + ', '.join(rooms()),
           'count': session['receive_count']})
 
-@socketio.on('close_room', namespace='/test')
+@socketio.on('close_room', namespace='/chat_base')
 def close(message):
     session['receive_count'] = session.get('receive_count', 0) + 1
     emit('write', {'data': 'Room ' + message['room'] + ' closed.',
@@ -46,7 +47,7 @@ def close(message):
          room=message['room'])
     close_room(message['room'])
 
-@socketio.on('room_message', namespace='/test')
+@socketio.on('room_message', namespace='/chat_base')
 def send_room_message(message):
     session['receive_count'] = session.get('receive_count', 0) + 1
     emit('write',
