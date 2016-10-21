@@ -3,23 +3,26 @@
   <head>
     <meta charset="utf-8">
     <title>이것은 제목</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel= "stylesheet" type= "text/css" href= "/static/stylesheets/normalize.css">
       <script type="text/javascript">
       function enterkey()
       {
         if (window.event.keyCode == 13) { search(); }
       }
-      function search()
+      var search = function()
       {
         var tag = document.getElementById("battle_tag").value.replace("#","-");
         document.location.href = "/info/" + tag;
       }
-      function move_chat()
-      {
-          document.location.href = "http://" + document.domain + ":5001";
-      }
     </script>
     <style>
+    @media (min-width:800)
+    {
+        .search{
+            display: none;
+        }
+    }
     @font-face{
   font-family:"NanumBarunpen";
   src:url('/static/font/NanumBarunpen.eot');
@@ -29,17 +32,25 @@
   url('/static/font/NanumBarunpen.svg#NanumBarunpen') format('svg')
   src:local(※), url('/static/font/NanumBarunpen.woff') format('woff');
 }
+
+        body{
+            
+            background-image: url('/static/map/Gibraltar_05.jpg');
+            background-repeat: no-repeat;
+            
+        }
       input {
         height: 28px;
         margin-top: 10px;
-        border: 1px solid black;
-        border-radius: 5px;
-        padding-right: 65px;
+        border: 0;
+        padding-right: 80px;
         font-size: 15px;
         box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
         width: 400px;
+        margin-left: 2px;
         padding-top: 10px;
         padding-bottom: 10px;
+        margin-right: -6px;
 }
 #sub_button:hover {
         color: #4D0088;
@@ -51,87 +62,94 @@
     background: #6495ED;
     border:0px;
     text-align: center;
-    border-radius: 4px;
+   /* border-radius: 4px; */
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
     font-size: 20px;
-    padding-top: 14px;
-    padding-bottom: 15px;
-    margin-right: 6px;
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    margin-right: 7px;
     font-family:"NanumBarunpen";
 
 }
 
 .main {
-  width: 50%;
+  width: 90%;
   margin: 0 auto;
-  padding-top: 10%;
-
+  padding-top: 5%;
 }
 .search {
-  margin-left: 13%;
+/*  margin-left: 13%;*/
+    margin: 0 auto;
+    width:100%;
+    padding-bottom: 10%;
+    max-width: 1000px;
+
 }
+
 
 h1 {
   text-align: center;
   font-family:"NanumBarunpen";
   font-size: 50px;
+  color: white;
 }
 th, td {
-    padding: 13px;
+    padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    background-color: #f8f8f8;
+
 }
 tr:nth-child(even) {background-color: #f8f8f8}
 table {
+
     border-collapse: collapse;
     width: 100%;
     font-family:"NanumBarunpen";
     font-size: 20px;
-    margin-top: 5%;
+    
 }
+        #battle_tag{
+            width:calc(100% - 180px)
+        }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 5px;
+  overflow: hidden;
+  background-color: #333;
+}
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px 16px; 
+    text-decoration: none;
+  }
+
+li a:hover {
+    background-color: #111;
+}        
     </style>
   </head>
   <body>
+    <ul>
+  <li><a href="#home">Home</a></li>
+  <li><a href="#news">News</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li><a href="#about">About</a></li>
+</ul>
     <div class="main">
     <h1>OverWatch Browser</h1>
     <div class="search">
     <input onkeyup="enterkey();" type="text" placeholder="플레이어 이름과 태그를 입력해 주세요." id="battle_tag">
     <button id="sub_button" type="button" onclick="search()">검색</button>
-    <button id="sub_button" type="button" onclick="move_chat()">채팅 하기</button>
     </div>
-      <table>
-  <tr style="font-weight:bold;">
-    <th>순위</th>
-    <th>닉네임</th>
-    <th>전적</th>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>만능</td>
-    <td>5승 0무 1패</td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>hy00un</td>
-    <td>3승 0무 1패</td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>Swanson</td>
-    <td>3승 0무 1패</td>
-  </tr>
-  <tr>
-    <td>4</td>
-    <td>Brown</td>
-    <td>3승 0무 1패</td>
-  </tr>
-  <tr>
-    <td>5</td>
-    <td>Brown</td>
-    <td>3승 0무 1패</td>
-  </tr>
-
-</table>
     </div>
 
   </body>
