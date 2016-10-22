@@ -11,5 +11,5 @@ Step2<br>
 todo
 ----
 1. Apply CSS
-2. Use chatting server(with chat.py)
+2. Make logo
 3. Automatic pick recommendation system
