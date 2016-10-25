@@ -14,6 +14,7 @@ thread = None
 conn = connect(host='layer7.kr', port=3306, user='em', passwd='fuckkk', db='d_con', charset ='utf8')
 cur = conn.cursor()
 
+@app.route('/')
 @app.route('/list/')
 def list():
     return render_template('chat_list.html', async_mode=socketio.async_mode)
@@ -22,7 +23,9 @@ def list():
 def make():
     return render_template('chat_make.html', async_mode=socketio.async_mode)
 
-#todo chat_{$room}
+@app.route('/chat/')
+def chat():
+    return render_template('chat_chat.html', async_mode=socketio.async_mode)
 
 @socketio.on('create', namespace='/chat_base')
 def create(message):

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Flask-SocketIO Test</title>
+    <title>채팅 하기</title>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
@@ -11,9 +11,13 @@
             socket.on('write_log', function(msg) {
                 $('#log').append('<br>' + $('<div/>').text('log : ' + msg.data).html());
             });
+            socket.on('write_room_list', function(msg) {
+                $('#log').append('<br>' + $('<div/>').text('list : ' + msg.data).html());
+                //todo : 방리스트 보여주기
             });
             socket.on('write_message', function(msg) {
                 $('#log').append('<br>' + $('<div/>').text('message : ' + msg.data).html());
+                //todo : 채팅 리스트 보여주기
             });
             $('form#leave').submit(function(event) {
                 socket.emit('leave', {leave_key: $('#leave_key').val()});
@@ -21,10 +25,6 @@
             });
             $('form#send_message').submit(function(event) {
                 socket.emit('send_message', {send_key: $('#send_key').val(), send_msg: $('#send_msg').val()});
-                return false;
-            });
-            $('form#room_list').submit(function(event) {
-                socket.emit('room_list');
                 return false;
             });
             $('form#create').submit(function(event) {
@@ -60,9 +60,6 @@
         <input type="text" name="send_key" id="send_key">
         <input type="text" name="send_msg" id="send_msg">
         <input type="submit" value="Send to Room">
-    </form>
-    <form id="room_list" method="POST" action='#'>
-        <input type="submit" value="get room_list">
     </form>
     <h2>Receive:</h2>
     <div id="log"></div>

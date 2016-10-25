@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Flask-SocketIO Test</title>
+    <title>방 목록</title>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
@@ -14,19 +14,15 @@
             socket.on('write_room_list', function(msg) {
                 $('#log').append('<br>' + $('<div/>').text('list : ' + msg.data).html());
             });
-            $('form#room_list').submit(function(event) {
-                socket.emit('room_list');
-                return false;
-            });
+            socket.emit('room_list');
         });
     </script>
 </head>
 <body>
-    <h1>Flask-SocketIO Test</h1>
-    <form id="room_list" method="POST" action='#'>
-        <input type="submit" value="get room_list">
-    </form>
-    <h2>Receive:</h2>
+    <button type="button" name="make" onClick="location.href='/make/';">
+        <img src="/static/map/pika.jpg" align="absmiddle"> 방 만들기
+    </button>
+    <h2>list:</h2>
     <div id="log"></div>
 </body>
 </html>
