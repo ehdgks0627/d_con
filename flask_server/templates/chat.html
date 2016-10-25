@@ -7,7 +7,7 @@
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function() {
             namespace = '/chat_base';
-            var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+            var socket = io.connect('http://' + document.domain + ':' + document.location.port + namespace);
             socket.on('write_log', function(msg) {
                 $('#log').append('<br>' + $('<div/>').text('log : ' + msg.data).html());
             });

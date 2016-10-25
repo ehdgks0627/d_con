@@ -14,9 +14,13 @@ thread = None
 conn = connect(host='layer7.kr', port=3306, user='em', passwd='fuckkk', db='d_con', charset ='utf8')
 cur = conn.cursor()
 
-@app.route('/')
-def index():
+@app.route('/list/')
+def list():
     return render_template('chat_list.html', async_mode=socketio.async_mode)
+
+@app.route('/make/')
+def make():
+    return render_template('chat_make.html', async_mode=socketio.async_mode)
 
 #todo chat_{$room}
 
@@ -28,14 +32,14 @@ def create(message):
             conn.commit()
             cur.execute("CREATE TABLE `room_%s` (`message` VARCHAR(4096) NOT NULL)ENGINE=InnoDB"%(cur.lastrowid))
             conn.commit()
-            emit('write_log', {'data': 'created'})#delete
+            emit('success', {'url': '/list/'})#delete
         else:
-            emit('write_log', {'data': 'room_name is empty'})#delete
+            emit('failure', {'data': 'room_name is empty'})#delete
     except:
-        emit('write_log', {'data': 'error'})
+        emit('failure', {'data': 'error'})
 
 @socketio.on('get_message', namespace='/chat_base')
-def create(message):
+def get(message):
     try:
         cur.execute("SELECT * FROM `room_list` WHERE `key`='%s' AND `password`='%s'"%(message['room_key'],message['room_pwd']))
         datas = cur.fetchall()[0]
