@@ -12,7 +12,7 @@
                 socket.emit('my_event', {data: 'I\'m connected!'});
             });
             socket.on('write_log', function(msg) {
-                $('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
+                $('#log').append('<br>' + $('<div/>').text('Received : ' + msg.data).html());
             });
             socket.on('write_room_list', function(msg) {
                 $('#log').append('<br>' + $('<div/>').text('list : ' + msg.data).html());
@@ -20,10 +20,6 @@
             });
             $('form#emit').submit(function(event) {
                 socket.emit('my_event', {data: $('#emit_data').val()});
-                return false;
-            });
-            $('form#join').submit(function(event) {
-                socket.emit('join', {room: $('#join_room').val()});
                 return false;
             });
             $('form#leave').submit(function(event) {
@@ -39,7 +35,11 @@
                 return false;
             });
             $('form#create').submit(function(event) {
-                socket.emit('leave', {room: $('#leave_room').val()});
+                socket.emit('create', {room_name: $('#room_name').val(),room_password: $('#room_password').val()});
+                return false;
+            });
+            $('form#get_message').submit(function(event) {
+                socket.emit('get_message', {room_key: $('#room_key').val(), room_pwd: $('#room_pwd').val()});
                 return false;
             });
         });
@@ -50,21 +50,22 @@
     <p>Async mode is: <b>{{ async_mode }}</b></p>
     <h2>Send:</h2>
     <form id="create" method="POST" action='#'>
-        <input type="text" name="room_name" id="room_name" placeholder="Room Name">
-        <input type="text" name="room_password" id="room_password" placeholder="Message">
-        <input type="submit" value="Send to Room">
+        <input type="text" name="room_name" id="room_name">
+        <input type="text" name="room_password" id="room_password">
+        <input type="submit" value="Create Room">
     </form>
-    <form id="join" method="POST" action='#'>
-        <input type="text" name="join_room" id="join_room" placeholder="Room Name">
+    <form id="get_message" method="POST" action='#'>
+        <input type="text" name="room_key" id="room_key">
+        <input type="text" name="room_pwd" id="room_pwd">
         <input type="submit" value="Join Room">
     </form>
     <form id="leave" method="POST" action='#'>
-        <input type="text" name="leave_room" id="leave_room" placeholder="Room Name">
+        <input type="text" name="leave_room" id="leave_room">
         <input type="submit" value="Leave Room">
     </form>
     <form id="send_room" method="POST" action='#'>
-        <input type="text" name="room_name" id="room_name" placeholder="Room Name">
-        <input type="text" name="room_data" id="room_data" placeholder="Message">
+        <input type="text" name="room_key" id="room_name">
+        <input type="text" name="room_password" id="room_data">
         <input type="submit" value="Send to Room">
     </form>
     <form id="room_list" method="POST" action='#'>

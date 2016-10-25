@@ -21,41 +21,39 @@ def index():
 
 @socketio.on('my_event', namespace='/chat_base')
 def test_message(message):
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    emit('write_log',
-         {'data': message['data'], 'count': session['receive_count']})
+    emit('write_log', {'data': message['data']})
 
-@socketio.on('join', namespace='/chat_base')
-def join(message):
-    join_room(message['room'])
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    cur.execute("INSERT INTO room_list (`name`,`password`) VALUES ('%s','%s')"%(message.))
+@socketio.on('create', namespace='/chat_base')
+def create(message):
+    cur.execute("INSERT INTO room_list (`name`,`password`) VALUES ('%s','%s')"%(message['room_name'], message['room_password']))
+    conn.commit()
+    cur.execute("CREATE TABLE `room_%s` (`message` VARCHAR(4096) NOT NULL)ENGINE=InnoDB"%(cur.lastrowid))
+    conn.commit()
+    emit('write_log', {'data': 'created'})#delete
 
-    emit('write_log',
-         {'data': 'In rooms: ' + ', '.join(rooms()),
-          'count': session['receive_count']})
+@socketio.on('get_message', namespace='/chat_base')
+def create(message):
+    cur.execute("SELECT * FROM room_list WHERE `key`='%s' AND `password`='%s'"%(message['room_key'],message['room_pwd']))
+    data = cur.fetchall()[0]
+    if data == ():
+        emit('write_log', {'data': 'failure'})
+    else:
+        cur.execute("SELECT * FORM room_%s"%(message['room_key']))
+        data = cur.fetchall()
+        emit('write_log', {'data': 'joined : log=%s'%(str(data)})
 
 @socketio.on('leave', namespace='/chat_base')
 def leave(message):
-    leave_room(message['room'])
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    emit('write_log',
-         {'data': 'In rooms: ' + ', '.join(rooms()),
-          'count': session['receive_count']})
+    emit('write_log', {'data': 'In rooms: ' + ', '.join(rooms())})
 
 @socketio.on('my_room_event', namespace='/chat_base')
 def send_room_message(message):
-    data =  "%s - %s - %s"%(session.get('receive_count', 0) + 1,message['data'],message['room'])
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    emit('write_log',
-         {'data': data, 'count': session['receive_count']},
-         room=message['room'])
+    data =  "%s - %s"%(message['data'],message['room'])
+    emit('write_log', {'data': data}, room=message['room'])
 
 @socketio.on('disconnect_request', namespace='/chat_base')
 def disconnect_request():
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    emit('write_log',
-         {'data': 'Disconnected!', 'count': session['receive_count']})
+    emit('write_log', {'data': 'Disconnected!'})
     disconnect()
 
 @socketio.on('connect', namespace='/chat_base')
