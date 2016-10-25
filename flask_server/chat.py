@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 from flask import Flask, render_template, session, request
-from flask_socketio import SocketIO, emit, join_room, leave_room, \
-    close_room, rooms, disconnect
+from flask_socketio import SocketIO, emit, disconnect
 from pymysql import connect
 
 # 채팅내역 DB 연동
@@ -44,7 +43,7 @@ def create(message):
         cur.execute("SELECT * FROM `room_%s`"%(message['room_key']))
         datas = cur.fetchall()
         for data in datas:
-            emit('write_message', {'data': 'joined : log=%s'%(str(data[0]))})
+            emit('write_message', {'data': 'log=%s'%(str(data[0]))})
 
 @socketio.on('leave', namespace='/chat_base')
 def leave(message):
