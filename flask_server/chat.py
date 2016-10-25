@@ -6,12 +6,12 @@ from pymysql import connect
 # 채팅내역 DB 연동
 async_mode = None
 
+server_domain = "192.168.43.230"
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=async_mode)
 thread = None
-server_domain = "192.168.43.230"
-conn = connect(host='layer7.kr', port=3306, user='root', passwd='fuck2016', db='d_con', charset ='utf8')
+conn = connect(host='layer7.kr', port=3306, user='em', passwd='fuckkk', db='d_con', charset ='utf8')
 cur = conn.cursor()
 
 @app.route('/')
