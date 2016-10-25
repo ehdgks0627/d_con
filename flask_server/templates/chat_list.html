@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Flask-SocketIO Test</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            namespace = '/chat_base';
+            var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+            socket.on('write_log', function(msg) {
+                $('#log').append('<br>' + $('<div/>').text('log : ' + msg.data).html());
+            });
+            socket.on('write_room_list', function(msg) {
+                $('#log').append('<br>' + $('<div/>').text('list : ' + msg.data).html());
+            });
+            $('form#room_list').submit(function(event) {
+                socket.emit('room_list');
+                return false;
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Flask-SocketIO Test</h1>
+    <form id="room_list" method="POST" action='#'>
+        <input type="submit" value="get room_list">
+    </form>
+    <h2>Receive:</h2>
+    <div id="log"></div>
+</body>
+</html>

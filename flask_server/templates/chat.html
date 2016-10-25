@@ -8,9 +8,6 @@
         $(document).ready(function() {
             namespace = '/chat_base';
             var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
-            socket.on('connect', function() {
-                socket.emit('my_event', {data: 'I\'m connected!'});
-            });
             socket.on('write_log', function(msg) {
                 $('#log').append('<br>' + $('<div/>').text('log : ' + msg.data).html());
             });

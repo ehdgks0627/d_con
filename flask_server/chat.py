@@ -16,11 +16,9 @@ cur = conn.cursor()
 
 @app.route('/')
 def index():
-    return render_template('chat.html', async_mode=socketio.async_mode)
+    return render_template('chat_list.html', async_mode=socketio.async_mode)
 
-@socketio.on('my_event', namespace='/chat_base')
-def test_message(message):
-    emit('write_log', {'data': message['data']})
+#todo chat_{$room}
 
 @socketio.on('create', namespace='/chat_base')
 def create(message):
@@ -55,6 +53,7 @@ def create(message):
 def leave(message):
     try:
         cur.execute("DROP TABLE `room_%s`"%(message['leave_key']))
+        conn.commit()
         cur.execute("DELETE FROM `room_list` WHERE `key`='%s'"%(message['leave_key']))
         conn.commit()
         emit('write_log', {'data': 'deleted'})
