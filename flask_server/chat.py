@@ -25,31 +25,45 @@ def test_message(message):
 
 @socketio.on('create', namespace='/chat_base')
 def create(message):
-    cur.execute("INSERT INTO room_list (`name`,`password`) VALUES ('%s','%s')"%(message['room_name'], message['room_password']))
-    conn.commit()
-    cur.execute("CREATE TABLE `room_%s` (`message` VARCHAR(4096) NOT NULL)ENGINE=InnoDB"%(cur.lastrowid))
-    conn.commit()
-    emit('write_log', {'data': 'created'})#delete
+    if message['room_name'] != "":
+        cur.execute("INSERT INTO `room_list` (`name`,`password`) VALUES ('%s','%s')"%(message['room_name'], message['room_password']))
+        conn.commit()
+        cur.execute("CREATE TABLE `room_%s` (`message` VARCHAR(4096) NOT NULL)ENGINE=InnoDB"%(cur.lastrowid))
+        conn.commit()
+        emit('write_log', {'data': 'created'})#delete
+    else:
+        emit('write_log', {'data': 'room_name is empty'})#delete
 
 @socketio.on('get_message', namespace='/chat_base')
 def create(message):
-    cur.execute("SELECT * FROM room_list WHERE `key`='%s' AND `password`='%s'"%(message['room_key'],message['room_pwd']))
-    data = cur.fetchall()[0]
-    if data == ():
+    cur.execute("SELECT * FROM `room_list` WHERE `key`='%s' AND `password`='%s'"%(message['room_key'],message['room_pwd']))
+    datas = cur.fetchall()[0]
+    if datas == ():
         emit('write_log', {'data': 'failure'})
     else:
-        cur.execute("SELECT * FORM room_%s"%(message['room_key']))
-        data = cur.fetchall()
-        emit('write_log', {'data': 'joined : log=%s'%(str(data)})
+        cur.execute("SELECT * FROM `room_%s`"%(message['room_key']))
+        datas = cur.fetchall()
+        for data in datas:
+            emit('write_message', {'data': 'joined : log=%s'%(str(data[0]))})
 
 @socketio.on('leave', namespace='/chat_base')
 def leave(message):
-    emit('write_log', {'data': 'In rooms: ' + ', '.join(rooms())})
+    try:
+        cur.execute("DROP TABLE `room_%s`"%(message['leave_key']))
+        cur.execute("DELETE FROM `room_list` WHERE `key`='%s'"%(message['leave_key']))
+        conn.commit()
+        emit('write_log', {'data': 'deleted'})
+    except:
+        emit('write_log', {'data': 'error'})
 
-@socketio.on('my_room_event', namespace='/chat_base')
+@socketio.on('send_message', namespace='/chat_base')
 def send_room_message(message):
-    data =  "%s - %s"%(message['data'],message['room'])
-    emit('write_log', {'data': data}, room=message['room'])
+    try:
+        cur.execute("INSERT INTO `room_%s` VALUES ('%s')"%(message['send_key'],message['send_msg']))
+        conn.commit()
+        emit('write_log', {'data': 'success'})
+    except:
+        emit('write_log', {'data': 'error'})
 
 @socketio.on('disconnect_request', namespace='/chat_base')
 def disconnect_request():
@@ -63,7 +77,7 @@ def test_connect():
 
 @socketio.on('room_list', namespace='/chat_base')
 def get_room_list():
-    cur.execute("SELECT * FROM room_list")
+    cur.execute("SELECT * FROM `room_list`")
     rows = cur.fetchall()
     for row in rows:
         data = "%s-%s-%s"%(row[0],row[1],row[2])

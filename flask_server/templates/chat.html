@@ -12,22 +12,22 @@
                 socket.emit('my_event', {data: 'I\'m connected!'});
             });
             socket.on('write_log', function(msg) {
-                $('#log').append('<br>' + $('<div/>').text('Received : ' + msg.data).html());
+                $('#log').append('<br>' + $('<div/>').text('log : ' + msg.data).html());
             });
             socket.on('write_room_list', function(msg) {
                 $('#log').append('<br>' + $('<div/>').text('list : ' + msg.data).html());
                 //todo : 방리스트 보여주기
             });
-            $('form#emit').submit(function(event) {
-                socket.emit('my_event', {data: $('#emit_data').val()});
-                return false;
+            socket.on('write_message', function(msg) {
+                $('#log').append('<br>' + $('<div/>').text('message : ' + msg.data).html());
+                //todo : 채팅 리스트 보여주기
             });
             $('form#leave').submit(function(event) {
-                socket.emit('leave', {room: $('#leave_room').val()});
+                socket.emit('leave', {leave_key: $('#leave_key').val()});
                 return false;
             });
-            $('form#send_room').submit(function(event) {
-                socket.emit('my_room_event', {room: $('#room_name').val(), data: $('#room_data').val()});
+            $('form#send_message').submit(function(event) {
+                socket.emit('send_message', {send_key: $('#send_key').val(), send_msg: $('#send_msg').val()});
                 return false;
             });
             $('form#room_list').submit(function(event) {
@@ -57,15 +57,15 @@
     <form id="get_message" method="POST" action='#'>
         <input type="text" name="room_key" id="room_key">
         <input type="text" name="room_pwd" id="room_pwd">
-        <input type="submit" value="Join Room">
+        <input type="submit" value="Get Message">
     </form>
     <form id="leave" method="POST" action='#'>
-        <input type="text" name="leave_room" id="leave_room">
+        <input type="text" name="leave_key" id="leave_key">
         <input type="submit" value="Leave Room">
     </form>
-    <form id="send_room" method="POST" action='#'>
-        <input type="text" name="room_key" id="room_name">
-        <input type="text" name="room_password" id="room_data">
+    <form id="send_message" method="POST" action='#'>
+        <input type="text" name="send_key" id="send_key">
+        <input type="text" name="send_msg" id="send_msg">
         <input type="submit" value="Send to Room">
     </form>
     <form id="room_list" method="POST" action='#'>
