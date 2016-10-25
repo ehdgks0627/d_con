@@ -6,7 +6,7 @@ from pymysql import connect
 # 채팅내역 DB 연동
 async_mode = None
 
-server_domain = "192.168.43.230"
+server_domain = "0.0.0.0"
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=async_mode)
@@ -24,26 +24,32 @@ def test_message(message):
 
 @socketio.on('create', namespace='/chat_base')
 def create(message):
-    if message['room_name'] != "":
-        cur.execute("INSERT INTO `room_list` (`name`,`password`) VALUES ('%s','%s')"%(message['room_name'], message['room_password']))
-        conn.commit()
-        cur.execute("CREATE TABLE `room_%s` (`message` VARCHAR(4096) NOT NULL)ENGINE=InnoDB"%(cur.lastrowid))
-        conn.commit()
-        emit('write_log', {'data': 'created'})#delete
-    else:
-        emit('write_log', {'data': 'room_name is empty'})#delete
+    try:
+        if message['room_name'] != "":
+            cur.execute("INSERT INTO `room_list` (`name`,`password`) VALUES ('%s','%s')"%(message['room_name'], message['room_password']))
+            conn.commit()
+            cur.execute("CREATE TABLE `room_%s` (`message` VARCHAR(4096) NOT NULL)ENGINE=InnoDB"%(cur.lastrowid))
+            conn.commit()
+            emit('write_log', {'data': 'created'})#delete
+        else:
+            emit('write_log', {'data': 'room_name is empty'})#delete
+    except:
+        emit('write_log', {'data': 'error'})
 
 @socketio.on('get_message', namespace='/chat_base')
 def create(message):
-    cur.execute("SELECT * FROM `room_list` WHERE `key`='%s' AND `password`='%s'"%(message['room_key'],message['room_pwd']))
-    datas = cur.fetchall()[0]
-    if datas == ():
-        emit('write_log', {'data': 'failure'})
-    else:
-        cur.execute("SELECT * FROM `room_%s`"%(message['room_key']))
-        datas = cur.fetchall()
-        for data in datas:
-            emit('write_message', {'data': 'log=%s'%(str(data[0]))})
+    try:
+        cur.execute("SELECT * FROM `room_list` WHERE `key`='%s' AND `password`='%s'"%(message['room_key'],message['room_pwd']))
+        datas = cur.fetchall()[0]
+        if datas == ():
+            emit('write_log', {'data': 'failure'})
+        else:
+            cur.execute("SELECT * FROM `room_%s`"%(message['room_key']))
+            datas = cur.fetchall()
+            for data in datas:
+                emit('write_message', {'data': 'log=%s'%(str(data[0]))})
+    except:
+        emit('write_log', {'data': 'error'})
 
 @socketio.on('leave', namespace='/chat_base')
 def leave(message):
@@ -64,11 +70,6 @@ def send_room_message(message):
     except:
         emit('write_log', {'data': 'error'})
 
-@socketio.on('disconnect_request', namespace='/chat_base')
-def disconnect_request():
-    emit('write_log', {'data': 'Disconnected!'})
-    disconnect()
-
 @socketio.on('connect', namespace='/chat_base')
 def test_connect():
     global thread
@@ -76,11 +77,14 @@ def test_connect():
 
 @socketio.on('room_list', namespace='/chat_base')
 def get_room_list():
-    cur.execute("SELECT * FROM `room_list`")
-    rows = cur.fetchall()
-    for row in rows:
-        data = "%s-%s-%s"%(row[0],row[1],row[2])
-        emit('write_room_list', {'data': data})
+    try:
+        cur.execute("SELECT * FROM `room_list`")
+        rows = cur.fetchall()
+        for row in rows:
+            data = "%s-%s-%s"%(row[0],row[1],row[2])
+            emit('write_room_list', {'data': data})
+    except:
+        emit('write_log', {'data': 'error'})
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, port=5001, host=server_domain)
