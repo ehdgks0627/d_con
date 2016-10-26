@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <title>방 만들기</title>
     <link rel="stylesheet" type="text/css" href="/static/css/chat_make.css">
@@ -17,108 +18,113 @@
                 alert(msg.data);
             });
             $('form#create').submit(function(event) {
-                socket.emit('create', {room_name: $('#room_name').val()});
+                socket.emit('create', {
+                    room_name: $('#room_name').val()
+                });
                 return false;
             });
         });
     </script>
     <style>
-        @font-face{
-      font-family:"BMDOHYEON";
-      src:url('/static/font/BMDOHYEON_ttf.eot');
-      src:url('/static/font/BMDOHYEON_ttf.eot?#iefix') format('embedded-opentype'),
-      url('/static/font/BMDOHYEON_ttf.woff') format('woff'),
-      url('/static/font/BMDOHYEON_ttf.ttf') format('truetype');
-      src:local(※), url('/static/font/BMDOHYEON_ttf.woff') format('woff');
-    }
-    @font-face{
-  font-family:"NanumBarunGothic";
-  src:url('/facebook/font/NanumBarunGothic.eot');
-  src:url('/facebook/font/NanumBarunGothic.eot?#iefix') format('embedded-opentype'),
-  url('/facebook/font/NanumBarunGothic.woff') format('woff'),
-  url('/facebook/font/NanumBarunGothic.ttf') format('truetype');
-  url('/facebook/font/NanumBarunGothic.svg#NanumBarunGothic') format('svg')
-  src:local(※), url('/facebook/font/NanumBarunGothic.woff') format('woff');
-}
-/*
- * Hanna (Korean) http://www.google.com/fonts/earlyaccess
- */
-@font-face {
-  font-family: 'Hanna';
-  font-style: normal;
-  font-weight: 400;
-  src: url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot);
-  src: url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot?#iefix) format('embedded-opentype'),
-       url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff2) format('woff2'),
-       url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff) format('woff'),
-       url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.ttf) format('truetype');
-}
- body{
-      background-image: url('/static/map/main.png');
-      background-repeat: no-repeat;
-    }
-    h2 {
-        border: 1px solid white;
-        font-family:"BMDOHYEON";
-        border-collapse: collapse;
-        padding: 10px;
-        height: 25px;
-        display:inline-block;
-        border-radius: 5px;
-        border-width: 2px;
-        color: white;
-    }
-    input[type=text] {
-        font-size: 33px;
-        font-family:"BMDOHYEON";
-        margin: 0;
-        border-radius: 5px;
-        padding-top: 10px ;
-        padding-bottom:10px ;
-    }
-    input[type=submit] {
-        font-size: 27px;
-        font-family:"BMDOHYEON";
-        margin: 0;
-        padding: 3%;
-        border-radius: 10px;
-        margin-top: 5%;
-    }
-    input {
-        background-color: rgba(255,255,255,0.3);
-        border-width: 2px;
-        border-style: solid;
-    }
-    #create_room {
-        display: table; margin-left: auto; margin-right: auto;
-        vertical-align:middle;
-        margin-top: 15%;
-    }
-    #name {
-        padding-left: 6%;
-        padding-right: 6%;
-        padding-top: 2%;
-        padding-bottom: 2%;
+        @font-face {
+            font-family: "BMDOHYEON";
+            src: url('/static/font/BMDOHYEON_ttf.eot');
+            src: url('/static/font/BMDOHYEON_ttf.eot?#iefix') format('embedded-opentype'), url('/static/font/BMDOHYEON_ttf.woff') format('woff'), url('/static/font/BMDOHYEON_ttf.ttf') format('truetype');
+            src: local(※), url('/static/font/BMDOHYEON_ttf.woff') format('woff');
+        }
 
-    }
-    body {
-        text-align: center;
-    }
-    h1 {
-        font-family: 'Hanna';
-        font-size: 50px;
-        color: white;
-    }
+        @font-face {
+            font-family: "NanumBarunGothic";
+            src: url('/facebook/font/NanumBarunGothic.eot');
+            src: url('/facebook/font/NanumBarunGothic.eot?#iefix') format('embedded-opentype'), url('/facebook/font/NanumBarunGothic.woff') format('woff'), url('/facebook/font/NanumBarunGothic.ttf') format('truetype');
+            url('/facebook/font/NanumBarunGothic.svg#NanumBarunGothic') format('svg') src: local(※), url('/facebook/font/NanumBarunGothic.woff') format('woff');
+        }
+        
+        @font-face {
+            font-family: 'Hanna';
+            font-style: normal;
+            font-weight: 400;
+            src: url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot);
+            src: url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot?#iefix) format('embedded-opentype'), url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff2) format('woff2'), url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff) format('woff'), url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.ttf) format('truetype');
+        }
+
+        body {
+            background-image: url('/static/map/main.png');
+            background-repeat: no-repeat;
+        }
+
+        h2 {
+            border: 1px solid white;
+            font-family: "BMDOHYEON";
+            border-collapse: collapse;
+            padding: 10px;
+            height: 25px;
+            display: inline-block;
+            border-radius: 5px;
+            border-width: 2px;
+            color: white;
+        }
+
+        input[type=text] {
+            font-size: 33px;
+            font-family: "BMDOHYEON";
+            margin: 0;
+            border-radius: 5px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        input[type=submit] {
+            font-size: 27px;
+            font-family: "BMDOHYEON";
+            margin: 0;
+            padding: 3%;
+            border-radius: 10px;
+            margin-top: 5%;
+        }
+
+        input {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-width: 2px;
+            border-style: solid;
+        }
+
+        #create_room {
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+            vertical-align: middle;
+            margin-top: 15%;
+        }
+
+        #name {
+            padding-left: 6%;
+            padding-right: 6%;
+            padding-top: 2%;
+            padding-bottom: 2%;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Hanna';
+            font-size: 50px;
+            color: white;
+        }
     </style>
 </head>
+
 <body>
     <div id="create_room">
-    <h1>ROOM MAKING</h1>
-    <form id="create" method="POST" action='#'>
-        <h2 id="name">Name</h2>
-        <input type="text" name="room_name" id="room_name">
-        <input type="submit" value="Generate">
-    </form>
+        <h1>ROOM MAKING</h1>
+        <form id="create" method="POST" action='#'>
+            <h2 id="name">Name</h2>
+            <input type="text" name="room_name" id="room_name">
+            <input type="submit" value="Generate">
+        </form>
     </div>
 </body>
+
 </html>

@@ -9,7 +9,7 @@ async_mode = None
 
 server_domain = "0.0.0.0"
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
+app.config['SECRET_KEY'] = 'this isssssssssssss secret!'
 socketio = SocketIO(app, async_mode=async_mode)
 thread = None
 conn = connect(host='layer7.kr', port=3306, user='em', passwd='fuckkk', db='d_con', charset ='utf8')
@@ -35,7 +35,8 @@ def make():
 @app.route('/chat/', methods=['POST'])
 def chat():
     try:
-        ren = render_template('chat_chat.html', login_key=request.form['login_key'])
+        cur.execute("SELECT name FROM `room_list` WHERE `key`=%s"%(request.form['login_key']))
+        ren = render_template('chat_chat.html', login_key=request.form['login_key'],login_name=cur.fetchall()[0][0])
         return ren
     except:
         return "error"
@@ -60,11 +61,6 @@ def get(message):
     try:
         if not 'count' in session:
             session['count'] = 0
-        #cur.execute("SELECT * FROM `room_list` WHERE `key`='%s'"%(message['room_key']))
-        #datas = cur.fetchall()[0]
-        #if datas == ():
-        #    print("failure")
-        #else:
         conn.commit()
         cur.execute("SELECT * FROM `room_%s` LIMIT %s,1"%(message['room_key'],session['count']))
         datas = cur.fetchall()
@@ -72,7 +68,7 @@ def get(message):
             session['count'] += 1
             emit('write_message', {'data': '%s'%(str(data[0])),'nick': '%s'%(str(data[1]))})
     except:
-        emit('write_log', {'data': 'error'})
+        pass
 
 @socketio.on('leave', namespace='/chat_base')
 def leave(message):
@@ -84,7 +80,7 @@ def leave(message):
         conn.commit()
         emit('move', {'location': '/list'})
     except:
-        emit('write_log', {'data': 'error'})
+        pass
 
 @socketio.on('send_message', namespace='/chat_base')
 def send_room_message(message):
@@ -92,12 +88,13 @@ def send_room_message(message):
         cur.execute("INSERT INTO `room_%s` VALUES ('%s','%s')"%(message['send_key'],message['send_msg'],message['send_nick']))
         conn.commit()
     except:
-        emit('write_log', {'data': 'error'})
+        pass
 
 @socketio.on('room_list', namespace='/chat_base')
 def get_room_list():
     try:
         conn.commit()
+        cur = conn.cursor()
         cur.execute("SELECT * FROM `room_list`")
         rows = cur.fetchall()
         for row in rows:

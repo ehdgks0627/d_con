@@ -8,43 +8,35 @@
         $(document).ready(function() {
             namespace = '/chat_base';
             var socket = io.connect('http://' + document.domain + ':' + document.location.port + namespace);
-            socket.on('write_log', function(msg) {
-                $('#log').append('<br>' + $('<div/>').text('log : ' + msg.data).html());
-            });
-            socket.on('write_room_list', function(msg) {
-                $('#log').append('<br>' + $('<div/>').text('list : ' + msg.data).html());
-            });
             socket.on('write_message', function(msg) {
                 $('#log').append('<br>' + $('<div/>').text(msg.nick +' : ' + msg.data).html());
             });
             socket.on('move', function(msg) {
                 document.location.replace(msg.location);
             });
-            $('form#leave').submit(function(event) {
-                socket.emit('leave', {leave_key: {{ login_key }} });
-                return false;
-            });
             $('form#send_message').submit( function(event) {
                 socket.emit('send_message', {send_key: {{ login_key }}, send_msg: $('#send_msg').val(), send_nick: $('#send_nick').val()});
                 return false;
             });
-            setInterval(function() { socket.emit('get_message', {room_key: {{ login_key }} })}, 100);
+            $('form#leave').submit(function(event) {
+                socket.emit('leave', {leave_key: {{ login_key }} });
+                return false;
+            });
+            setInterval(function() { socket.emit('get_message', {room_key: {{ login_key }} })}, 1000);
         });
     </script>
 </head>
 <body>
-    <h1>Flask-SocketIO Test</h1>
-    <h2>Send:</h2>
     <form id="leave" method="POST" action='#'>
         <input type="submit" value="Leave Room">
     </form>
     <form id="send_message" method="POST" action='#'>
       <br>
-        nickname : <input type="text" name="send_nick" id="send_nick"><br>
-        message : <input type="text" name="send_msg" id="send_msg"><br>
+        nickname : <input type="text" name="send_nick" id="send_nick">
+        message : <input type="text" name="send_msg" id="send_msg">
         <input type="submit" value="Send to Room">
     </form>
-    <h2>Receive:</h2>
+    <h2>room '{{ login_name }}' :</h2>
     <div id="log"></div>
 </body>
 </html>
