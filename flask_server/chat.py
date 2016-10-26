@@ -27,6 +27,19 @@ def make():
 def chat():
     return render_template('chat_chat.html', async_mode=socketio.async_mode)
 
+@app.route('/test/')
+def test():
+    return render_template('test.html',async_mode=socketio.async_mode)
+
+@app.route('/test2',methods = ['POST', 'GET'])
+def result():
+    try:
+        if request.method == 'POST':
+            result = request.form
+            return render_template("test2.html",result = result.to_dict())
+    except:
+        return "error"
+
 @socketio.on('create', namespace='/chat_base')
 def create(message):
     try:
@@ -87,8 +100,7 @@ def get_room_list():
         cur.execute("SELECT * FROM `room_list`")
         rows = cur.fetchall()
         for row in rows:
-            data = "%s-%s-%s"%(row[0],row[1],row[2])
-            emit('write_room_list', {'data': data})
+            emit('write_room_list', {'key': row[0], 'name': row[1], 'pwd': False if row[2]=='' else True})
     except:
         emit('write_log', {'data': 'error'})
 

@@ -9,10 +9,10 @@
             namespace = '/chat_base';
             var socket = io.connect('http://' + document.domain + ':' + document.location.port + namespace);
             socket.on('write_log', function(msg) {
-                $('#log').append('<br>' + $('<div/>').text('log : ' + msg.data).html());
+                $('#list').append('<tr>' + $('<div/>').text('log : ' + msg.data).html());
             });
             socket.on('write_room_list', function(msg) {
-                $('#log').append('<br>' + $('<div/>').text('list : ' + msg.data).html());
+                $('#list').append('<tr>\n<td>' + msg.key +'</td>\n<td>' + msg.name + '</td>\n<td>' + msg.pwd + '</td>\n</tr>');
             });
             socket.emit('room_list');
         });
@@ -23,6 +23,13 @@
         <img src="/static/map/pika.jpg" align="absmiddle"> 방 만들기
     </button>
     <h2>list:</h2>
-    <div id="log"></div>
+    <table border="1" id="list">
+      <tr>
+        <th>방 번호</th>
+        <th>제목</th>
+        <th>비밀번호</th>
+      </tr>
+    </table>
+    <div id="list"></div>
 </body>
 </html>
