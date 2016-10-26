@@ -17,7 +17,7 @@
                 alert(msg.data);
             });
             $('form#create').submit(function(event) {
-                socket.emit('create', {room_name: $('#room_name').val(),room_password: $('#room_password').val()});
+                socket.emit('create', {room_name: $('#room_name').val()});
                 return false;
             });
         });
@@ -61,7 +61,7 @@
         border: 1px solid white;
         font-family:"BMDOHYEON";
         border-collapse: collapse;
-        padding: 10px; 
+        padding: 10px;
         height: 25px;
         display:inline-block;
         border-radius: 5px;
@@ -99,7 +99,7 @@
         padding-right: 6%;
         padding-top: 2%;
         padding-bottom: 2%;
-        
+
     }
     body {
         text-align: center;

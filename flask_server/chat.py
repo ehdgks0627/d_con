@@ -45,7 +45,7 @@ def create(message):
     try:
         if message['room_name'] != "":
             conn.commit()
-            cur.execute("INSERT INTO `room_list` (`name`,`password`) VALUES ('%s','%s')"%(message['room_name'], message['room_password']))
+            cur.execute("INSERT INTO `room_list` (`name`) VALUES ('%s')"%(message['room_name']))
             conn.commit()
             cur.execute("CREATE TABLE `room_%s` (`message` VARCHAR(4096) NOT NULL, `nick` VARCHAR(128) NOT NULL)ENGINE=InnoDB"%(cur.lastrowid))
             conn.commit()
