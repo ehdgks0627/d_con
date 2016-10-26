@@ -8,11 +8,17 @@
         $(document).ready(function() {
             namespace = '/chat_base';
             var socket = io.connect('http://' + document.domain + ':' + document.location.port + namespace);
+            function make_btn(n){
+              return  '<form method="POST" action="/chat/">\
+                      <input type="hidden" name="login_key" id="login_key" value="' + n + '">\
+                      <input type="submit" value="Login Room">\
+                      </form>';
+            }
             socket.on('write_log', function(msg) {
                 $('#list').append('<tr>' + $('<div/>').text('log : ' + msg.data).html());
             });
             socket.on('write_room_list', function(msg) {
-                $('#list').append('<tr>\n<td>' + msg.key +'</td>\n<td>' + msg.name + '</td>\n<td>' + msg.pwd + '</td>\n</tr>');
+                $('#list').append('<tr>\n<td>' + msg.key +'</td>\n<td>' + msg.name +'</td>\n<td>' + make_btn(msg.key) + '\n</tr>');
             });
             socket.emit('room_list');
         });
@@ -22,14 +28,12 @@
     <button type="button" name="make" onClick="location.href='/make/';">
         <img src="/static/map/pika.jpg" align="absmiddle"> 방 만들기
     </button>
-    <h2>list:</h2>
     <table border="1" id="list">
       <tr>
         <th>방 번호</th>
         <th>제목</th>
-        <th>비밀번호</th>
+        <th>입장</th>
       </tr>
     </table>
-    <div id="list"></div>
 </body>
 </html>
