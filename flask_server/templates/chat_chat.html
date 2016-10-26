@@ -13,11 +13,12 @@
             });
             socket.on('write_room_list', function(msg) {
                 $('#log').append('<br>' + $('<div/>').text('list : ' + msg.data).html());
-                //todo : 방리스트 보여주기
             });
             socket.on('write_message', function(msg) {
                 $('#log').append('<br>' + $('<div/>').text('message : ' + msg.data).html());
-                //todo : 채팅 리스트 보여주기
+            });
+            socket.on('move', function(msg) {
+                document.location.replace(msg.location);
             });
             $('form#leave').submit(function(event) {
                 socket.emit('leave', {leave_key: {{ login_key }} });
