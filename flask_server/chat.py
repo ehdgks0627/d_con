@@ -14,11 +14,6 @@ thread = None
 conn = connect(host='layer7.kr', port=3306, user='em', passwd='fuckkk', db='d_con', charset ='utf8')
 cur = conn.cursor()
 
-@app.before_request
-def before_request():
-    if not 'key' in session:
-        session['key'] = -1
-
 @app.route('/')
 @app.route('/list/')
 def list():
@@ -61,14 +56,17 @@ def create(message):
 @socketio.on('get_message', namespace='/chat_base')
 def get(message):
     try:
+        if not 'count' in session:
+            session['count'] = 0
         cur.execute("SELECT * FROM `room_list` WHERE `key`='%s'"%(message['room_key']))
         datas = cur.fetchall()[0]
         if datas == ():
             emit('write_log', {'data': 'failure'})
         else:
-            cur.execute("SELECT * FROM `room_%s`"%(message['room_key']))
+            cur.execute("SELECT * FROM `room_%s` LIMIT %s,1"%(message['room_key'],session['count']))
             datas = cur.fetchall()
             for data in datas:
+                session['count'] += 1
                 emit('write_message', {'data': 'log=%s'%(str(data[0]))})
     except:
         emit('write_log', {'data': 'error'})
@@ -89,7 +87,6 @@ def send_room_message(message):
     try:
         cur.execute("INSERT INTO `room_%s` VALUES ('%s')"%(message['send_key'],message['send_msg']))
         conn.commit()
-        emit('write_log', {'data': 'success'})
     except:
         emit('write_log', {'data': 'error'})
 

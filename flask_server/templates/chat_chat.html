@@ -20,43 +20,24 @@
                 //todo : 채팅 리스트 보여주기
             });
             $('form#leave').submit(function(event) {
-                socket.emit('leave', {leave_key: $('#leave_key').val()});
+                socket.emit('leave', {leave_key: {{ login_key }} });
                 return false;
             });
-            $('form#send_message').submit(function(event) {
-                socket.emit('send_message', {send_key: $('#send_key').val(), send_msg: $('#send_msg').val()});
+            $('form#send_message').submit( function(event) {
+                socket.emit('send_message', {send_key: {{ login_key }}, send_msg: $('#send_msg').val()});
                 return false;
             });
-            $('form#create').submit(function(event) {
-                socket.emit('create', {room_name: {{ login_key }} });
-                return false;
-            });
-            $('form#get_message').submit(function(event) {
-                socket.emit('get_message', {room_key: $('#room_key').val(), room_pwd: $('#room_pwd').val()});
-                return false;
-            });
+            setInterval(function() { socket.emit('get_message', {room_key: {{ login_key }} })}, 100);
         });
     </script>
 </head>
 <body>
     <h1>Flask-SocketIO Test</h1>
-    <h2>Send:  </h2>
-    <form id="create" method="POST" action='#'>
-        <input type="text" name="room_name" id="room_name">
-        <input type="text" name="room_password" id="room_password">
-        <input type="submit" value="Create Room">
-    </form>
-    <form id="get_message" method="POST" action='#'>
-        <input type="text" name="room_key" id="room_key">
-        <input type="text" name="room_pwd" id="room_pwd">
-        <input type="submit" value="Get Message">
-    </form>
+    <h2>Send:</h2>
     <form id="leave" method="POST" action='#'>
-        <input type="text" name="leave_key" id="leave_key">
         <input type="submit" value="Leave Room">
     </form>
     <form id="send_message" method="POST" action='#'>
-        <input type="text" name="send_key" id="send_key">
         <input type="text" name="send_msg" id="send_msg">
         <input type="submit" value="Send to Room">
     </form>
