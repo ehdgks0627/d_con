@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>방 만들기</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/chat_make.css">
     <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
@@ -21,13 +22,111 @@
             });
         });
     </script>
+    <style>
+        @font-face{
+      font-family:"BMDOHYEON";
+      src:url('/static/font/BMDOHYEON_ttf.eot');
+      src:url('/static/font/BMDOHYEON_ttf.eot?#iefix') format('embedded-opentype'),
+      url('/static/font/BMDOHYEON_ttf.woff') format('woff'),
+      url('/static/font/BMDOHYEON_ttf.ttf') format('truetype');
+      src:local(※), url('/static/font/BMDOHYEON_ttf.woff') format('woff');
+    }
+    @font-face{
+  font-family:"NanumBarunGothic";
+  src:url('/facebook/font/NanumBarunGothic.eot');
+  src:url('/facebook/font/NanumBarunGothic.eot?#iefix') format('embedded-opentype'),
+  url('/facebook/font/NanumBarunGothic.woff') format('woff'),
+  url('/facebook/font/NanumBarunGothic.ttf') format('truetype');
+  url('/facebook/font/NanumBarunGothic.svg#NanumBarunGothic') format('svg')
+  src:local(※), url('/facebook/font/NanumBarunGothic.woff') format('woff');
+}
+/*
+ * Hanna (Korean) http://www.google.com/fonts/earlyaccess
+ */
+@font-face {
+  font-family: 'Hanna';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot);
+  src: url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot?#iefix) format('embedded-opentype'),
+       url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff2) format('woff2'),
+       url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff) format('woff'),
+       url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.ttf) format('truetype');
+}
+ body{
+      background-image: url('/static/map/main.png');
+      background-repeat: no-repeat;
+    }
+    h2 {
+        border: 1px solid white;
+        font-family:"BMDOHYEON";
+        border-collapse: collapse;
+        padding: 10px; 
+        height: 25px;
+        display:inline-block;
+        border-radius: 5px;
+        border-width: 2px;
+    }
+    input[type=text] {
+        font-size: 33px;
+        font-family:"BMDOHYEON";
+        margin: 0;
+    }
+    input[type=password] {
+        font-size: 33px;
+        margin: 0;
+        font-family:"BMDOHYEON";
+
+    }
+    input[type=submit] {
+        font-size: 33px;
+        font-family:"BMDOHYEON";
+        margin: 0;
+        padding: 7%;
+        border-radius: 10px;
+        margin-top: 10%;
+    }
+    input {
+        background-color: rgba(255,255,255,0.3);
+        border-width: 2px;
+        border-style: solid;
+    }
+    #create_room {
+        display: table; margin-left: auto; margin-right: auto;
+        vertical-align:middle;
+        margin-top: 12.5%;
+    }
+    #name {
+        padding-left: 5.5%;
+        padding-right: 5.5%;
+
+
+    }
+    body {
+        text-align: center;
+    }
+    h1 {
+        font-family: 'Hanna';
+        font-size: 40px;
+        color: white;
+    }
+    h2 {
+        color: white;
+    }
+    </style>
 </head>
 <body>
-    <h2>Make:</h2>
+    <div id="create_room">
+    <h1>ROOM MAKING</h1>
     <form id="create" method="POST" action='#'>
+        <h2 id="name">방 제목</h2>
         <input type="text" name="room_name" id="room_name">
+        <br />
+        <h2>방 비밀번호</h2>
         <input type="password" name="room_password" id="room_password">
-        <input type="submit" value="Create Room">
+        <br />
+        <input type="submit" value="생성하기">
     </form>
+    </div>
 </body>
 </html>
