@@ -11,7 +11,7 @@ hero_list = ['Ana', 'Bastion', 'DVa', 'Genji', 'Hanzo', 'Junkrat', 'Lucio', 'Mcc
 user_no = 1
 
 app = Flask(__name__)
-app.secret_key = 'secret'
+app.secret_key = 'this isssssssssssss secret!'
 
 server_domain = '0.0.0.0'
 server_port = 5000
@@ -71,7 +71,7 @@ def before_request():
     if 'session' in session and 'user-id' in session:
         pass
     else:
-        session['session'] = os.urandom(32) #make session id
+        session['session'] = os.urandom(32)
         session['username'] = 'user' + str(user_no)
         user_no += 1
 
