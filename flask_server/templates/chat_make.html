@@ -66,25 +66,23 @@
         display:inline-block;
         border-radius: 5px;
         border-width: 2px;
+        color: white;
     }
     input[type=text] {
         font-size: 33px;
         font-family:"BMDOHYEON";
         margin: 0;
-    }
-    input[type=password] {
-        font-size: 33px;
-        margin: 0;
-        font-family:"BMDOHYEON";
-
+        border-radius: 5px;
+        padding-top: 10px ;
+        padding-bottom:10px ;
     }
     input[type=submit] {
-        font-size: 33px;
+        font-size: 27px;
         font-family:"BMDOHYEON";
         margin: 0;
-        padding: 7%;
+        padding: 3%;
         border-radius: 10px;
-        margin-top: 10%;
+        margin-top: 5%;
     }
     input {
         background-color: rgba(255,255,255,0.3);
@@ -94,23 +92,21 @@
     #create_room {
         display: table; margin-left: auto; margin-right: auto;
         vertical-align:middle;
-        margin-top: 12.5%;
+        margin-top: 15%;
     }
     #name {
         padding-left: 6%;
         padding-right: 6%;
-
-
+        padding-top: 2%;
+        padding-bottom: 2%;
+        
     }
     body {
         text-align: center;
     }
     h1 {
         font-family: 'Hanna';
-        font-size: 40px;
-        color: white;
-    }
-    h2 {
+        font-size: 50px;
         color: white;
     }
     </style>
@@ -121,7 +117,6 @@
     <form id="create" method="POST" action='#'>
         <h2 id="name">Name</h2>
         <input type="text" name="room_name" id="room_name">
-        <br />
         <input type="submit" value="Generate">
     </form>
     </div>
