@@ -47,7 +47,7 @@ def create(message):
             conn.commit()
             cur.execute("INSERT INTO `room_list` (`name`,`password`) VALUES ('%s','%s')"%(message['room_name'], message['room_password']))
             conn.commit()
-            cur.execute("CREATE TABLE `room_%s` (`message` VARCHAR(4096) NOT NULL)ENGINE=InnoDB"%(cur.lastrowid))
+            cur.execute("CREATE TABLE `room_%s` (`message` VARCHAR(4096) NOT NULL, `nick` VARCHAR(128) NOT NULL)ENGINE=InnoDB"%(cur.lastrowid))
             conn.commit()
             emit('success', {'url': '/list/'})
         else:
@@ -65,12 +65,12 @@ def get(message):
         #if datas == ():
         #    print("failure")
         #else:
-        #conn.commit()
+        conn.commit()
         cur.execute("SELECT * FROM `room_%s` LIMIT %s,1"%(message['room_key'],session['count']))
         datas = cur.fetchall()
         for data in datas:
             session['count'] += 1
-            emit('write_message', {'data': 'log=%s'%(str(data[0]))})
+            emit('write_message', {'data': '%s'%(str(data[0])),'nick': '%s'%(str(data[1]))})
     except:
         emit('write_log', {'data': 'error'})
 
@@ -89,8 +89,7 @@ def leave(message):
 @socketio.on('send_message', namespace='/chat_base')
 def send_room_message(message):
     try:
-        conn.commit()
-        cur.execute("INSERT INTO `room_%s` VALUES ('%s')"%(message['send_key'],message['send_msg']))
+        cur.execute("INSERT INTO `room_%s` VALUES ('%s','%s')"%(message['send_key'],message['send_msg'],message['send_nick']))
         conn.commit()
     except:
         emit('write_log', {'data': 'error'})
@@ -101,7 +100,6 @@ def get_room_list():
         conn.commit()
         cur.execute("SELECT * FROM `room_list`")
         rows = cur.fetchall()
-        print(rows)
         for row in rows:
             emit('write_room_list', {'key': row[0], 'name': row[1]})
     except:

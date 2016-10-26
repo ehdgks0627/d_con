@@ -15,7 +15,7 @@
                 $('#log').append('<br>' + $('<div/>').text('list : ' + msg.data).html());
             });
             socket.on('write_message', function(msg) {
-                $('#log').append('<br>' + $('<div/>').text('message : ' + msg.data).html());
+                $('#log').append('<br>' + $('<div/>').text(msg.nick +' : ' + msg.data).html());
             });
             socket.on('move', function(msg) {
                 document.location.replace(msg.location);
@@ -25,7 +25,7 @@
                 return false;
             });
             $('form#send_message').submit( function(event) {
-                socket.emit('send_message', {send_key: {{ login_key }}, send_msg: $('#send_msg').val()});
+                socket.emit('send_message', {send_key: {{ login_key }}, send_msg: $('#send_msg').val(), send_nick: $('#send_nick').val()});
                 return false;
             });
             setInterval(function() { socket.emit('get_message', {room_key: {{ login_key }} })}, 100);
@@ -39,7 +39,9 @@
         <input type="submit" value="Leave Room">
     </form>
     <form id="send_message" method="POST" action='#'>
-        <input type="text" name="send_msg" id="send_msg">
+      <br>
+        nickname : <input type="text" name="send_nick" id="send_nick"><br>
+        message : <input type="text" name="send_msg" id="send_msg"><br>
         <input type="submit" value="Send to Room">
     </form>
     <h2>Receive:</h2>
