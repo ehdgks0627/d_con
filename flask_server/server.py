@@ -117,10 +117,8 @@ def info(name):
             return 'no username'
         quick_allheors = api_quick_allheros(name)
         competitive_allheros = api_competitive_allheros(name)
-        #achievements = api_achievements(name)
         quick_heros = api_quick_heros(name)
         competitive_heros = api_competitive_heros(name)
-
         return render_template('achievements.html',ach=achievements)
     except:
         pass

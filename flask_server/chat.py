@@ -19,16 +19,14 @@ cur = conn.cursor()
 @app.route('/list/')
 def list():
     try:
-        ren = render_template('chat_list.html')
-        return ren
+        return render_template('chat_list.html')
     except:
         return "error"
 
 @app.route('/make/')
 def make():
     try:
-        ren = render_template('chat_make.html')
-        return ren
+        return render_template('chat_make.html')
     except:
         return "error"
 
@@ -36,8 +34,7 @@ def make():
 def chat():
     try:
         cur.execute("SELECT name FROM `room_list` WHERE `key`=%s"%(request.form['login_key']))
-        ren = render_template('chat_chat.html', login_key=request.form['login_key'],login_name=cur.fetchall()[0][0])
-        return ren
+        return render_template('chat_chat.html', login_key=request.form['login_key'],login_name=cur.fetchall()[0][0])
     except:
         return "error"
 

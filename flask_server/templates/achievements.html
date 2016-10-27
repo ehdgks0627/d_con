@@ -17,13 +17,13 @@
         </tr>
         {% if ach %}
           {% for a in ach %}
-          <tr>
-            <td>{{ a.name }}</td>
-            <td><img src="{{ a.image }}"></td>
-            <td>{{ a.description }}</td>
-            <td>{{ a.finished }}</td>
-            <td>{{ a.category }}</td>
-          </tr>
+            <tr>
+                <td>{{ a.name }}</td>
+                <td><img src="{{ a.image }}"></td>
+                <td>{{ a.description }}</td>
+                <td>{{ a.finished }}</td>
+                <td>{{ a.category }}</td>
+            </tr>
           {% endfor %}
         {% endif %}
     </table>

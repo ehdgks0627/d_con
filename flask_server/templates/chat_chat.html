@@ -22,7 +22,7 @@
                 socket.emit('leave', {leave_key: {{ login_key }} });
                 return false;
             });
-            setInterval(function() { socket.emit('get_message', {room_key: {{ login_key }} })}, 1000);
+            setInterval(function() { socket.emit('get_message', {room_key: {{ login_key }} })}, 100);
         });
     </script>
 </head>
