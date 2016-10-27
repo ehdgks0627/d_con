@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>전체전적</title>
+</head>
+
+<body>
+    <h1>quick-play</h1>
+    {% if qui %}
+      {% for key, value in qui.items() %}
+        {{ key }} : {{ value }} <br>
+      {% endfor %}
+    {% endif %}
+    <h1>competitive-play</h1>
+    {% if com %}
+      {% for key, value in com.items() %}
+        {{ key }} : {{ value }} <br>
+      {% endfor %}
+    {% endif %}
+</body>
+
+</html>
