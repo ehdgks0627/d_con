@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>업적</title>
+</head>
+
+<body>
+    <table border="1">
+        <tr>
+            <th>이름</th>
+            <th>사진</th>
+            <th>설명</th>
+            <th>완료</th>
+            <th>종류</th>
+        </tr>
+        {% if ach %}
+          {% for a in ach %}
+          <tr>
+            <td>{{ a.name }}</td>
+            <td><img src="{{ a.image }}"></td>
+            <td>{{ a.description }}</td>
+            <td>{{ a.finished }}</td>
+            <td>{{ a.category }}</td>
+          </tr>
+          {% endfor %}
+        {% endif %}
+    </table>
+</body>
+
+</html>

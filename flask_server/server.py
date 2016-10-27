@@ -36,61 +36,106 @@ def api_profile(name):
         dic['competitive_rank_img'] = j['data']['competitive']['rank_img']
         dic['competitive_rank'] = j['data']['competitive']['rank']
     except:
-        return False
+        pass
     return dic
 
 def api_quick_allheros(name):
-    h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
-    resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/quick-play/allHeroes/'%(name), 'GET')
-    return json.loads(content.decode('utf-8'))
+    try:
+        h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/quick-play/allHeroes/'%(name), 'GET')
+        return json.loads(content.decode('utf-8'))
+    except:
+        pass
 
 def api_competitive_allheros(name):
-    h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
-    resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive-play/allHeroes/'%(name), 'GET')
-    return json.loads(content.decode('utf-8'))
+    try:
+        h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive-play/allHeroes/'%(name), 'GET')
+        return json.loads(content.decode('utf-8'))
+    except:
+        pass
 
 def api_achievements(name):
-    h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
-    resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/achievements'%(name), 'GET')
-    j = json.loads(content.decode('utf-8'))
-    '''
-    이미지는 image에서 받아옴
-    finished 가 true면 이미지를 진하게 표시
-    마우스 오버시 name 표시
-    '''
-    return j['achievements']
+    try:
+        h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/achievements'%(name), 'GET')
+        j = json.loads(content.decode('utf-8'))
+        return j['achievements']
+    except:
+        pass
+
+def api_quick_heros(name):
+    try:
+        h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/quick-play/heroes'%(name), 'GET')
+        j = json.loads(content.decode('utf-8'))
+        return j
+    except:
+        pass
+
+def api_competitive_heros(name):
+    try:
+        h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive-play/heroes'%(name), 'GET')
+        j = json.loads(content.decode('utf-8'))
+        return j
+    except:
+        pass
 
 '''
-def api_
-heros 각각 속성별 + 알고리즘 적용하여 최적 조합 픽 선정
-
+GET /{platform}/{region}/{tag}/{mode}/hero/{heroes}/ 대상으로 알고리즘 적용
+heros 대상으로 전체적인 챔피언 정보 보여주기
 '''
+
 @app.before_request
 def before_request():
-    global user_no
-    if 'session' in session and 'user-id' in session:
+    try:
+        global user_no
+        if 'session' in session and 'user-id' in session:
+            pass
+        else:
+            session['session'] = os.urandom(32)
+            session['username'] = 'user' + str(user_no)
+            user_no += 1
+    except:
         pass
-    else:
-        session['session'] = os.urandom(32)
-        session['username'] = 'user' + str(user_no)
-        user_no += 1
 
 @app.route('/')
-@app.route('/main/')
 def chatting():
-    return render_template('index.html')
+    try:
+        ren = render_template('index.html')
+        return ren
+    except:
+        pass
 
-@app.route('/info/<name>')
-def hello(name):
-    name = name.replace('#','-')
-    profile = api_profile(name)
-    if profile == False:
-        return 'no username'
-    quick_allheors = api_quick_allheros(name)
-    competitive = api_competitive_allheros(name)
-    achievements = api_achievements(name)
+@app.route('/info/<name>/')
+def info(name):
+    try:
+        name = name.replace('#','-')
+        profile = api_profile(name)
+        if profile == False:
+            return 'no username'
+        quick_allheors = api_quick_allheros(name)
+        competitive_allheros = api_competitive_allheros(name)
+        #achievements = api_achievements(name)
+        quick_heros = api_quick_heros(name)
+        competitive_heros = api_competitive_heros(name)
 
-    return 'complete'
+        return render_template('achievements.html',ach=achievements)
+    except:
+        pass
+
+@app.route('/achievements/<name>/')
+def achievements(name):
+    try:
+        name = name.replace('#','-')
+        profile = api_profile(name)
+        if profile == False:
+            return 'no username'
+        achievements = api_achievements(name)
+        return render_template('achievements.html',ach=achievements)
+    except:
+        pass
 
 if __name__ == '__main__':
     app.run(host=server_domain, port=server_port, debug=True)
