@@ -25,8 +25,13 @@
             setInterval(function() { socket.emit('get_message', {room_key: {{ login_key }} })}, 100);
         });
     </script>
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/normalize.css">
+    <link rel="shortcut icon" href="/static/favicon.ico">
+
+    
 </head>
 <body>
+  <button type="button" name="back" onclick="document.location.replace('/list')">방 목록으로</button>
     <form id="leave" method="POST" action='#'>
         <input type="submit" value="Leave Room">
     </form>

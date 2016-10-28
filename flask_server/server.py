@@ -100,10 +100,6 @@ def before_request():
     except:
         pass
 
-@app.route('/test/')
-def test():
-    return render_template('test.html',dic={1:2,3:4,5:6})
-
 @app.route('/')
 def chatting():
     try:
@@ -119,9 +115,20 @@ def info(name):
         profile = api_profile(name)
         if profile == False:
             return 'no username'
+        return render_template('info.html',inf=profile)
+    except:
+        pass
+
+@app.route('/heros/<name>/')
+def heros(name):
+    try:
+        name = name.replace('#','-')
+        profile = api_profile(name)
+        if profile == False:
+            return 'no username'
         quick_heros = api_quick_heros(name)
         competitive_heros = api_competitive_heros(name)
-        return "a"
+        return render_template('heros.html',qui=quick_heros,com=competitive_heros)
     except:
         pass
 

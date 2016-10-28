@@ -12,7 +12,8 @@
 
             function make_btn(n) {
                 return '<form method="POST" action="/chat/">\
-                      <input type="hidden" name="login_key" id="login_key" value="' + n + '">\
+                      <input type="hidden" name="login_key" id="login_key" value="' + n +
+                    '">\
                       <input type="submit" value="Login Room">\
                       </form>';
             }
@@ -22,6 +23,38 @@
             socket.emit('room_list');
         });
     </script>
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/normalize.css">
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    <style>
+        @font-face {
+            font-family: "BMDOHYEON";
+            src: url('/static/font/BMDOHYEON_ttf.eot');
+            src: url('/static/font/BMDOHYEON_ttf.eot?#iefix') format('embedded-opentype'), url('/static/font/BMDOHYEON_ttf.woff') format('woff'), url('/static/font/BMDOHYEON_ttf.ttf') format('truetype');
+            src: local(※), url('/static/font/BMDOHYEON_ttf.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: "NanumBarunGothic";
+            src: url('/facebook/font/NanumBarunGothic.eot');
+            src: url('/facebook/font/NanumBarunGothic.eot?#iefix') format('embedded-opentype'), url('/facebook/font/NanumBarunGothic.woff') format('woff'), url('/facebook/font/NanumBarunGothic.ttf') format('truetype');
+            url('/facebook/font/NanumBarunGothic.svg#NanumBarunGothic') format('svg') src: local(※), url('/facebook/font/NanumBarunGothic.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'Hanna';
+            font-style: normal;
+            font-weight: 400;
+            src: url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot);
+            src: url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot?#iefix) format('embedded-opentype'), url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff2) format('woff2'), url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff) format('woff'), url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.ttf) format('truetype');
+        }
+
+        body {
+            background-image: url('/static/map/main.png');
+            background-repeat: no-repeat;
+            text-align: center;
+        }
+    </style>
+
 </head>
 
 <body>

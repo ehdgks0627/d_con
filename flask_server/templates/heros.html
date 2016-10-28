@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>영웅별전적</title>
+</head>
+
+<body>
+    <h1>quick-play</h1>
+    {% if qui %}
+      {% for q in qui %}
+        <img src={{ q.image }}> / {{ q.playtime }} / {{ q.name }} / {{ q.percentage }} <br>
+      {% endfor %}
+    {% endif %}
+    <h1>competitive-play</h1>
+    {% if com %}
+      {% for c in com %}
+        <img src={{ c.image }}> / {{ c.playtime }} / {{ c.name }} / {{ c.percentage }} <br>
+      {% endfor %}
+    {% endif %}
+</body>
+
+</html>
