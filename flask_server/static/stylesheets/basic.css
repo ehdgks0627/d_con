@@ -1,0 +1,109 @@
+body {
+    background-image: url('/static/map/main.png');
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+<style>@-webkit-keyframes hvr-pulse-grow {
+    to {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+}
+
+@keyframes hvr-pulse-grow {
+    to {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+}
+
+#hvr-pulse-grow {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    background: #327AFC;
+    color: #E4D08D;
+}
+
+#hvr-pulse-grow:hover,
+#hvr-pulse-grow:focus,
+#hvr-pulse-grow:active {
+    -webkit-animation-name: hvr-pulse-grow;
+    animation-name: hvr-pulse-grow;
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+}
+
+.main {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 10%;
+    margin: 0 auto;
+    width: 100%;
+    padding-bottom: 10%;
+    max-width: 800px;
+}
+
+input[type=text] {
+    font-size: 33px;
+    font-family: "BMDOHYEON";
+    margin: 0;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+input[type=submit] {
+    font-size: 27px;
+    font-family: "BMDOHYEON";
+    margin: 0;
+    padding: 3%;
+    border-radius: 10px;
+    margin-top: 5%;
+}
+
+input {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-width: 2px;
+    border-style: solid;
+}
+
+@font-face {
+    font-family: "BMDOHYEON";
+    src: url('/static/font/BMDOHYEON_ttf.eot');
+    src: url('/static/font/BMDOHYEON_ttf.eot?#iefix') format('embedded-opentype'), url('/static/font/BMDOHYEON_ttf.woff') format('woff'), url('/static/font/BMDOHYEON_ttf.ttf') format('truetype');
+    src: local(※), url('/static/font/BMDOHYEON_ttf.woff') format('woff');
+}
+
+@font-face {
+    font-family: "NanumBarunGothic";
+    src: url('/facebook/font/NanumBarunGothic.eot');
+    src: url('/facebook/font/NanumBarunGothic.eot?#iefix') format('embedded-opentype'), url('/facebook/font/NanumBarunGothic.woff') format('woff'), url('/facebook/font/NanumBarunGothic.ttf') format('truetype');
+    url('/facebook/font/NanumBarunGothic.svg#NanumBarunGothic') format('svg') src: local(※), url('/facebook/font/NanumBarunGothic.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Hanna';
+    font-style: normal;
+    font-weight: 400;
+    src: url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot);
+    src: url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot?#iefix) format('embedded-opentype'), url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff2) format('woff2'), url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff) format('woff'), url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.ttf) format('truetype');
+}
+
+body {
+    background-image: url('/static/map/main.png');
+    background-repeat: no-repeat;
+    text-align: center;
+}

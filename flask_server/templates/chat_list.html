@@ -26,6 +26,88 @@
     <link rel="stylesheet" type="text/css" href="/static/stylesheets/normalize.css">
     <link rel="shortcut icon" href="/static/favicon.ico">
     <style>
+        body {
+            background-image: url('/static/map/main.png');
+            background-repeat: no-repeat;
+            text-align: center;
+        }
+
+        <style>@-webkit-keyframes hvr-pulse-grow {
+            to {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes hvr-pulse-grow {
+            to {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        }
+
+        #hvr-pulse-grow {
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -moz-osx-font-smoothing: grayscale;
+            background: #327AFC;
+            color: #E4D08D;
+        }
+
+        #hvr-pulse-grow:hover,
+        #hvr-pulse-grow:focus,
+        #hvr-pulse-grow:active {
+            -webkit-animation-name: hvr-pulse-grow;
+            animation-name: hvr-pulse-grow;
+            -webkit-animation-duration: 0.3s;
+            animation-duration: 0.3s;
+            -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate;
+        }
+
+        .main {
+            width: 100%;
+            margin: 0 auto;
+            padding-top: 10%;
+            margin: 0 auto;
+            width: 100%;
+            padding-bottom: 10%;
+            max-width: 800px;
+        }
+
+        input[type=text] {
+            font-size: 33px;
+            font-family: "BMDOHYEON";
+            margin: 0;
+            border-radius: 5px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        input[type=submit] {
+            font-size: 27px;
+            font-family: "BMDOHYEON";
+            margin: 0;
+            padding: 3%;
+            border-radius: 10px;
+            margin-top: 5%;
+        }
+
+        input {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-width: 2px;
+            border-style: solid;
+        }
+
         @font-face {
             font-family: "BMDOHYEON";
             src: url('/static/font/BMDOHYEON_ttf.eot');
@@ -53,21 +135,47 @@
             background-repeat: no-repeat;
             text-align: center;
         }
+
+        #list_room {
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+            vertical-align: middle;
+            margin-top: 15%;
+        }
+        button {
+            font-size: 27px;
+            font-family: "BMDOHYEON";
+            margin: 0;
+            padding: 2.3%;
+            border-radius: 10px;
+            margin-top: 5%;
+        }
+        table {
+            margin-top: 5%;
+            font-size: 27px;
+            font-family: "BMDOHYEON";
+            margin: 0;
+            padding: 2.3%;
+            border-radius: 10px;
+        }
     </style>
 
 </head>
 
 <body>
-    <button type="button" name="make" onClick="location.href='/make/';">
-        <img src="/static/map/pika.jpg" align="absmiddle"> 방 만들기
-    </button>
-    <table border="1" id="list">
-        <tr>
-            <th>방 번호</th>
-            <th>제목</th>
-            <th>입장</th>
-        </tr>
-    </table>
+    <div class="main">
+        <div class="list_room">
+            <button type="button" name="make" onClick="location.href='/make/';" id="hvr-pulse-grow">방 만들기</button>
+            <table border="1" id="list">
+                <tr>
+                    <th>방 번호</th>
+                    <th>제목</th>
+                    <th>입장</th>
+                </tr>
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>
