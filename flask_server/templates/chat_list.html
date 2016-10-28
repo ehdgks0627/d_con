@@ -14,7 +14,7 @@
                 return '<form method="POST" action="/chat/">\
                       <input type="hidden" name="login_key" id="login_key" value="' + n +
                     '">\
-                      <input type="submit" value="Login Room">\
+                      <input type="submit" value="enter">\
                       </form>';
             }
             socket.on('write_room_list', function(msg) {
@@ -129,6 +129,18 @@
             background-repeat: no-repeat;
             text-align: center;
         }
+<<<<<<< HEAD
+=======
+
+        #list_room {
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+            vertical-align: middle;
+            margin-top: 15%;
+        }
+
+>>>>>>> origin/master
         button {
             font-size: 27px;
             font-family: "BMDOHYEON";
@@ -137,10 +149,12 @@
             border-radius: 10px;
             margin-top: 40%;
         }
+
         table {
+            background-color: rgba(255, 255, 255, 0.45);
             margin-top: 5%;
             font-size: 27px;
-            font-family: "BMDOHYEON";
+            font-family: "Hanna";
             margin: 0;
             padding: 2.3%;
             border-radius: 10px;
