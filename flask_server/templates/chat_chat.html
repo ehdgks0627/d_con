@@ -25,72 +25,58 @@
             setInterval(function() { socket.emit('get_message', {room_key: {{ login_key }} })}, 100);
         });
     </script>
+    <style>
+        button {
+            display: inline-block;
+        }
+        h2 {
+            display: inline-block;
+            font-family: "BMDOHYEON";
+        }
+        @font-face {
+            font-family: "BMDOHYEON";
+            src: url('/static/font/BMDOHYEON_ttf.eot');
+            src: url('/static/font/BMDOHYEON_ttf.eot?#iefix') format('embedded-opentype'), url('/static/font/BMDOHYEON_ttf.woff') format('woff'), url('/static/font/BMDOHYEON_ttf.ttf') format('truetype');
+            src: local(※), url('/static/font/BMDOHYEON_ttf.woff') format('woff');
+        }
+        #font_orange {
+            color: orange;
+font-weight: bold;
+text-shadow: -1.3px 0 black, 0 1.3px black, 1.3px 0 black, 0 -1.3px black;
+        
+        }
+        #center {
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+            vertical-align: middle;
+            margin-top: 15%;
+        }
+        input {
+            display: inline-block;
+        }
+    </style>
     <link rel="stylesheet" type="text/css" href="/static/stylesheets/normalize.css">
     <link rel="shortcut icon" href="/static/favicon.ico">
-<style>
-#hvr-pulse-grow {
-    display: inline-block;
-    vertical-align: middle;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -moz-osx-font-smoothing: grayscale;
-    padding: .20em 1.5em;
-    text-decoration: none;
-    color: #fff;
-    background: #6495ED;
-    border: 0px;
-    text-align: center;
-    /* border-radius: 4px; */
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
-    font-size: 20px;
-    padding-top: 12.5px;
-    padding-bottom: 12.5px;
-    margin-right: 7px;
-    font-family: "NanumBarunpen";
-}
 
-#hvr-pulse-grow:hover,
-#hvr-pulse-grow:focus,
-#hvr-pulse-grow:active {
-    -webkit-animation-name: hvr-pulse-grow;
-    animation-name: hvr-pulse-grow;
-    -webkit-animation-duration: 0.3s;
-    animation-duration: 0.3s;
-    -webkit-animation-timing-function: linear;
-    animation-timing-function: linear;
-    -webkit-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-    -webkit-animation-direction: alternate;
-    animation-direction: alternate;
-    color: #4D0088;
-}
-.main {
-    width: 100%;
-    margin: 0 auto;
-    padding-top: 10%;
-        margin: 0 auto;
-        width: 100%;
-        padding-bottom: 10%;
-        max-width: 800px;
-}
-</style>
-
+    
 </head>
 <body>
-  <button type="button" name="back" onclick="document.location.replace('/list')">방 목록으로</button>
+<div id="center">
+    <div id="button">
     <form id="leave" method="POST" action='#'>
+        <h2 id="font_orange">방 제목: </h2>&nbsp;<h2> {{ login_name }}</h2>
         <input type="submit" value="Leave Room">
+        <button type="button" name="back" onclick="document.location.replace('/list')">방 목록으로</button>
     </form>
+    </div>
+    <div id="log"></div>
     <form id="send_message" method="POST" action='#'>
       <br>
-        nickname : <input type="text" name="send_nick" id="send_nick">
+        nickname : <input type="text" name="send_nick" id="send_nick"><br>
         message : <input type="text" name="send_msg" id="send_msg">
         <input type="submit" value="Send to Room">
     </form>
-    <h2>room '{{ login_name }}' :</h2>
-    <div id="log"></div>
+    </div>
 </body>
 </html>
