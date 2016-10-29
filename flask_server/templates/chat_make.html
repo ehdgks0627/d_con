@@ -54,21 +54,21 @@
         }
 
         h1 {
+            border-width: 1;
             font-family: 'Hanna';
             font-size: 50px;
-            color: white;
+            color: #FE7E7E;
+            text-shadow: -3px 0 #000, 0 3px #000, 3px 0 #000, 0 -3px #000;
         }
 
         h2 {
-            border: 1px solid white;
             font-family: "BMDOHYEON";
-            border-collapse: collapse;
             padding: 10px;
             height: 25px;
             display: inline-block;
-            border-radius: 5px;
-            border-width: 2px;
             color: white;
+            color: #FE7E7E;
+            text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
         }
 
         input[type=text] {
@@ -104,70 +104,65 @@
         }
 
         #name {
-            padding-left: 6%;
-            padding-right: 6%;
+            padding-left: 1%;
+            padding-right: 1%;
             padding-top: 2%;
             padding-bottom: 2%;
         }
+
         body {
             text-align: center;
         }
 
-        h1 {
-            font-family: 'Hanna';
-            font-size: 50px;
-            color: white;
-        }
-
         @-webkit-keyframes hvr-pulse-grow {
-        to {
-            -webkit-transform: scale(1.1);
-            transform: scale(1.1);
+            to {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
         }
-    }
 
-    @keyframes hvr-pulse-grow {
-        to {
-            -webkit-transform: scale(1.1);
-            transform: scale(1.1);
+        @keyframes hvr-pulse-grow {
+            to {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
         }
-    }
 
-    #hvr-pulse-grow {
-        display: inline-block;
-        vertical-align: middle;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        -moz-osx-font-smoothing: grayscale;
-        background: #327AFC;
-        color: #E4D08D;
-    }
+        #hvr-pulse-grow {
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -moz-osx-font-smoothing: grayscale;
+            background: #4B2921;
+            color: #F3ADAD;
+        }
 
-    #hvr-pulse-grow:hover,
-    #hvr-pulse-grow:focus,
-    #hvr-pulse-grow:active {
-        -webkit-animation-name: hvr-pulse-grow;
-        animation-name: hvr-pulse-grow;
-        -webkit-animation-duration: 0.3s;
-        animation-duration: 0.3s;
-        -webkit-animation-timing-function: linear;
-        animation-timing-function: linear;
-        -webkit-animation-iteration-count: infinite;
-        animation-iteration-count: infinite;
-        -webkit-animation-direction: alternate;
-        animation-direction: alternate;
-    }
+        #hvr-pulse-grow:hover,
+        #hvr-pulse-grow:focus,
+        #hvr-pulse-grow:active {
+            -webkit-animation-name: hvr-pulse-grow;
+            animation-name: hvr-pulse-grow;
+            -webkit-animation-duration: 0.3s;
+            animation-duration: 0.3s;
+            -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate;
+        }
     </style>
 </head>
 
 <body>
     <div id="create_room">
-        <h1>ROOM MAKING</h1>
+        <h1 class="text_border">ROOM MAKING</h1>
         <form id="create" method="POST" action='#'>
-            <h2 id="name">Name</h2>
+            <h2 id="name" class="text_border">Name</h2>
             <input type="text" name="room_name" id="room_name">
             <input type="submit" id="hvr-pulse-grow" value="Generate">
         </form>

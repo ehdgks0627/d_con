@@ -26,6 +26,32 @@
     <link rel="stylesheet" type="text/css" href="/static/stylesheets/normalize.css">
     <link rel="shortcut icon" href="/static/favicon.ico">
     <style>
+    a {
+        text-decoration: none;
+    }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding-left: 5px;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    li {
+        float: left;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 16px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: #111;
+    }
         body {
             background-image: url('/static/map/main.png');
             background-repeat: no-repeat;
@@ -55,8 +81,8 @@
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             -moz-osx-font-smoothing: grayscale;
-            background: #327AFC;
-            color: #E4D08D;
+            background: #4B2921;
+            color: #F3ADAD;
         }
 
         #hvr-pulse-grow:hover,
@@ -97,7 +123,7 @@
         }
 
         input {
-            
+
             border-width: 2px;
             border-style: solid;
         }
@@ -129,8 +155,6 @@
             background-repeat: no-repeat;
             text-align: center;
         }
-<<<<<<< HEAD
-=======
 
         #list_room {
             display: table;
@@ -140,7 +164,6 @@
             margin-top: 15%;
         }
 
->>>>>>> origin/master
         button {
             font-size: 27px;
             font-family: "BMDOHYEON";
@@ -164,6 +187,10 @@
 </head>
 
 <body>
+  <ul>
+    <li><a id="home_btn">Home</a></li>
+    <li><a id="chat_btn">Chat</a></li>
+  </ul>
     <div class="main">
         <div class="list_room">
             <button type="button" name="make" onClick="location.href='/make/';" id="hvr-pulse-grow">방 만들기</button>
@@ -178,6 +205,10 @@
             </table>
         </div>
     </div>
+    <script>
+      document.getElementById("home_btn").setAttribute("href","http://" + document.domain + ":5000");
+      document.getElementById("chat_btn").setAttribute("href","http://" + document.domain + ":5001");
+    </script>
 </body>
 
 </html>

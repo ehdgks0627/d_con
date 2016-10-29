@@ -41,7 +41,8 @@
             height: 28px;
             margin-top: 10px;
             border: 0;
-            padding-right: 80px;
+            padding-left: 10px;
+            padding-right: 70px;
             font-size: 15px;
             box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
             width: 400px;
@@ -115,6 +116,16 @@
             width: calc(100% - 180px)
         }
 
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            min-width: 100px;
+        }
+
+        a {
+            text-decoration: none;
+        }
         ul {
             list-style-type: none;
             margin: 0;
@@ -138,26 +149,13 @@
         li a:hover {
             background-color: #111;
         }
-
-        img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            min-width: 100px;
-        }
-
-        a {
-            text-decoration: none;
-        }
     </style>
 </head>
 
 <body>
     <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#about">About</a></li>
+      <li><a id="home_btn">Home</a></li>
+      <li><a id="chat_btn">Chat</a></li>
     </ul>
     <div class="main">
         <div class="search">
@@ -166,7 +164,10 @@
             <button id="sub_button" type="button" onclick="search()">검색</button>
         </div>
     </div>
-
+<script>
+  document.getElementById("home_btn").setAttribute("href","http://" + document.domain + ":5000");
+  document.getElementById("chat_btn").setAttribute("href","http://" + document.domain + ":5001");
+</script>
 </body>
 
 </html>
