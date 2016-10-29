@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <html>
-
 <head>
     <title>채팅 하기</title>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
@@ -10,67 +9,42 @@
             namespace = '/chat_base';
             var socket = io.connect('http://' + document.domain + ':' + document.location.port + namespace);
             socket.on('write_message', function(msg) {
-                $('#log').append('<br>' + $('<div/>').text(msg.nick + ' : ' + msg.data).html());
+                $('#log').append('<br>' + $('<div/>').text(msg.nick +' : ' + msg.data).html());
             });
             socket.on('move', function(msg) {
                 document.location.replace(msg.location);
             });
-            $('form#send_message').submit(function(event) {
-                socket.emit('send_message', {
-                    send_key: {
-                        {
-                            login_key
-                        }
-                    },
-                    send_msg: $('#send_msg').val(),
-                    send_nick: $('#send_nick').val()
-                });
+            $('form#send_message').submit( function(event) {
+                socket.emit('send_message', {send_key: {{ login_key }}, send_msg: $('#send_msg').val(), send_nick: $('#send_nick').val()});
                 return false;
             });
             $('form#leave').submit(function(event) {
-                socket.emit('leave', {
-                    leave_key: {
-                        {
-                            login_key
-                        }
-                    }
-                });
+                socket.emit('leave', {leave_key: {{ login_key }} });
                 return false;
             });
-            setInterval(function() {
-                socket.emit('get_message', {
-                    room_key: {
-                        {
-                            login_key
-                        }
-                    }
-                })
-            }, 100);
+            setInterval(function() { socket.emit('get_message', {room_key: {{ login_key }} })}, 100);
         });
     </script>
     <style>
         button {
             display: inline-block;
         }
-
         h2 {
             display: inline-block;
             font-family: "BMDOHYEON";
         }
-
         @font-face {
             font-family: "BMDOHYEON";
             src: url('/static/font/BMDOHYEON_ttf.eot');
             src: url('/static/font/BMDOHYEON_ttf.eot?#iefix') format('embedded-opentype'), url('/static/font/BMDOHYEON_ttf.woff') format('woff'), url('/static/font/BMDOHYEON_ttf.ttf') format('truetype');
             src: local(※), url('/static/font/BMDOHYEON_ttf.woff') format('woff');
         }
-
         #font_orange {
             color: orange;
-            font-weight: bold;
-            text-shadow: -1.3px 0 black, 0 1.3px black, 1.3px 0 black, 0 -1.3px black;
-        }
+font-weight: bold;
+text-shadow: -1.3px 0 black, 0 1.3px black, 1.3px 0 black, 0 -1.3px black;
 
+        }
         #center {
             display: table;
             margin-left: auto;
@@ -78,7 +52,6 @@
             vertical-align: middle;
             margin-top: 15%;
         }
-
         input {
             display: inline-block;
         }
@@ -88,26 +61,22 @@
 
 
 </head>
-
 <body>
-    <div id="center">
-        <div id="button">
-            <form id="leave" method="POST" action='#'>
-                <h2 id="font_orange">방 제목: </h2>&nbsp;
-                <h2> {{ login_name }}</h2>
-                <input type="submit" value="Leave Room">
-                <button type="button" name="back" onclick="document.location.replace('/list')">방 목록으로</button>
-            </form>
-        </div>
-        <div id="log"></div>
-        <form id="send_message" method="POST" action='#'>
-            <br> nickname :
-            <input type="text" name="send_nick" id="send_nick">
-            <br> message :
-            <input type="text" name="send_msg" id="send_msg">
-            <input type="submit" value="Send to Room">
-        </form>
+<div id="center">
+    <div id="button">
+    <form id="leave" method="POST" action='#'>
+        <h2 id="font_orange">방 제목: </h2>&nbsp;<h2> {{ login_name }}</h2>
+        <input type="submit" value="Leave Room">
+        <button type="button" name="back" onclick="document.location.replace('/list')">방 목록으로</button>
+    </form>
+    </div>
+    <div id="log"></div>
+    <form id="send_message" method="POST" action='#'>
+      <br>
+        nickname : <input type="text" name="send_nick" id="send_nick"><br>
+        message : <input type="text" name="send_msg" id="send_msg">
+        <input type="submit" value="Send to Room">
+    </form>
     </div>
 </body>
-
 </html>
