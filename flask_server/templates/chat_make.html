@@ -121,6 +121,13 @@
             }
         }
 
+        @-webkit-keyframes hvr-pulse-grow {
+            to {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        }
+        
         @keyframes hvr-pulse-grow {
             to {
                 -webkit-transform: scale(1.1);
@@ -137,8 +144,8 @@
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             -moz-osx-font-smoothing: grayscale;
-            background: #4B2921;
-            color: #F3ADAD;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
         }
 
         #hvr-pulse-grow:hover,
