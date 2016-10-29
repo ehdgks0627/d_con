@@ -25,7 +25,12 @@
                 socket.emit('leave', {leave_key: {{ login_key }} });
                 return false;
             });
-            setInterval(function() { socket.emit('get_message', {room_key: {{ login_key }} })}, 100);
+            var get_message = function(){
+              try{
+                socket.emit('get_message', {room_key: {{ login_key }} });
+              }catch(e){alert('nono...');}
+            }
+            setInterval(get_message, 100);
         });
     </script>
     <style>
@@ -76,7 +81,7 @@
       <div id="button">
         <form id="leave" method="POST" action='#'>
             <h2 id="font_orange">방 제목: </h2>&nbsp;<h2> {{ login_name }}</h2>
-            <input type="submit" value="Leave Room">
+            <input type="submit" value="Delete Room">
             <button type="button" name="back" onclick="document.location.replace('/list')">방 목록으로</button>
         </form>
       </div>

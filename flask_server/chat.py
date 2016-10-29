@@ -33,6 +33,8 @@ def make():
 @app.route('/chat/', methods=['POST'])
 def chat():
     try:
+        conn = connect(host='layer7.kr', port=3306, user='em', passwd='fuckkk', db='d_con', charset ='utf8')
+        cur = conn.cursor()
         cur.execute("SELECT name FROM `room_list` WHERE `key`=%s"%(request.form['login_key']))
         return render_template('chat_chat.html', login_key=request.form['login_key'],login_name=cur.fetchall()[0][0])
     except:
