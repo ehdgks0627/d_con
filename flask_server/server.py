@@ -184,6 +184,8 @@ def hero(name,hero):
         if profile == False:
             return 'no username'
         hero_data = api_competitive_hero(name,hero)
+            print("a"*512)
+            print(hero_data[name])
         return render_template('hero.html',her=hero_data)
     except:
         pass

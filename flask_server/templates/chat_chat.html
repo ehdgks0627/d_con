@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <title>채팅 하기</title>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
@@ -12,114 +13,114 @@
             namespace = '/chat_base';
             var socket = io.connect('http://' + document.domain + ':' + document.location.port + namespace);
             socket.on('write_message', function(msg) {
-                $('#log').append('<br>' + $('<div/>').text(msg.nick +' : ' + msg.data).html());
+                $('#log').append('<br>' + $('<div/>').text(msg.nick + ' : ' + msg.data).html());
             });
             socket.on('move', function(msg) {
                 document.location.replace(msg.location);
             });
-            $('form#send_message').submit( function(event) {
-                socket.emit('send_message', {send_key: {{ login_key }}, send_msg: $('#send_msg').val(), send_nick: $('#send_nick').val()});
+            $('form#send_message').submit(function(event) {
+                socket.emit('send_message', {
+                    send_key: {{ login_key }},
+                    send_msg: $('#send_msg').val(),
+                    send_nick: $('#send_nick').val()
+                });
                 return false;
             });
             $('form#leave').submit(function(event) {
-                socket.emit('leave', {leave_key: {{ login_key }} });
+                socket.emit('leave', {
+                    leave_key: {{ login_key }}});
                 return false;
             });
-            var get_message = function(){
-              try{
-                socket.emit('get_message', {room_key: {{ login_key }} });
-              }catch(e){alert('nono...');}
+            var get_message = function() {
+                try {
+                    socket.emit('get_message', {
+                        room_key: {{ login_key }}});
+                } catch (e) {
+                    alert('nono...');
+                }
             }
             setInterval(get_message, 100);
         });
     </script>
     <style>
-    body {
-        background-image: url('/static/map/main.png');
-        background-repeat: no-repeat;
+        body {
+            background-image: url('/static/map/main.png');
+            background-repeat: no-repeat;
+        }
 
-    }
-          input[type=text] {
+        input[type=text] {
             font-size: 15px;
-            font-family: "맑은 고딕;
+            font-family: "맑은 고딕";
             margin: 0;
             border-radius: 5px;
             padding-top: 10px;
             padding-bottom: 10px;
         }
 
-          input[type=submit] {
+        input[type=submit] {
             font-size: 25px;
             font-family: "BMDOHYEON";
             margin: 0;
-
             border-radius: 10px;
-
         }
+
         button[type=button] {
             font-size: 25px;
             font-family: "BMDOHYEON";
             margin: 0;
-
             border-radius: 10px;
-
         }
-
 
         button {
             display: inline-block;
         }
+
         h1 {
             display: inline-block;
             font-family: "BMDOHYEON";
         }
+
         @font-face {
             font-family: "BMDOHYEON";
             src: url('/static/font/BMDOHYEON_ttf.eot');
             src: url('/static/font/BMDOHYEON_ttf.eot?#iefix') format('embedded-opentype'), url('/static/font/BMDOHYEON_ttf.woff') format('woff'), url('/static/font/BMDOHYEON_ttf.ttf') format('truetype');
             src: local(※), url('/static/font/BMDOHYEON_ttf.woff') format('woff');
         }
-        #font_orange {
 
+        #font_orange {
             color: orange;
             font-weight: bold;
             text-shadow: -1.3px 0 black, 0 1.3px black, 1.3px 0 black, 0 -1.3px black;
         }
 
-
         input {
             display: inline-block;
         }
-
-
     </style>
     <style>
-         #center {
+        #center {
             position: inherit;
             margin-top: 15%;
-             text-align: center;
+            text-align: center;
         }
-        #center >#send_nick {
+
+        #center>#send_nick {
             position: absolute;
             background-color: rgba(255, 255, 255, 0.3);
             border-width: 2px;
             border-style: solid;
-
         }
-        #center >#send_msg {
+
+        #center>#send_msg {
             position: absolute;
-
-
         }
-        #center >#send {
+
+        #center>#send {
             position: absolute;
-
-
         }
-        #center >#back {
+
+        #center>#back {
             position: absolute;
-
-
         }
 
         @-webkit-keyframes back {
@@ -146,24 +147,26 @@
         #center>#delete {
             position: absolute;
         }
-        .btn{
-          border-radius: 10px;
-          display: inline-block;
-          vertical-align: middle;
-          -webkit-transform: translateZ(0);
-          transform: translateZ(0);
-          box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-          -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-          -moz-osx-font-smoothing: grayscale;
-          background: rgba(255, 255, 255, 0.2);
-          color: white;
+
+        .btn {
+            border-radius: 10px;
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -moz-osx-font-smoothing: grayscale;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
         }
+
         .btn:hover,
         .btn:focus,
         .btn:active {
-            -webkit-animation-name:back;
-            animation-name:back;
+            -webkit-animation-name: back;
+            animation-name: back;
             -webkit-animation-duration: 0.3s;
             animation-duration: 0.3s;
             -webkit-animation-timing-function: linear;
@@ -176,35 +179,36 @@
     </style>
 
 </head>
+
 <body>
     <ul>
-      <li><a id="home_btn">Home</a></li>
-      <li><a id="chat_btn">Chat</a></li>
+        <li><a id="home_btn">Home</a></li>
+        <li><a id="chat_btn">Chat</a></li>
     </ul>
     <div id="center">
-      <div id="button">
-        <form id="leave" method="POST" action='#'>
-            <h1 id="font_orange">방 제목 : </h1>&nbsp;<h1> {{ login_name }}</h1>
-
-        </form>
-      </div>
-      <div id="log"></div>
-      <form id="send_message" method="POST" action='#'>
-        <br>
-          <input type="text" name="send_nick" id="send_nick"  placeholder="닉네임">
-         <input type="text" name="send_msg" id="send_msg" placeholder="입력해주세요">
-          <input type="submit" name="send" class="btn" value="전송">
-          <br/>
-          <br/>
-          <br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           <input type="submit" id="delete" class="btn" value="방 지우기">
+        <div id="button">
+            <h1 id="font_orange">방 제목 : </h1>&nbsp;
+            <h1> {{ login_name }}</h1>
+        </div>
+        <div id="log"></div>
+        <form id="send_message" method="POST" action='#'>
+            <br>
+            <input type="text" name="send_nick" id="send_nick" placeholder="닉네임">
+            <input type="text" name="send_msg" id="send_msg" placeholder="입력해주세요">
+            <input type="submit" name="send" class="btn" value="전송">
+            <br/>
+            <br/>
+            <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="button" id="back" name="back" class="btn" onclick="document.location.replace('/list')">방 목록으로</button>
-      </form>
+        </form>
+        <form id="leave" method="POST" action='#'>
+            <input type="submit" id="delete" class="btn" value="방 지우기">
+        </form>
     </div>
     <script>
-      document.getElementById("home_btn").setAttribute("href","http://" + document.domain + ":5000");
-      document.getElementById("chat_btn").setAttribute("href","http://" + document.domain + ":5001");
+        document.getElementById("home_btn").setAttribute("href", "http://" + document.domain + ":5000");
+        document.getElementById("chat_btn").setAttribute("href", "http://" + document.domain + ":5001");
     </script>
 </body>
+
 </html>

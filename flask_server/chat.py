@@ -92,6 +92,8 @@ def send_room_message(message):
 @socketio.on('room_list', namespace='/chat_base')
 def get_room_list():
     try:
+        conn = connect(host='layer7.kr', port=3306, user='em', passwd='fuckkk', db='d_con', charset ='utf8')
+        cur = conn.cursor()
         conn.commit()
         cur = conn.cursor()
         cur.execute("SELECT * FROM `room_list`")
