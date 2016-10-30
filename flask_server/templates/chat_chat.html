@@ -37,13 +37,39 @@
     body {
         background-image: url('/static/map/main.png');
         background-repeat: no-repeat;
-        text-align: center;
+
     }
+          input[type=text] {
+            font-size: 15px;
+            font-family: "맑은 고딕;
+            margin: 0;
+            border-radius: 5px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+          input[type=submit] {
+            font-size: 25px;
+            font-family: "BMDOHYEON";
+            margin: 0;
+            
+            border-radius: 10px;
+           
+        }
+        button[type=button] {
+            font-size: 25px;
+            font-family: "BMDOHYEON";
+            margin: 0;
+            
+            border-radius: 10px;
+           
+        }
+
 
         button {
             display: inline-block;
         }
-        h2 {
+        h1 {
             display: inline-block;
             font-family: "BMDOHYEON";
         }
@@ -54,20 +80,98 @@
             src: local(※), url('/static/font/BMDOHYEON_ttf.woff') format('woff');
         }
         #font_orange {
+
             color: orange;
             font-weight: bold;
             text-shadow: -1.3px 0 black, 0 1.3px black, 1.3px 0 black, 0 -1.3px black;
         }
 
-        #center {
-            display: table;
-            margin-left: auto;
-            margin-right: auto;
-            vertical-align: middle;
-            margin-top: 15%;
-        }
+
         input {
             display: inline-block;
+        }
+
+
+    </style>
+    <style>
+         #center {
+            position: inherit;
+            margin-top: 15%;
+             text-align: center;
+        }
+        #center >#send_nick {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-width: 2px;
+            border-style: solid;
+
+        }
+        #center >#send_msg {
+            position: absolute;
+
+
+        }
+        #center >#send {
+            position: absolute;
+
+
+        }
+        #center >#back {
+            position: absolute;
+
+
+        }
+
+        @-webkit-keyframes back {
+            to {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        }
+
+        @-webkit-keyframes back {
+            to {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes back {
+            to {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        }
+
+        #center>#delete {
+            position: absolute;
+        }
+        .btn{
+          border-radius: 10px;
+          display: inline-block;
+          vertical-align: middle;
+          -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+          box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          -moz-osx-font-smoothing: grayscale;
+          background: rgba(255, 255, 255, 0.2);
+          color: white;
+        }
+        .btn:hover,
+        .btn:focus,
+        .btn:active {
+            -webkit-animation-name:back;
+            animation-name:back;
+            -webkit-animation-duration: 0.3s;
+            animation-duration: 0.3s;
+            -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate;
         }
     </style>
 
@@ -80,17 +184,22 @@
     <div id="center">
       <div id="button">
         <form id="leave" method="POST" action='#'>
-            <h2 id="font_orange">방 제목: </h2>&nbsp;<h2> {{ login_name }}</h2>
-            <input type="submit" value="Delete Room">
-            <button type="button" name="back" onclick="document.location.replace('/list')">방 목록으로</button>
+            <h1 id="font_orange">방 제목 : </h1>&nbsp;<h1> {{ login_name }}</h1>
+
         </form>
       </div>
       <div id="log"></div>
       <form id="send_message" method="POST" action='#'>
         <br>
-          nickname : <input type="text" name="send_nick" id="send_nick"><br>
-          message : <input type="text" name="send_msg" id="send_msg">
-          <input type="submit" value="Send to Room">
+          <input type="text" name="send_nick" id="send_nick"  placeholder="닉네임">
+         <input type="text" name="send_msg" id="send_msg" placeholder="입력해주세요">
+          <input type="submit" name="send" class="btn" value="전송">
+          <br/>
+          <br/>
+          <br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <input type="submit" id="delete" class="btn" value="방 지우기">
+            <button type="button" id="back" name="back" class="btn" onclick="document.location.replace('/list')">방 목록으로</button>
       </form>
     </div>
     <script>
