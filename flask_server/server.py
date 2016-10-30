@@ -82,6 +82,24 @@ def api_competitive_heros(name):
     except:
         pass
 
+def api_quick_hero(name, hero):
+    try:
+        h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive-play/hero/%s/'%(name,hero), 'GET')
+        j = json.loads(content.decode('utf-8'))
+        return j
+    except:
+        pass
+
+def api_competitive_hero(name, hero):
+    try:
+        h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive-play/hero/%s/'%(name,hero), 'GET')
+        j = json.loads(content.decode('utf-8'))
+        return j
+    except:
+        pass
+
 '''
 GET /{platform}/{region}/{tag}/{mode}/hero/{heroes}/ 대상으로 알고리즘 적용
 heros 대상으로 전체적인 챔피언 정보 보여주기
@@ -154,6 +172,19 @@ def achievements(name):
             return 'no username'
         achievements = api_achievements(name)
         return render_template('achievements.html',ach=achievements)
+    except:
+        pass
+
+@app.route('/hero/<name>/<hero>/')
+def hero(name,hero):
+    try:
+
+        name = name.replace('#','-')
+        profile = api_profile(name)
+        if profile == False:
+            return 'no username'
+        hero_data = api_competitive_hero(name,hero)
+        return render_template('hero.html',her=hero_data)
     except:
         pass
 
