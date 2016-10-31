@@ -46,6 +46,14 @@
             background-image: url('/static/map/main{{ random }}.jpeg');
             background-repeat: no-repeat;
         }
+        div.dashed {border-style: dashed;
+            border-width:thick;
+            margin: auto;
+            width: 30%;
+            background-color: rgba(0, 0,0, 0.3);
+           
+        }
+        
 
         input[type=text] {
             font-size: 15px;
@@ -90,6 +98,11 @@
             color: orange;
             font-weight: bold;
             text-shadow: -1.3px 0 black, 0 1.3px black, 1.3px 0 black, 0 -1.3px black;
+        }
+        #font_black {
+            color: black;
+            font-weight: bold;
+            text-shadow: -1.0px 0 white, 0 1.0px white, 1.0px 0 white, 0 -1.0px white;
         }
 
         input {
@@ -184,10 +197,10 @@
         <li><a id="home_btn">Home</a></li>
         <li><a id="chat_btn">Chat</a></li>
     </ul>
-    <div id="center">
+    <div id="center" class="dashed">
         <div id="button">
             <h1 id="font_orange">방 제목 : </h1>&nbsp;
-            <h1> {{ login_name }}</h1>
+            <h1 id="font_black"> {{ login_name }}</h1>
         </div>
         <div id="log"></div>
         <form id="send_message" method="POST" action='#'>
@@ -202,7 +215,9 @@
 
             <input type="submit" id="delete" class="btn" value="방 지우기">
         </form>
+        
     </div>
+    
     <script>
         document.getElementById("home_btn").setAttribute("href", "http://" + document.domain + ":5000");
         document.getElementById("chat_btn").setAttribute("href", "http://" + document.domain + ":5001");
