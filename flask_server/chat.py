@@ -61,20 +61,14 @@ def create(message):
 @socketio.on('get_message', namespace='/chat_base')
 def get(message):
     try:
-    if True:
         if not 'count' in session:
             session['count'] = 0
         cur.execute("SELECT * FROM `room_%s`"%(message['room_key']))
-        print("4")
         datas = cur.fetchall()
-        print("5")
         datas = datas[session['count']:]
         for data in datas:
-            print("6")
             session['count'] += 1
-            print("7")
             emit('write_message', {'data': '%s'%(str(data[0])),'nick': '%s'%(str(data[1]))})
-            print("8")
     except:
         print("error")
 

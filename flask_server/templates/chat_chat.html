@@ -38,6 +38,7 @@
                     alert('nono...');
                 }
             }
+            setInterval(get_message, 100);
         });
     </script>
     <style>
@@ -50,9 +51,9 @@
             margin: auto;
             width: 30%;
             background-color: rgba(0, 0,0, 0.3);
-           
+
         }
-        
+
 
         input[type=text] {
             font-size: 15px;
@@ -211,12 +212,12 @@
             <br/>
             <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="button" id="back" name="back" class="btn" onclick="document.location.replace('/list')">방 목록으로</button>
-
+        </form>
+        <form id="leave" method="POST" action='#'>
             <input type="submit" id="delete" class="btn" value="방 지우기">
         </form>
-        
     </div>
-    
+
     <script>
         document.getElementById("home_btn").setAttribute("href", "http://" + document.domain + ":5000");
         document.getElementById("chat_btn").setAttribute("href", "http://" + document.domain + ":5001");
