@@ -13,7 +13,7 @@ user_no = 1
 app = Flask(__name__)
 app.secret_key = 'this isssssssssssss secret!'
 
-server_domain = '0.0.0.0'
+server_domain = '192.168.43.230'
 server_port = 5000
 
 def api_profile(name):
@@ -184,8 +184,8 @@ def hero(name,hero):
         if profile == False:
             return 'no username'
         hero_data = api_competitive_hero(name,hero)
-            print("a"*512)
-            print(hero_data[name])
+
+        print(hero_data[name])
         return render_template('hero.html',her=hero_data)
     except:
         pass
