@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import time
+import random
 from flask import Flask, render_template, session, request
 from flask_socketio import SocketIO, emit, disconnect
 from pymysql import connect
@@ -14,19 +15,20 @@ socketio = SocketIO(app, async_mode=async_mode)
 thread = None
 conn = connect(host='layer7.kr', port=3306, user='em', passwd='fuckkk', db='d_con', charset ='utf8')
 cur = conn.cursor()
+background_count = 7
 
 @app.route('/')
 @app.route('/list/')
 def list():
     try:
-        return render_template('chat_list.html')
+        return render_template('chat_list.html',random=random.randint(1,background_count));
     except:
         return "error"
 
 @app.route('/make/')
 def make():
     try:
-        return render_template('chat_make.html')
+        return render_template('chat_make.html',random=random.randint(1,background_count))
     except:
         return "error"
 
@@ -36,7 +38,7 @@ def chat():
         conn = connect(host='layer7.kr', port=3306, user='em', passwd='fuckkk', db='d_con', charset ='utf8')
         cur = conn.cursor()
         cur.execute("SELECT name FROM `room_list` WHERE `key`=%s"%(request.form['login_key']))
-        return render_template('chat_chat.html', login_key=request.form['login_key'],login_name=cur.fetchall()[0][0])
+        return render_template('chat_chat.html', login_key=request.form['login_key'],login_name=cur.fetchall()[0][0],random=random.randint(1,background_count))
     except:
         return "error"
 

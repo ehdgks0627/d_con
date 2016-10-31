@@ -1,6 +1,7 @@
 import httplib2
 import os
 import json
+import random
 from flask import Flask, render_template, url_for, session
 
 profile_list = ['levelFrame', 'playtime_quick', 'playtime_competitive', 'avatar', 'username', 'star', 'level', 'games_quick_wins', 'games_competitive_played', 'games_competitive_lost', 'games_competitive_wins', 'competitive_rank_img', 'competitive_rank']
@@ -9,6 +10,7 @@ competitive_allheros_list = ['MeleeFinalBlows', 'SoloKills', 'ObjectiveKills', '
 achievements_list = ['name', 'finished', 'image', 'description', 'category']
 hero_list = ['Ana', 'Bastion', 'DVa', 'Genji', 'Hanzo', 'Junkrat', 'Lucio', 'Mccree', 'Mei', 'Mercy', 'Pharah', 'Reaper', 'Reinhardt', 'Roadhog', 'Soldier76', 'Symmetra', 'Torbjoern', 'Tracer', 'Widowmaker', 'Winston', 'Zarya', 'Zenyatta']
 user_no = 1
+background_count = 7
 
 app = Flask(__name__)
 app.secret_key = 'this isssssssssssss secret!'
@@ -121,7 +123,7 @@ def before_request():
 @app.route('/')
 def chatting():
     try:
-        ren = render_template('index.html')
+        ren = render_template('index.html',random=random.randint(1,background_count));
         return ren
     except:
         pass
