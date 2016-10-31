@@ -63,7 +63,7 @@ def get(message):
         if not 'count' in session:
             session['count'] = 0
         conn.commit()
-        cur.execute("SELECT * FROM `room_%s` LIMIT %s,1"%(message['room_key'],session['count']))
+        cur.execute("SELECT * FROM `room_%s` LIMIT %s,1"%(message['room_key'], session['count']))
         datas = cur.fetchall()
         for data in datas:
             session['count'] += 1

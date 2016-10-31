@@ -33,8 +33,7 @@
             });
             var get_message = function() {
                 try {
-                    socket.emit('get_message', {
-                        room_key: {{ login_key }}});
+                    socket.emit('get_message', { room_key: {{ login_key }} });
                 } catch (e) {
                     alert('nono...');
                 }
