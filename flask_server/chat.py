@@ -8,7 +8,7 @@ from pymysql import connect
 # 채팅내역 DB 연동
 async_mode = None
 
-server_domain = "192.168.43.230"
+server_domain = "0.0.0.0"
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'this isssssssssssss secret!'
 socketio = SocketIO(app, async_mode=async_mode)
