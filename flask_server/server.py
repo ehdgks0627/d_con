@@ -180,7 +180,6 @@ def achievements(name):
 @app.route('/hero/<name>/<hero>/')
 def hero(name,hero):
     try:
-
         name = name.replace('#','-')
         profile = api_profile(name)
         if profile == False:
