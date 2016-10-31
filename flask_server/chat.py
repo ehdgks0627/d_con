@@ -14,6 +14,7 @@ app.config['SECRET_KEY'] = 'this isssssssssssss secret!'
 socketio = SocketIO(app, async_mode=async_mode)
 thread = None
 conn = connect(host='layer7.kr', port=3306, user='em', passwd='fuckkk', db='d_con', charset ='utf8')
+conn.autocommit(1)
 cur = conn.cursor()
 background_count = 7
 
@@ -60,16 +61,22 @@ def create(message):
 @socketio.on('get_message', namespace='/chat_base')
 def get(message):
     try:
+    if True:
         if not 'count' in session:
             session['count'] = 0
-        conn.commit()
-        cur.execute("SELECT * FROM `room_%s` LIMIT %s,1"%(message['room_key'], session['count']))
+        cur.execute("SELECT * FROM `room_%s`"%(message['room_key']))
+        print("4")
         datas = cur.fetchall()
+        print("5")
+        datas = datas[session['count']:]
         for data in datas:
+            print("6")
             session['count'] += 1
+            print("7")
             emit('write_message', {'data': '%s'%(str(data[0])),'nick': '%s'%(str(data[1]))})
+            print("8")
     except:
-        pass
+        print("error")
 
 @socketio.on('leave', namespace='/chat_base')
 def leave(message):

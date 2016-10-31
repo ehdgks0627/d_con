@@ -19,7 +19,11 @@
     <h1>info</h1>
     {% if inf %}
       {% for key, value in inf.items() %}
-        {{ key }} : {{ value }} <br>
+        {% if key|string() == "competitive_rank_img" or key|string() == "avatar" or key|string() == "levelFrame" %}
+          {{ key }} : <img src={{ value }}> <br>
+        {% else %}
+          {{ key }} : {{ value }} <br>
+        {% endif %}
       {% endfor %}
     {% endif %}
     <script>

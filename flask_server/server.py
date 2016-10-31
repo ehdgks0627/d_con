@@ -15,7 +15,7 @@ background_count = 7
 app = Flask(__name__)
 app.secret_key = 'this isssssssssssss secret!'
 
-server_domain = '192.168.43.230'
+server_domain = 'localhost'
 server_port = 5000
 
 def api_profile(name):
@@ -180,7 +180,6 @@ def achievements(name):
 @app.route('/hero/<name>/<hero>/')
 def hero(name,hero):
     try:
-
         name = name.replace('#','-')
         profile = api_profile(name)
         if profile == False:
