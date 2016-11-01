@@ -15,14 +15,14 @@ background_count = 7
 app = Flask(__name__)
 app.secret_key = 'this isssssssssssss secret!'
 
-server_domain = 'localhost'
+server_domain = '0.0.0.0'
 server_port = 5000
 
 def api_profile(name):
-    h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
-    resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/profile'%(name), 'GET')
-    j = json.loads(content.decode('utf-8'))
     try:
+        h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/profile'%(name), 'GET')
+        j = json.loads(content.decode('utf-8'))
         dic = {}
         dic['levelFrame'] = j['data']['levelFrame']
         dic['playtime_quick'] = j['data']['playtime']['quick']
@@ -37,9 +37,9 @@ def api_profile(name):
         dic['games_competitive_wins'] = j['data']['games']['competitive']['wins']
         dic['competitive_rank_img'] = j['data']['competitive']['rank_img']
         dic['competitive_rank'] = j['data']['competitive']['rank']
+        return dic
     except:
-        pass
-    return dic
+        return False
 
 def api_quick_allheros(name):
     try:

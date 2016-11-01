@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="/static/stylesheets/normalize.css">
     <link rel="shortcut icon" href="/static/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/list.css">
     <script type="text/javascript">
         function enterkey() {
             if (window.event.keyCode == 13) {
@@ -123,34 +124,6 @@
             margin-right: auto;
             min-width: 100px;
         }
-
-        a {
-            text-decoration: none;
-        }
-
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding-left: 5px;
-            overflow: hidden;
-            background-color: #333;
-        }
-
-        li {
-            float: left;
-        }
-
-        li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 16px 16px;
-            text-decoration: none;
-        }
-
-        li a:hover {
-            background-color: #111;
-        }
     </style>
 </head>
 
@@ -160,7 +133,6 @@
         <li><a id="chat_btn">Chat</a></li>
     </ul>
     <div class="main">
-      {{random}}
         <div class="search">
             <img src="../static/map/logo1.png" alt="Smiley face" height="200" width="500">
             <input onkeyup="enterkey();" type="text" placeholder="플레이어 이름과 태그를 입력해 주세요." id="battle_tag">
