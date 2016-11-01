@@ -189,5 +189,13 @@ def hero(name,hero):
     except:
         pass
 
+@app.route('/chart/')
+def chart():
+    try:
+        return render_template('chart.html')
+    except:
+        pass
+
+
 if __name__ == '__main__':
     app.run(host=server_domain, port=server_port, debug=True)
