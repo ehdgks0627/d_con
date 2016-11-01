@@ -18,14 +18,13 @@
   </ul>
     <h1>quick-play</h1>
     {% if her %}
-    {% for key, value in her.items()[0][1] %}
-      {{ key }} : {{ value }} <br>
-    {% endfor %}
+      {% for key, value in her.items() %}
+        {{ key }} : {{ value }} <br>
+      {% endfor %}
     {% endif %}
     <script>
       document.getElementById("home_btn").setAttribute("href","http://" + document.domain + ":5000");
       document.getElementById("chat_btn").setAttribute("href","http://" + document.domain + ":5001");
     </script>
 </body>
-
 </html>

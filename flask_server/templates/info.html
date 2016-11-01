@@ -1,34 +1,95 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js" lang="en">
 
 <head>
+    <meta charset="utf-8" />
+    <title>Information</title>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/stylesheets/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/foundation.min.css">
+    <link rel="stylesheet" type="text/css" href='/static/stylesheets/foundation-icons.css'>
     <link rel="stylesheet" type="text/css" href="/static/stylesheets/list.css">
     <link rel="shortcut icon" href="/static/favicon.ico">
-    <meta charset="utf-8">
-    <title>전체전적</title>
 </head>
 
 <body>
-    <ul>
-      <li><a id="home_btn">Home</a></li>
-      <li><a id="chat_btn">Chat</a></li>
-    </ul>
-    <h1>info</h1>
-    {% if inf %}
-      {% for key, value in inf.items() %}
-        {% if key|string() == "competitive_rank_img" or key|string() == "avatar" or key|string() == "levelFrame" %}
-          {{ key }} : <img src={{ value }}> <br>
-        {% else %}
-          {{ key }} : {{ value }} <br>
-        {% endif %}
-      {% endfor %}
-    {% endif %}
+    <div class="my-top-bar">
+        <ul>
+            <li><a id="home_btn">Home</a></li>
+            <li><a id="chat_btn">Chat</a></li>
+        </ul>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="medium-6 large-6 columns">
+            <div class="row">
+              <div class="large-2 columns">
+                {% for key,value in pro.items() %}
+                    {% if key|string() == "avatar" %}
+                        <img src="{{ value }}" style="width: 64px;">
+                    {% endif %}
+                {% endfor %}
+              </div>
+              <div class="medium-4 large-4 columns">
+                    {% for key,value in pro.items() %}
+                        {% if key|string() == "username" %}
+                          <div style="font-size: 300%;">{{ value }}</div>
+                    {% endif %}
+                {% endfor %}
+              </div>
+                <h1>그래프 요기</h1>
+            </div>
+        </div>
+        <div class="show-for-large large-3 columns">
+            <div class="callout secondary">
+
+            </div>
+        </div>
+        <div class="medium-3 large-3 columns">
+            <div class="callout secondary">
+                <h1>차트요기</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row column">
+        <hr>
+    </div>
+    <div class="row column">
+        {% for key,value in pro.items() %}
+          {% if key|string() == "competitive_rank_img" %}
+            <img src="{{ value }}">
+          {% endif %}
+        {% endfor %}
+    </div>
+    <div class="row small-up-1 medium-up-2 large-up-3">
+        {% for q in qui %}
+          <div class="column">
+              <div class="callout">
+                  <p>{{ q.name }}</p>
+                  <div class="row">
+                    <div class="medium-6 large-6 columns">
+                      <p><img src="{{ q.image }}" alt="{{ q.name }}"></p>
+                    </div>
+                    <div class="medium-6 large-6 columns">
+                      <p><h2>이것은 차트</h2></p>
+                    </div>
+                  </div>
+                  <p class="lead">{{ q.playtime }} played</p>
+                  <p class="subheader">{{ q.percentage }}%</p>
+              </div>
+          </div>
+        {% endfor %}
+    </div>
+    <div class="row column">
+        <a class="button hollow expanded">Load More</a>
+    </div>
+    <footer>
+    </footer>
     <script>
-      document.getElementById("home_btn").setAttribute("href","http://" + document.domain + ":5000");
-      document.getElementById("chat_btn").setAttribute("href","http://" + document.domain + ":5001");
+        document.getElementById("home_btn").setAttribute("href", "http://" + document.domain + ":5000");
+        document.getElementById("chat_btn").setAttribute("href", "http://" + document.domain + ":5001");
     </script>
 </body>
 
