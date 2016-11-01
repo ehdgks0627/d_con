@@ -127,25 +127,15 @@ def chatting():
     except:
         pass
 
-@app.route('/test/<name>/')
-def testa(name):
+@app.route('/info/<name>/')
+def info(name):
     name = name.replace('#','-')
     profile = api_profile(name)
     if profile == False:
         return 'no username'
+    quick_heros = api_quick_heros(name)
     try:
-        return render_template('test.html',pro=profile)
-    except:
-        pass
-
-@app.route('/info/<name>/')
-def info(name=""):
-    try:
-        name = name.replace('#','-')
-        profile = api_profile(name)
-        if profile == False:
-            return 'no username'
-        return render_template('info.html',inf=profile)
+        return render_template('info.html',pro=profile,qui=quick_heros)
     except:
         pass
 
@@ -158,7 +148,7 @@ def heros(name):
             return 'no username'
         quick_heros = api_quick_heros(name)
         competitive_heros = api_competitive_heros(name)
-        return render_template('heros.html',qui=quick_heros,com=competitive_heros)
+        return render_template('heros.html',pro=profile,qui=quick_heros)
     except:
         pass
 
@@ -195,9 +185,7 @@ def hero(name,hero):
         if profile == False:
             return 'no username'
         hero_data = api_competitive_hero(name,hero)
-
-        print(hero_data[name])
-        return render_template('hero.html',her=hero_data)
+        return render_template('hero.html',her=list(hero_data.items())[0][1])
     except:
         pass
 
