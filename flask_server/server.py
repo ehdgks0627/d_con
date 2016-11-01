@@ -2,6 +2,7 @@ import httplib2
 import os
 import json
 import random
+import time
 from flask import Flask, render_template, url_for, session
 
 profile_list = ['levelFrame', 'playtime_quick', 'playtime_competitive', 'avatar', 'username', 'star', 'level', 'games_quick_wins', 'games_competitive_played', 'games_competitive_lost', 'games_competitive_wins', 'competitive_rank_img', 'competitive_rank']
@@ -9,6 +10,9 @@ quick_allheros_list = ['MeleeFinalBlows', 'SoloKills', 'ObjectiveKills', 'FinalB
 competitive_allheros_list = ['MeleeFinalBlows', 'SoloKills', 'ObjectiveKills', 'FinalBlows', 'DamageDone', 'Eliminations', 'EnvironmentalKills', 'Multikills', 'HealingDone', 'TeleporterPadDestroyed', 'Eliminations-MostinGame', 'FinalBlows-MostinGame', 'DamageDone-MostinGame', 'HealingDone-MostinGame', 'DefensiveAssists-MostinGame', 'OffensiveAssists-MostinGame', 'ObjectiveKills-MostinGame', 'ObjectiveTime-MostinGame', 'Multikill-Best', 'SoloKills-MostinGame', 'TimeSpentonFire-MostinGame', 'MeleeFinalBlows-Average', 'TimeSpentonFire-Average', 'SoloKills-Average', 'ObjectiveTime-Average', 'ObjectiveKills-Average', 'HealingDone-Average', 'FinalBlows-Average', 'Deaths-Average', 'DamageDone-Average', 'Eliminations-Average', 'Deaths', 'EnvironmentalDeaths', 'Cards', 'Medals', 'Medals-Gold', 'Medals-Silver', 'Medals-Bronze', 'GamesWon', 'TimeSpentonFire', 'ObjectiveTime', 'TimePlayed', 'MeleeFinalBlows-MostinGame', 'DefensiveAssists', 'DefensiveAssists-Average', 'OffensiveAssists', 'OffensiveAssists-Average', 'GamesPlayed', 'GamesTied', 'GamesLost']
 achievements_list = ['name', 'finished', 'image', 'description', 'category']
 hero_list = ['Ana', 'Bastion', 'DVa', 'Genji', 'Hanzo', 'Junkrat', 'Lucio', 'Mccree', 'Mei', 'Mercy', 'Pharah', 'Reaper', 'Reinhardt', 'Roadhog', 'Soldier76', 'Symmetra', 'Torbjoern', 'Tracer', 'Widowmaker', 'Winston', 'Zarya', 'Zenyatta']
+profiles = {}
+quick_heroses = {}
+cookies = {}
 user_no = 1
 background_count = 7
 
@@ -129,12 +133,19 @@ def chatting():
 
 @app.route('/info/<name>/')
 def info(name):
-    name = name.replace('#','-')
-    profile = api_profile(name)
-    if profile == False:
-        return 'no username'
-    quick_heros = api_quick_heros(name)
     try:
+        name = name.replace('#','-')
+        if cookies.get(name) != None and (time.time() - cookies.get(name)) < 300:
+            profile = profiles[name]
+            quick_heros = quick_heroses[name]
+        else:
+            profile = api_profile(name)
+            if profile == False:
+                return 'no username'
+            profiles[name] = profile
+            quick_heros = api_quick_heros(name)
+            quick_heroses[name] = quick_heros
+            cookies[name] = time.time()
         return render_template('info.html',pro=profile,qui=quick_heros)
     except:
         pass
