@@ -50,7 +50,7 @@
             border-width:thick;
             margin: auto;
             width: 30%;
-            background-color: rgba(0, 0,0, 0.3);
+            background-color: rgba(0, 0,0, 0.6);
 
         }
 
@@ -65,14 +65,14 @@
         }
 
         input[type=submit] {
-            font-size: 25px;
+            
             font-family: "BMDOHYEON";
             margin: 0;
             border-radius: 10px;
         }
 
         button[type=button] {
-            font-size: 25px;
+            
             font-family: "BMDOHYEON";
             margin: 0;
             border-radius: 10px;
@@ -158,6 +158,8 @@
 
         #center>#delete {
             position: absolute;
+         
+            
         }
 
         .btn {
@@ -173,6 +175,7 @@
             background: rgba(255, 255, 255, 0.2);
             color: white;
         }
+        
 
         .btn:hover,
         .btn:focus,
@@ -188,12 +191,30 @@
             -webkit-animation-direction: alternate;
             animation-direction: alternate;
         }
+        #log {
+            color: orange; 
+        }
+        #fix{
+           top:-0px; 
+            position: fixed;
+            width: 100%;
+        }
+        #send{
+            font-size: 25px;
+        }
+        #delete{
+            font-size: 17px;
+        }
+        #back{
+            font-size: 17px;
+        }
+        
     </style>
 
 </head>
 
 <body>
-    <ul>
+    <ul id="fix">
         <li><a id="home_btn">Home</a></li>
         <li><a id="chat_btn">Chat</a></li>
     </ul>
@@ -207,14 +228,15 @@
             <br>
             <input type="text" name="send_nick" id="send_nick" placeholder="닉네임">
             <input type="text" name="send_msg" id="send_msg" placeholder="입력해주세요">
-            <input type="submit" name="send" class="btn" value="전송">
+            <input type="submit" name="send" id="send" class="btn" value="전송">
             <br/>
             <br/>
-            <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="button" id="back" name="back" class="btn" onclick="document.location.replace('/list')">방 목록으로</button>
-        </form>
+        
         <form id="leave" method="POST" action='#'>
             <input type="submit" id="delete" class="btn" value="방 지우기">
+            </form>
         </form>
     </div>
 

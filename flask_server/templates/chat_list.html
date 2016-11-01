@@ -12,6 +12,7 @@
         $(document).ready(function() {
             namespace = '/chat_base';
             var socket = io.connect('http://' + document.domain + ':' + document.location.port + namespace);
+             
 
             function make_btn(n) {
                 return '<form method="POST" action="/chat/">\
@@ -52,7 +53,7 @@
             vertical-align: middle;
             -webkit-transform: translateZ(0);
             transform: translateZ(0);
-            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+            box-shadow: 0 0 1px rgba(0, 0, 0, 255);
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             -moz-osx-font-smoothing: grayscale;
@@ -151,19 +152,30 @@
             margin-top: 5%;
             font-size: 33px;
             font-family: "Hanna";
-            margin: auto;
-            padding: 4%;
+            margin: 0;
+            padding: 8%;
             border-radius: 10px;
         }
-
+        #list{
+            font-size: 28px;
+        
+        }
+        #fix{
+            position: fixed;
+            width : 100%;
+            
+        }
     </style>
+    
 </head>
 
 <body>
-  <ul>
+    
+  <ul id="fix">
     <li><a id="home_btn">Home</a></li>
     <li><a id="chat_btn">Chat</a></li>
   </ul>
+       
     <div class="main">
         <div class="list_room">
             <button type="button" name="make" onClick="location.href='/make/';" id="hvr-pulse-grow">방 만들기</button>
