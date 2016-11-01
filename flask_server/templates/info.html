@@ -19,6 +19,11 @@
         
         
     }
+        #row{
+        margin: 4%;    
+        }
+           
+        
         </style>
 </head>
 
@@ -31,17 +36,18 @@
     </div>
 
     <br>
-    <div class="row">
+    <div class="row" id="row">
         <div class="medium-6 large-6 columns">
             <div class="row">
-              <div class="large-2 columns">
+              <div class="large-2 columns" id="large">
                 {% for key,value in pro.items() %}
                     {% if key|string() == "avatar" %}
                         <img src="{{ value }}" style="width: 64px;">
                     {% endif %}
                 {% endfor %}
               </div>
-              <div class="medium-4 large-4 columns">
+              <div class="medium-4 large-4 columns"
+                   id="medium">
                     {% for key,value in pro.items() %}
                         {% if key|string() == "username" %}
                           <div style="font-size: 300%;">{{ value }}</div>
