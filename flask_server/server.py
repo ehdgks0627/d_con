@@ -20,7 +20,6 @@ server_port = 5000
 
 def api_profile(name):
     try:
-        return True
         h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
         resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/profile'%(name), 'GET')
         j = json.loads(content.decode('utf-8'))
@@ -124,13 +123,23 @@ def before_request():
 @app.route('/')
 def chatting():
     try:
-        ren = render_template('index.html',random=random.randint(1,background_count));
-        return ren
+        return render_template('index.html',random=random.randint(1,background_count));
+    except:
+        pass
+
+@app.route('/test/<name>/')
+def testa(name):
+    name = name.replace('#','-')
+    profile = api_profile(name)
+    if profile == False:
+        return 'no username'
+    try:
+        return render_template('test.html',pro=profile)
     except:
         pass
 
 @app.route('/info/<name>/')
-def info(name):
+def info(name=""):
     try:
         name = name.replace('#','-')
         profile = api_profile(name)
