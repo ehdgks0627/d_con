@@ -20,6 +20,7 @@ server_port = 5000
 
 def api_profile(name):
     try:
+        return True
         h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
         resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/profile'%(name), 'GET')
         j = json.loads(content.decode('utf-8'))
