@@ -10,7 +10,7 @@
 
 <body>
     <!-- pie chart canvas element -->
-    <canvas id="countries2" width="600" height="400"></canvas>
+    <canvas id="position_piegraph" width="600" height="400"></canvas>
     <script>
         var pieData = [{
             value: 70,
@@ -34,7 +34,7 @@
                 animateRotate: true,
                 animateScale: true,
             }
-        new Chart(document.getElementById("countries2").getContext("2d")).Pie(pieData,pieOptions);
+        new Chart(document.getElementById("position_piegraph").getContext("2d")).Pie(pieData,pieOptions);
 
 
 

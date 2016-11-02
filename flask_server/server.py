@@ -134,7 +134,8 @@ def chatting():
 
 @app.route('/info/<name>/')
 def info(name):
-    try:
+#    try:
+    if True:
         name = name.replace('#','-')
         if cookies.get(name) != None and (time.time() - cookies.get(name)) < 300:
             profile = profiles[name]
@@ -159,8 +160,8 @@ def info(name):
                 return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
             cookies[name] = time.time()
         return render_template('info.html',pro=profile['data'],qui=quick_heros)
-    except:
-        return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
+#    except:
+#        return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
 
 @app.route('/heros/<name>/')
 def heros(name):
