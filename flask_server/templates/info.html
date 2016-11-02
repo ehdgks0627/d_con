@@ -19,7 +19,7 @@
         z-index: 101;
         }
     #row{
-        margin: 4%;
+        margin: 2%;
         }
         </style>
 </head>
@@ -34,41 +34,33 @@
     <br>
     <div class="row" id="row">
         <div class="medium-3 large-3 columns">
-            <div class="callout secondary">
-              {% for key,value in pro.items() %}
-                  {% if key|string() == "avatar" %}
-                      <img src="{{ value }}" style="width: 64px;">
-                  {% endif %}
-              {% endfor %}
-              {% for key,value in pro.items() %}
-                  {% if key|string() == "username" %}
-                      <div style="font-size: 300%;">{{ value }}</div>
-                  {% endif %}
-              {% endfor %}
-              {% for key,value in pro.items() %}
-                  {% if key|string() == "level" %}
-                      <div style="font-size: 300%;">Lv.{{ value }}</div>
-                  {% endif %}
-              {% endfor %}
-            </div>
-        </div>
-        <div class="medium-3 large-3 columns">
-            <div class="callout secondary">
-                <canvas id="position_piegraph" style="width:auto; height: 50%;"></canvas>
-            </div>
         </div>
         <div class="medium-6 large-6 columns">
         </div>
     </div>
+
+<div class="row small-up-5 medium-up-5 large-up-5">
+    {% for i in infos %}
+      <div class="column">
+          <div class="callout">
+            {% if loop.index == 1 or loop.index == 5 %}
+              <p><img src="{{ i }}" style="height: 50%; width: 50%"></p>
+            {% elif loop.index == 2 %}
+              <p><h2>Lv.{{ i }}</p></h2>
+            {% elif loop.index == 3 %}
+              <p><h2>{{ i }}점</p></h2>
+            {% elif loop.index == 4 %}
+            <p><h2>{{ i }}</p></h2>
+            {% endif %}
+          </div>
+      </div>
+    {% endfor %}
+</div>
     <div class="row column">
+        <!-- <canvas id="position_piegraph" style=" height: 50%;"></canvas> -->
         <hr>
     </div>
     <div class="row column">
-        {% for key,value in pro.items() %}
-          {% if key|string() == "competitive_rank_img" %}
-            <img src="{{ value }}">
-          {% endif %}
-        {% endfor %}
     </div>
     <div class="row small-up-1 medium-up-2 large-up-3">
         {% for q in qui %}
@@ -97,7 +89,7 @@
     <script>
         document.getElementById("home_btn").setAttribute("href", "http://" + document.domain + ":5000");
         document.getElementById("chat_btn").setAttribute("href", "http://" + document.domain + ":5001");
-        var pieOptions = {
+        /*var pieOptions = {
                 scaleShowLine: true,
                 segmentShowStroke: true,
                 segmentStrokeColor: "#fff",
@@ -119,7 +111,7 @@
                 value: 10,
                 color: "#FFEA88"
             }];
-        new Chart(document.getElementById("position_piegraph").getContext("2d")).Pie(pieData,pieOptions);
+        new Chart(document.getElementById("position_piegraph").getContext("2d")).Pie(pieData,pieOptions);*/
     </script>
 </body>
 
