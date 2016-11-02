@@ -163,7 +163,6 @@ def info(name):
                 p[name].start()
             for h in hero_list:
                 p[name].join()
-            print((str(count.value) + "@")*10)
             while count.value != len(hero_list)+2:
                 print(count.value)
             # Multri Processing End...
