@@ -5,6 +5,7 @@ import random
 import time
 from multiprocessing import Process, Queue, Manager, Value
 from flask import Flask, render_template, url_for, session
+from pprint import pprint
 
 profile_list = ['levelFrame', 'playtime_quick', 'playtime_competitive', 'avatar', 'username', 'star', 'level', 'games_quick_wins', 'games_competitive_played', 'games_competitive_lost', 'games_competitive_wins', 'competitive_rank_img', 'competitive_rank']
 quick_allheros_list = ['MeleeFinalBlows', 'SoloKills', 'ObjectiveKills', 'FinalBlows', 'DamageDone', 'Eliminations', 'EnvironmentalKills', 'Multikills', 'HealingDone', 'TeleporterPadsDestroyed', 'Eliminations-MostinGame', 'FinalBlows-MostinGame', 'DamageDone-MostinGame', 'HealingDone-MostinGame', 'DefensiveAssists-MostinGame', 'OffensiveAssists-MostinGame', 'ObjectiveKills-MostinGame', 'ObjectiveTime-MostinGame', 'Multikill-Best', 'SoloKills-MostinGame', 'TimeSpentonFire-MostinGame', 'MeleeFinalBlows-Average', 'TimeSpentonFire-Average', 'SoloKills-Average', 'ObjectiveTime-Average', 'ObjectiveKills-Average', 'HealingDone-Average', 'FinalBlows-Average', 'Deaths-Average', 'DamageDone-Average', 'Eliminations-Average', 'Deaths', 'EnvironmentalDeaths', 'Cards', 'Medals', 'Medals-Gold', 'Medals-Silver', 'Medals-Bronze', 'GamesWon', 'TimeSpentonFire', 'ObjectiveTime', 'TimePlayed', 'MeleeFinalBlows-MostinGame', 'DefensiveAssists', 'DefensiveAssists-Average', 'OffensiveAssists', 'OffensiveAssists-Average', 'ReconAssists']
@@ -14,7 +15,7 @@ hero_list = ['Ana', 'Bastion', 'DVa', 'Genji', 'Hanzo', 'Junkrat', 'Lucio', 'Mcc
 profiles = {}
 quick_heroses = {}
 cookies = {}
-pids = {}
+hero_datas = {}
 user_no = 1
 background_count = 7
 
@@ -94,14 +95,16 @@ def api_competitive_heros(name):
     except:
         pass
 
-def api_quick_hero(name, hero):
+def api_quick_hero(name, hero, d,count):
     try:
         h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
         resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive-play/hero/%s/'%(name,hero), 'GET')
         j = json.loads(content.decode('utf-8'))
-        return j
+        d[hero] = j
+        count.value += 1
+        return True
     except:
-        pass
+        return False
 
 def api_competitive_hero(name, hero):
     try:
@@ -140,27 +143,37 @@ def info(name):
         if cookies.get(name) != None and (time.time() - cookies.get(name)) < 300:
             profile = profiles[name]
             quick_heros = quick_heroses[name]
+            d = hero_datas[name]
         else:
             # Multi Processing...
             manager = Manager()
             d = manager.dict()
             count = Value('i',0)
-            p1 = Process(target=api_profile,args=(name,d,count,'1'))
-            p2 = Process(target=api_quick_heros,args=(name,d,count,'2'))
-            p1.start()
-            p2.start()
-            p1.join()
-            p2.join()
+            p = {}
+            p[1] = Process(target=api_profile,args=(name,d,count,'1'))
+            p[2] = Process(target=api_quick_heros,args=(name,d,count,'2'))
+            p[1].start()
+            p[2].start()
+            p[1].join()
+            p[2].join()
             profiles[name] = d['1']
             quick_heroses[name] = d['2']
+            for h in hero_list:
+                p[name] = Process(target=api_quick_hero,args=(name,h,d,count))
+                p[name].start()
+            for h in hero_list:
+                p[name].join()
+            print((str(count.value) + "@")*10)
+            while count.value != len(hero_list)+2:
+                print(count.value)
             # Multri Processing End...
             profile = profiles[name]
             quick_heros = quick_heroses[name]
             if profile == False:
                 return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
             cookies[name] = time.time()
-            print(profile)
-        return render_template('info.html',random=random.randint(1,background_count),pro=profile['data'],qui=quick_heros,infos=[profile['data']['competitive']['rank_img'],profile['data']['level'],profile['data']['competitive']['rank'],profile['data']['username'],profile['data']['avatar']])
+            hero_datas[name] = d
+        return render_template('info.html',random=random.randint(1,background_count),pro=profile['data'],qui=quick_heros,infos=[profile['data']['competitive']['rank_img'],profile['data']['level'],profile['data']['competitive']['rank'],profile['data']['username'],profile['data']['avatar']],hero_data=d)
 #    except:
 #        return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
 
