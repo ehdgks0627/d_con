@@ -156,11 +156,11 @@ def info(name):
             profile = profiles[name]
             quick_heros = quick_heroses[name]
             if profile == False:
-                return 'no username'
+                return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
             cookies[name] = time.time()
         return render_template('info.html',pro=profile['data'],qui=quick_heros)
     except:
-        pass
+        return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
 
 @app.route('/heros/<name>/')
 def heros(name):
