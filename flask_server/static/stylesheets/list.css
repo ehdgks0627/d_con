@@ -6,7 +6,7 @@ ul {
     margin: 0;
     padding-left: 5px;
     overflow: hidden;
-    background-color: #F79B08;
+    background-color: #fdaa56;
     top: 0px;
 }
 
@@ -23,5 +23,5 @@ li a {
 }
 
 li a:hover {
-    background-color: #CA7D01;
+    background-color: #ff9e4e;
 }

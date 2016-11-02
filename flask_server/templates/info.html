@@ -22,9 +22,12 @@
         margin: 2%;
         }
         body {
-            background-image: url('/static/map/main{{random}}.jpeg');
-            background-image.blur;
+            background-color: rgba(220,200,200, 0.9);
             background-repeat: no-repeat;
+            box-sizing: inherit;
+        }
+        .name_color {
+          background: ;
         }
         </style>
 </head>
@@ -70,14 +73,14 @@
     <div class="row small-up-1 medium-up-2 large-up-3">
         {% for q in qui %}
           <div class="column">
-              <div class="callout" style="background-color: rgba(120, 210, 255, 0.8);">
-                  <p>{{ q.name }}</p>
+              <div class="callout" style="background-color: #f0edf2;">
+                  <p class="name_color">{{ q.name }}</p>
                   <div class="row">
                     <div class="medium-6 large-6 columns">
                       <p><img src="{{ q.image }}" alt="{{ q.name }}"></p>
                     </div>
                     <div class="medium-6 large-6 columns">
-                      <p><h2>이것은 차트</h2></p>
+                      <p>{{ ㄹ }}</p>
                     </div>
                   </div>
                   <p class="lead">{{ q.playtime }} played</p>
