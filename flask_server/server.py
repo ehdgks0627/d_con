@@ -3,6 +3,7 @@ import os
 import json
 import random
 import time
+from multiprocessing import Process, Queue, Manager, Value
 from flask import Flask, render_template, url_for, session
 
 profile_list = ['levelFrame', 'playtime_quick', 'playtime_competitive', 'avatar', 'username', 'star', 'level', 'games_quick_wins', 'games_competitive_played', 'games_competitive_lost', 'games_competitive_wins', 'competitive_rank_img', 'competitive_rank']
@@ -13,6 +14,7 @@ hero_list = ['Ana', 'Bastion', 'DVa', 'Genji', 'Hanzo', 'Junkrat', 'Lucio', 'Mcc
 profiles = {}
 quick_heroses = {}
 cookies = {}
+pids = {}
 user_no = 1
 background_count = 7
 
@@ -22,7 +24,7 @@ app.secret_key = 'this isssssssssssss secret!'
 server_domain = '0.0.0.0'
 server_port = 5000
 
-def api_profile(name):
+def api_profile(name,d,count,ident):
     try:
         h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
         resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/profile'%(name), 'GET')
@@ -41,7 +43,9 @@ def api_profile(name):
         dic['games_competitive_wins'] = j['data']['games']['competitive']['wins']
         dic['competitive_rank_img'] = j['data']['competitive']['rank_img']
         dic['competitive_rank'] = j['data']['competitive']['rank']
-        return dic
+        d[ident] = j
+        count.value += 1
+        return True
     except:
         return False
 
@@ -49,7 +53,7 @@ def api_quick_allheros(name):
     try:
         h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
         resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/quick-play/allHeroes/'%(name), 'GET')
-        return json.loads(content.decode('utf-8'))
+        return False
     except:
         pass
 
@@ -70,14 +74,16 @@ def api_achievements(name):
     except:
         pass
 
-def api_quick_heros(name):
+def api_quick_heros(name,d,count,ident):
     try:
         h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
         resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/quick-play/heroes'%(name), 'GET')
         j = json.loads(content.decode('utf-8'))
-        return j
+        d[ident] = j
+        count.value += 1
+        return True
     except:
-        pass
+        return False
 
 def api_competitive_heros(name):
     try:
@@ -105,11 +111,6 @@ def api_competitive_hero(name, hero):
         return j
     except:
         pass
-
-'''
-GET /{platform}/{region}/{tag}/{mode}/hero/{heroes}/ 대상으로 알고리즘 적용
-heros 대상으로 전체적인 챔피언 정보 보여주기
-'''
 
 @app.before_request
 def before_request():
@@ -139,14 +140,25 @@ def info(name):
             profile = profiles[name]
             quick_heros = quick_heroses[name]
         else:
-            profile = api_profile(name)
+            # Multi Processing...
+            manager = Manager()
+            d = manager.dict()
+            count = Value('i',0)
+            p1 = Process(target=api_profile,args=(name,d,count,'1'))
+            p2 = Process(target=api_quick_heros,args=(name,d,count,'2'))
+            p1.start()
+            p2.start()
+            p1.join()
+            p2.join()
+            profiles[name] = d['1']
+            quick_heroses[name] = d['2']
+            # Multri Processing End...
+            profile = profiles[name]
+            quick_heros = quick_heroses[name]
             if profile == False:
                 return 'no username'
-            profiles[name] = profile
-            quick_heros = api_quick_heros(name)
-            quick_heroses[name] = quick_heros
             cookies[name] = time.time()
-        return render_template('info.html',pro=profile,qui=quick_heros)
+        return render_template('info.html',pro=profile['data'],qui=quick_heros)
     except:
         pass
 
@@ -206,7 +218,6 @@ def chart():
         return render_template('chart.html')
     except:
         pass
-
 
 if __name__ == '__main__':
     app.run(host=server_domain, port=server_port, debug=True)
