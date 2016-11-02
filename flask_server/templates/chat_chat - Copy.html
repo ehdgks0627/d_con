@@ -50,9 +50,7 @@
             border-width:thick;
             margin: auto;
             width: 30%;
-
             background-color: rgba(0, 0,0, 0.6);
-
 
         }
 
@@ -94,12 +92,6 @@
             src: url('/static/font/BMDOHYEON_ttf.eot');
             src: url('/static/font/BMDOHYEON_ttf.eot?#iefix') format('embedded-opentype'), url('/static/font/BMDOHYEON_ttf.woff') format('woff'), url('/static/font/BMDOHYEON_ttf.ttf') format('truetype');
             src: local(※), url('/static/font/BMDOHYEON_ttf.woff') format('woff');
-        }
-        @font-face {
-            font-family: "NanumBarunpen";
-            src: url('/static/font/NanumBarunpen.eot');
-            src: url('/static/font/NanumBarunpen.eot?#iefix') format('embedded-opentype'), url('/static/font/NanumBarunpen.woff') format('woff'), url('/static/font/NanumBarunpen.ttf') format('truetype');
-            url('/static/font/NanumBarunpen.svg#NanumBarunpen') format('svg') src: local(※), url('/static/font/NanumBarunpen.woff') format('woff');
         }
 
         #font_orange {
@@ -200,13 +192,7 @@
             animation-direction: alternate;
         }
         #log {
-            padding-left: 10%;
             color: orange;
-            white-space: nowrap;
-            text-overflow:ellipsis;overflow:hidden;
-            word-wrap: normal;
-            font-size: 25px;
-            font-family: "NanumBarunpen";
         }
         #fix{
            top:-0px;
@@ -235,22 +221,21 @@
     </ul>
     <div id="center" class="dashed">
         <div id="button">
-            <h1 id="font_orange">방 제목 : </h1>&nbsp;
+            <h1 id="font_orange">방 제목 : </h1>
             <h1 id="font_black"> {{ login_name }}</h1>
         </div>
-        <div id="log" style="text-align:left;"></div>
+        <div id="log"></div>
         <form id="send_message" method="POST" action='#'>
             <br>
             <input type="text" name="send_nick" id="send_nick" placeholder="닉네임">
             <input type="text" name="send_msg" id="send_msg" placeholder="입력해주세요">
             <input type="submit" name="send" id="send" class="btn" value="전송">
-            <br/>
-            <br/>
-            <br/>
+            
             <button type="button" id="back" name="back" class="btn" onclick="document.location.replace('/list')">방 목록으로</button>
-        </form>
+
         <form id="leave" method="POST" action='#'>
-         <input type="submit" id="delete" class="btn" value="방 지우기">
+            <input type="submit" id="delete" class="btn" value="방 지우기">
+            </form>
         </form>
     </div>
 

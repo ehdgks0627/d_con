@@ -21,6 +21,11 @@
     #row{
         margin: 2%;
         }
+        body {
+            background-image: url('/static/map/main{{random}}.jpeg');
+            background-image.blur;
+            background-repeat: no-repeat;
+        }
         </style>
 </head>
 
@@ -65,7 +70,7 @@
     <div class="row small-up-1 medium-up-2 large-up-3">
         {% for q in qui %}
           <div class="column">
-              <div class="callout">
+              <div class="callout" style="background-color: rgba(120, 210, 255, 0.8);">
                   <p>{{ q.name }}</p>
                   <div class="row">
                     <div class="medium-6 large-6 columns">

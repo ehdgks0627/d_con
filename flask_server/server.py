@@ -160,7 +160,7 @@ def info(name):
                 return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
             cookies[name] = time.time()
             print(profile)
-        return render_template('info.html',pro=profile['data'],qui=quick_heros,infos=[profile['data']['competitive']['rank_img'],profile['data']['level'],profile['data']['competitive']['rank'],profile['data']['username'],profile['data']['avatar']])
+        return render_template('info.html',random=random.randint(1,background_count),pro=profile['data'],qui=quick_heros,infos=[profile['data']['competitive']['rank_img'],profile['data']['level'],profile['data']['competitive']['rank'],profile['data']['username'],profile['data']['avatar']])
 #    except:
 #        return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
 
