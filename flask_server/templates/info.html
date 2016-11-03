@@ -176,7 +176,7 @@
                 <p class="subheader">
                   {% for key, value in hero_data.items() %}
                     {% for key2, value2 in value.items() %}
-                      {% if (key2|string()).lower() == (q.name|string()).lower() %}
+                      {% if (key2|string()).lower() == (q.name|string()).lower() or (key2|string()).lower() == "dva" and (q.name|string()).lower() == "d.va" or (key2|string()).lower() == "soldier76" and (q.name|string()).lower() == "soldier: 76" or (key2|string()).lower()[0] == "l" and (q.name|string()).lower()[0] == "l" or (key2|string()).lower()[0:3] == "tor" and (q.name|string()).lower()[0:3] == "tor" %}
                         {% if value2.get('DamageDone-Average') %}
                           DamageDone-Average : {{ value2.get('DamageDone-Average')|default('0') }}<br>
                           Deaths-Average  : {{ value2.get('Deaths-Average')|default('0') }}<br>
@@ -184,64 +184,10 @@
                           GamesLost : {{ value2.get('GamesLost')|default('0') }}<br>
                           GamesTied : {{ value2.get('GamesTied')|default('0') }}<br>
                           GamesWon : {{ value2.get('GamesWon')|default('0') }}<br>
-                          HealingDone-Average : {{ value2.get('HealingDone-Average')|default('0') }}<br>
                           SoloKills-Average : {{ value2.get('SoloKills-Average')|default('0') }}<br>
-                        {% else %}
-                          None<br>
-                        {% endif %}
-
-                      {% elif (key2|string()).lower() == "soldier76" and (q.name|string()).lower() == "soldier: 76" %}
-                        {% if value2.get('DamageDone-Average') %}
-                          DamageDone-Average : {{ value2.get('DamageDone-Average')|default('0') }}<br>
-                          Deaths-Average  : {{ value2.get('Deaths-Average')|default('0') }}<br>
-                          Eliminations-Average : {{ value2.get('Eliminations-Average')|default('0') }}<br>
-                          GamesLost : {{ value2.get('GamesLost')|default('0') }}<br>
-                          GamesTied : {{ value2.get('GamesTied')|default('0') }}<br>
-                          GamesWon : {{ value2.get('GamesWon')|default('0') }}<br>
-                          HealingDone-Average : {{ value2.get('HealingDone-Average')|default('0') }}<br>
-                          SoloKills-Average : {{ value2.get('SoloKills-Average')|default('0') }}<br>
-                        {% else %}
-                          None<br>
-                        {% endif %}
-
-                      {% elif (key2|string()).lower()[0] == "l" and (q.name|string()).lower()[0] == "l" %}
-                        {% if value2.get('DamageDone-Average') %}
-                          DamageDone-Average : {{ value2.get('DamageDone-Average')|default('0') }}<br>
-                          Deaths-Average  : {{ value2.get('Deaths-Average')|default('0') }}<br>
-                          Eliminations-Average : {{ value2.get('Eliminations-Average')|default('0') }}<br>
-                          GamesLost : {{ value2.get('GamesLost')|default('0') }}<br>
-                          GamesTied : {{ value2.get('GamesTied')|default('0') }}<br>
-                          GamesWon : {{ value2.get('GamesWon')|default('0') }}<br>
-                          HealingDone-Average : {{ value2.get('HealingDone-Average')|default('0') }}<br>
-                          SoloKills-Average : {{ value2.get('SoloKills-Average')|default('0') }}<br>
-                        {% else %}
-                          None<br>
-                        {% endif %}
-
-                      {% elif (key2|string()).lower()[0:3] == "tor" and (q.name|string()).lower()[0:3] == "tor" %}
-                        {% if value2.get('DamageDone-Average') %}
-                          DamageDone-Average : {{ value2.get('DamageDone-Average')|default('0') }}<br>
-                          Deaths-Average  : {{ value2.get('Deaths-Average')|default('0') }}<br>
-                          Eliminations-Average : {{ value2.get('Eliminations-Average')|default('0') }}<br>
-                          GamesLost : {{ value2.get('GamesLost')|default('0') }}<br>
-                          GamesTied : {{ value2.get('GamesTied')|default('0') }}<br>
-                          GamesWon : {{ value2.get('GamesWon')|default('0') }}<br>
-                          HealingDone-Average : {{ value2.get('HealingDone-Average')|default('0') }}<br>
-                          SoloKills-Average : {{ value2.get('SoloKills-Average')|default('0') }}<br>
-                        {% else %}
-                          None<br>
-                        {% endif %}
-
-                      {% elif (key2|string()).lower() == "dva" and (q.name|string()).lower() == "d.va" %}
-                        {% if value2.get('DamageDone-Average') %}
-                          DamageDone-Average : {{ value2.get('DamageDone-Average')|default('0') }}<br>
-                          Deaths-Average  : {{ value2.get('Deaths-Average')|default('0') }}<br>
-                          Eliminations-Average : {{ value2.get('Eliminations-Average')|default('0') }}<br>
-                          GamesLost : {{ value2.get('GamesLost')|default('0') }}<br>
-                          GamesTied : {{ value2.get('GamesTied')|default('0') }}<br>
-                          GamesWon : {{ value2.get('GamesWon')|default('0') }}<br>
-                          HealingDone-Average : {{ value2.get('HealingDone-Average')|default('0') }}<br>
-                          SoloKills-Average : {{ value2.get('SoloKills-Average')|default('0') }}<br>
+                          평균 : {{ ((value2.get('DamageDone-Average'))|default('0')|string()|replace(',','')|float() + 
+                                   (value2.get('Eliminations-Average'))|default('0')|string()|replace(',','')|float() + 
+                                   (value2.get('SoloKills-Average'))|default('0')|string()|replace(',','')|float()*3)|int() }}<br>
                         {% else %}
                           None<br>
                         {% endif %}
