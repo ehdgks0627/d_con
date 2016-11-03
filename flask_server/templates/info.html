@@ -14,14 +14,15 @@
     <link rel="shortcut icon" href="/static/favicon.ico">
     <style type="text/css">
         #picture {
-            height: 120px;
-            border-radius: 1em;
-            border-top-left-radius: 10em;
-            border-top-right-radius: 10em;
-            border-bottom-left-radius: 10em;
-            border-bottom-right-radius: 10em;
-            border-color: aliceblue;
-            border-width: thick;
+          height: 120px;
+          background: rgba(0,0,0,0.5);
+          border-radius: 1em;
+          border-top-left-radius: 10em;
+          border-top-right-radius: 10em;
+          border-bottom-left-radius: 10em;
+          border-bottom-right-radius: 10em;
+          border-color: aliceblue;
+          border-width: thick;
         }
 
         .my-top-bar {
@@ -98,14 +99,26 @@
             border-color: aliceblue;
             border-width: thick;
         }
+        #callout2 {
+            background: rgba(0, 0, 0, 0.0);
+            height: 160px;
+            border: None;
+            border-radius: 5em;
+            border-top-left-radius: 2em;
+            border-top-right-radius: 2em;
+            border-bottom-left-radius: 2em;
+            border-bottom-right-radius: 2em;
+        }
     </style>
 </head>
 
 <body>
     <div class="my-top-bar">
         <ul>
-            <li><a id="home_btn">Home</a></li>
-            <li><a id="chat_btn">Chat</a></li>
+            <b>
+              <li><a id="home_btn">Home</a></li>
+              <li><a id="chat_btn">Chat</a></li>
+            </b>
         </ul>
     </div>
     <br>
@@ -117,24 +130,27 @@
     </div>
     <div class="row small-up-5 medium-up-5 large-up-5">
         {% for i in infos %}
-        <div class="column">
-            <div class="callout" id=callout1>
-                {% if loop.index == 1 or loop.index == 5 %}
-                <center>
-                    <p id=picture><br/><img src="{{ i }}" style="height: 60%; width: 40%"></p>
-                </center>{% elif loop.index == 2 %}<center>
-                    <p><br/><h3>Lv.{{ i }}</p></h3></center>
-                {% elif loop.index == 3 %}
+          <div class="column">
+            {% if loop.index == 1 or loop.index == 5 %}
+              <div class="callout" id=callout2>
+                <center><p id=picture><br/><img src="{{ i }}" style="height: 60%; width: 40%"></p></center>
+              </div>
+            {% elif loop.index == 2 %}
+              <div class="callout" id=callout1>
+                <center><p><br/><h3>Lv.{{ i }}</p></h3></center>
+              </div>
+            {% elif loop.index == 3 %}
+              <div class="callout" id=callout1>
                 <center><p><h3>Score<br/>{{ i }}점</p></h3></center>
-                {% elif loop.index == 4 %}
+              </div>
+            {% elif loop.index == 4 %}
+              <div class="callout" id=callout1>
                 <center><p><h3>Name<br/>{{ i }}</p></h3></center>
-                {% endif %}
-            </div>
-        </div>
+              </div>
+            {% endif %}
+          </div>
         {% endfor %}
     </div>
-
-
     <div class="row column">
         <!-- <canvas id="position_piegraph" style=" height: 50%;"></canvas> -->
         <hr>
@@ -146,7 +162,7 @@
     <div class="row small-up-1 medium-up-2 large-up-3">
         {% for q in qui %}
         <div class="column">
-            <div class="callout" style="background-color: #f0edf2;">
+            <div class="callout" style="background-color: #f0edf2; box-shadow: 10px 10px 5px #888;">
                 <p class="name_color">{% if q.name[0] == "L" %} Lúcio {% elif q.name[0:3] == "Tor" %} Torbjörn {% else %} {{ q.name }} {% endif %}</p>
                 <div class="row">
                     <div class="medium-6 large-6 columns">
