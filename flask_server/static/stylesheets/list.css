@@ -9,11 +9,9 @@ ul {
     background-color: #fdaa56;
     top: 0px;
 }
-
 li {
     float: left;
 }
-
 li a {
     display: block;
     color: white;
@@ -21,7 +19,16 @@ li a {
     padding: 16px 16px;
     text-decoration: none;
 }
-
 li a:hover {
     background-color: #ff9e4e;
+}
+@font-face {
+    font-family: 'Jeju Gothic';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/static/font/JejuGothic-Regular.eot');
+    src: url('/static/font/JejuGothic-Regular.eot') format('embedded-opentype'), url('/static/font/JejuGothic-Regular.woff2') format('woff2'), url('/static/font/JejuGothic-Regular.woff') format('woff'), url('/static/font/JejuGothic-Regular.ttf') format('truetype');
+}
+html {
+    font-family: 'Jeju Gothic', serif;
 }
