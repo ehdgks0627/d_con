@@ -129,6 +129,17 @@
         </div>
     </div>
     <div class="row small-up-5 medium-up-5 large-up-5">
+      <h5>
+        {% for t in top %}
+          {{ t[0] }} : {{ t[1] }} :
+          {% for i in image %}
+            {% if i.name[0:2] == t[0][0:2] %}
+              <img src="{{ i.image }}" /><br>
+            {% endif %}
+          {% endfor %}
+          <br>
+        {% endfor %}
+      </h5>
         {% for i in infos %}
           <div class="column">
             {% if loop.index == 1 or loop.index == 5 %}
@@ -185,8 +196,8 @@
                           GamesTied : {{ value2.get('GamesTied')|default('0') }}<br>
                           GamesWon : {{ value2.get('GamesWon')|default('0') }}<br>
                           SoloKills-Average : {{ value2.get('SoloKills-Average')|default('0') }}<br>
-                          평균 : {{ ((value2.get('DamageDone-Average'))|default('0')|string()|replace(',','')|float() + 
-                                   (value2.get('Eliminations-Average'))|default('0')|string()|replace(',','')|float() + 
+                          평균 : {{ ((value2.get('DamageDone-Average'))|default('0')|string()|replace(',','')|float() +
+                                   (value2.get('Eliminations-Average'))|default('0')|string()|replace(',','')|float() +
                                    (value2.get('SoloKills-Average'))|default('0')|string()|replace(',','')|float()*3)|int() }}<br>
                         {% else %}
                           None<br>

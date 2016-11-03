@@ -7,6 +7,7 @@ import sys
 from multiprocessing import Process, Queue, Manager, Value
 from flask import Flask, render_template, url_for, session
 from pprint import pprint
+from operator import itemgetter
 
 profile_list = ['levelFrame', 'playtime_quick', 'playtime_competitive', 'avatar', 'username', 'star', 'level', 'games_quick_wins', 'games_competitive_played', 'games_competitive_lost', 'games_competitive_wins', 'competitive_rank_img', 'competitive_rank']
 quick_allheros_list = ['MeleeFinalBlows', 'SoloKills', 'ObjectiveKills', 'FinalBlows', 'DamageDone', 'Eliminations', 'EnvironmentalKills', 'Multikills', 'HealingDone', 'TeleporterPadsDestroyed', 'Eliminations-MostinGame', 'FinalBlows-MostinGame', 'DamageDone-MostinGame', 'HealingDone-MostinGame', 'DefensiveAssists-MostinGame', 'OffensiveAssists-MostinGame', 'ObjectiveKills-MostinGame', 'ObjectiveTime-MostinGame', 'Multikill-Best', 'SoloKills-MostinGame', 'TimeSpentonFire-MostinGame', 'MeleeFinalBlows-Average', 'TimeSpentonFire-Average', 'SoloKills-Average', 'ObjectiveTime-Average', 'ObjectiveKills-Average', 'HealingDone-Average', 'FinalBlows-Average', 'Deaths-Average', 'DamageDone-Average', 'Eliminations-Average', 'Deaths', 'EnvironmentalDeaths', 'Cards', 'Medals', 'Medals-Gold', 'Medals-Silver', 'Medals-Bronze', 'GamesWon', 'TimeSpentonFire', 'ObjectiveTime', 'TimePlayed', 'MeleeFinalBlows-MostinGame', 'DefensiveAssists', 'DefensiveAssists-Average', 'OffensiveAssists', 'OffensiveAssists-Average', 'ReconAssists']
@@ -17,9 +18,12 @@ profiles = {}
 quick_heroses = {}
 cookies = {}
 hero_datas = {}
+scores = {}
 user_no = 1
 background_count = 7
 request_count = 0
+
+images = [{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png','name':'Genji'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000042.png','name':'McCree'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000002.png','name':'Reaper'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png','name':'Soldier:76'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000007.png','name':'Reinhardt',},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000005.png','name':'Hanzo',},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000003.png','name':'Tracer'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000079.png','name':'L&#xFA;cio'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000040.png','name':'Roadhog'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000009.png','name':'Winston'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png','name':'Junkrat'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000013B.png','name':'Ana'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000004.png','name':'Mercy'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000008.png','name':'Pharah'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E00000000000DD.png','name':'Mei'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000068.png','name':'Zarya'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000006.png','name':'Torbj&#xF6;rn'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000000A.png','name':'Widowmaker'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000007A.png','name':'D.Va'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000020.png','name':'Zenyatta'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000015.png','name':'Bastion'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000016.png','name':'Symmetra'}]
 
 app = Flask(__name__)
 app.secret_key = 'this isssssssssssss secret!'
@@ -149,6 +153,7 @@ def info(name):
             profile = profiles[name]
             quick_heros = quick_heroses[name]
             d = hero_datas[name]
+            top_hero = scores[name]
         else:
             # Multi Processing...
             manager = Manager()
@@ -166,10 +171,10 @@ def info(name):
             d.pop('1')
             d.pop('2')
             for h in hero_list:
-                p[name] = Process(target=api_quick_hero,args=(name,h,d,count))
-                p[name].start()
+                p[h] = Process(target=api_quick_hero,args=(name,h,d,count))
+                p[h].start()
             for h in hero_list:
-                p[name].join()
+                p[h].join()
             # Multri Processing End...
             profile = profiles[name]
             quick_heros = quick_heroses[name]
@@ -177,7 +182,29 @@ def info(name):
                 return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
             cookies[name] = time.time()
             hero_datas[name] = d
-        return render_template('info.html',random=random.randint(1,background_count),pro=profile['data'],qui=quick_heros,infos=[profile['data']['competitive']['rank_img'],profile['data']['level'],profile['data']['competitive']['rank'],profile['data']['username'],profile['data']['avatar']],hero_data=d)
+            scores[name] = {}
+            for h in hero_list:
+                score = 0
+                try:
+                    score += float(d[h][h]['DamageDone-Average'].replace(',',''))
+                except:
+                    pass
+                try:
+                    score += float(d[h][h]['Eliminations-Average'].replace(',',''))
+                except:
+                    pass
+                try:
+                    score -= float(d[h][h]['Deaths-Average'].replace(',',''))
+                except:
+                    pass
+                try:
+                    score += float(d[h][h]['SoloKills-Average'].replace(',',''))*3
+                except:
+                    pass
+                scores[name][h] = score
+            top_hero = sorted(scores[name].items(),key=itemgetter(1),reverse=True)[0:5]
+            scores[name] = top_hero
+        return render_template('info.html',random=random.randint(1,background_count),pro=profile['data'],qui=quick_heros,infos=[profile['data']['competitive']['rank_img'],profile['data']['level'],profile['data']['competitive']['rank'],profile['data']['username'],profile['data']['avatar']],hero_data=d,top=top_hero,image=images)
     #except:
     #    return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
 
