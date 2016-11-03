@@ -15,7 +15,6 @@
     <style type="text/css">
         #picture {
             height: 120px;
-            background: rgba(0, 0, 0, 0.5);
             border-radius: 1em;
             border-top-left-radius: 10em;
             border-top-right-radius: 10em;
@@ -119,7 +118,6 @@
     <div class="row small-up-5 medium-up-5 large-up-5">
         {% for i in infos %}
         <div class="column">
-
             <div class="callout" id=callout1>
                 {% if loop.index == 1 or loop.index == 5 %}
                 <center>
@@ -127,9 +125,9 @@
                 </center>{% elif loop.index == 2 %}<center>
                     <p><br/><h3>Lv.{{ i }}</p></h3></center>
                 {% elif loop.index == 3 %}
-                <center><p><h3>점수<br/>{{ i }}점</p></h3></center>
+                <center><p><h3>Score<br/>{{ i }}점</p></h3></center>
                 {% elif loop.index == 4 %}
-                <center><p><h3>닉네임<br/>{{ i }}</p></h3></center>
+                <center><p><h3>Name<br/>{{ i }}</p></h3></center>
                 {% endif %}
             </div>
         </div>
@@ -160,41 +158,81 @@
                 </div>
                 <p class="lead">{{ q.playtime }} played</p>
                 <p class="subheader">
-                    {% for key, value in hero_data.items() %}
-                      {% for key2, value2 in value.items() %}
-                        {% if (key2|string()).lower() == (q.name|string()).lower() %}
-                          {% if value2.GamesWon and value2.GamesTied and value2.GamesLost %}
-                            {{ value2.GamesWon|int() / value2.GamesPlayed|int()}}%<br>
-                          {% else %}
-                            None<br>
-                          {% endif %}
-                        {% elif (key2|string()).lower() == "soldier76" and (q.name|string()).lower() == "soldier: 76" %}
-                          {% if value2.GamesWon and value2.GamesTied and value2.GamesLost %}
-                            {{ value2.GamesWon|int() / value2.GamesPlayed|int() }}%<br>
-                          {% else %}
-                            None<br>
-                          {% endif %}
-                        {% elif (key2|string()).lower()[0] == "l" and (q.name|string()).lower()[0] == "l" %}
-                          {% if value2.GamesWon and value2.GamesTied and value2.GamesLost %}
-                            {{ value2.GamesWon|int() / value2.GamesPlayed|int() }}%<br>
-                          {% else %}
-                            None<br>
-                          {% endif %}
-                        {% elif (key2|string()).lower()[0:3] == "tor" and (q.name|string()).lower()[0:3] == "tor" %}
-                          {% if value2.GamesWon and value2.GamesTied and value2.GamesLost %}
-                            {{ value2.GamesWon|int() / value2.GamesPlayed|int() }}%<br>
-                          {% else %}
-                            None<br>
-                          {% endif %}
-                        {% elif (key2|string()).lower() == "dva" and (q.name|string()).lower() == "d.va" %}
-                          {% if value2.GamesWon and value2.GamesTied and value2.GamesLost %}
-                            {{ value2.GamesWon|int() / value2.GamesPlayed|int() }}%<br>
-                          {% else %}
+                  {% for key, value in hero_data.items() %}
+                    {% for key2, value2 in value.items() %}
+                      {% if (key2|string()).lower() == (q.name|string()).lower() %}
+                        {% if value2.get('DamageDone-Average') %}
+                          DamageDone-Average : {{ value2.get('DamageDone-Average')|default('0') }}<br>
+                          Deaths-Average  : {{ value2.get('Deaths-Average')|default('0') }}<br>
+                          Eliminations-Average : {{ value2.get('Eliminations-Average')|default('0') }}<br>
+                          GamesLost : {{ value2.get('GamesLost')|default('0') }}<br>
+                          GamesTied : {{ value2.get('GamesTied')|default('0') }}<br>
+                          GamesWon : {{ value2.get('GamesWon')|default('0') }}<br>
+                          HealingDone-Average : {{ value2.get('HealingDone-Average')|default('0') }}<br>
+                          SoloKills-Average : {{ value2.get('SoloKills-Average')|default('0') }}<br>
+                        {% else %}
                           None<br>
-                          {% endif %}
                         {% endif %}
-                      {% endfor %}
+
+                      {% elif (key2|string()).lower() == "soldier76" and (q.name|string()).lower() == "soldier: 76" %}
+                        {% if value2.get('DamageDone-Average') %}
+                          DamageDone-Average : {{ value2.get('DamageDone-Average')|default('0') }}<br>
+                          Deaths-Average  : {{ value2.get('Deaths-Average')|default('0') }}<br>
+                          Eliminations-Average : {{ value2.get('Eliminations-Average')|default('0') }}<br>
+                          GamesLost : {{ value2.get('GamesLost')|default('0') }}<br>
+                          GamesTied : {{ value2.get('GamesTied')|default('0') }}<br>
+                          GamesWon : {{ value2.get('GamesWon')|default('0') }}<br>
+                          HealingDone-Average : {{ value2.get('HealingDone-Average')|default('0') }}<br>
+                          SoloKills-Average : {{ value2.get('SoloKills-Average')|default('0') }}<br>
+                        {% else %}
+                          None<br>
+                        {% endif %}
+
+                      {% elif (key2|string()).lower()[0] == "l" and (q.name|string()).lower()[0] == "l" %}
+                        {% if value2.get('DamageDone-Average') %}
+                          DamageDone-Average : {{ value2.get('DamageDone-Average')|default('0') }}<br>
+                          Deaths-Average  : {{ value2.get('Deaths-Average')|default('0') }}<br>
+                          Eliminations-Average : {{ value2.get('Eliminations-Average')|default('0') }}<br>
+                          GamesLost : {{ value2.get('GamesLost')|default('0') }}<br>
+                          GamesTied : {{ value2.get('GamesTied')|default('0') }}<br>
+                          GamesWon : {{ value2.get('GamesWon')|default('0') }}<br>
+                          HealingDone-Average : {{ value2.get('HealingDone-Average')|default('0') }}<br>
+                          SoloKills-Average : {{ value2.get('SoloKills-Average')|default('0') }}<br>
+                        {% else %}
+                          None<br>
+                        {% endif %}
+
+                      {% elif (key2|string()).lower()[0:3] == "tor" and (q.name|string()).lower()[0:3] == "tor" %}
+                        {% if value2.get('DamageDone-Average') %}
+                          DamageDone-Average : {{ value2.get('DamageDone-Average')|default('0') }}<br>
+                          Deaths-Average  : {{ value2.get('Deaths-Average')|default('0') }}<br>
+                          Eliminations-Average : {{ value2.get('Eliminations-Average')|default('0') }}<br>
+                          GamesLost : {{ value2.get('GamesLost')|default('0') }}<br>
+                          GamesTied : {{ value2.get('GamesTied')|default('0') }}<br>
+                          GamesWon : {{ value2.get('GamesWon')|default('0') }}<br>
+                          HealingDone-Average : {{ value2.get('HealingDone-Average')|default('0') }}<br>
+                          SoloKills-Average : {{ value2.get('SoloKills-Average')|default('0') }}<br>
+                        {% else %}
+                          None<br>
+                        {% endif %}
+
+                      {% elif (key2|string()).lower() == "dva" and (q.name|string()).lower() == "d.va" %}
+                        {% if value2.get('DamageDone-Average') %}
+                          DamageDone-Average : {{ value2.get('DamageDone-Average')|default('0') }}<br>
+                          Deaths-Average  : {{ value2.get('Deaths-Average')|default('0') }}<br>
+                          Eliminations-Average : {{ value2.get('Eliminations-Average')|default('0') }}<br>
+                          GamesLost : {{ value2.get('GamesLost')|default('0') }}<br>
+                          GamesTied : {{ value2.get('GamesTied')|default('0') }}<br>
+                          GamesWon : {{ value2.get('GamesWon')|default('0') }}<br>
+                          HealingDone-Average : {{ value2.get('HealingDone-Average')|default('0') }}<br>
+                          SoloKills-Average : {{ value2.get('SoloKills-Average')|default('0') }}<br>
+                        {% else %}
+                          None<br>
+                        {% endif %}
+
+                      {% endif %}
                     {% endfor %}
+                  {% endfor %}
                 </p>
             </div>
         </div>
@@ -233,5 +271,4 @@
         new Chart(document.getElementById("position_piegraph").getContext("2d")).Pie(pieData,pieOptions);*/
     </script>
 </body>
-
 </html>
