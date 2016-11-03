@@ -15,6 +15,8 @@
             }
         }
         var search = function() {
+            document.getElementById('search').removeChild(document.getElementById('sub_button'));
+            document.getElementById('target').innerHTML = '<div id="loading"></div>';
             var tag = document.getElementById("battle_tag").value.replace("#", "-");
             document.location.href = "/info/" + tag;
         }
@@ -127,6 +129,21 @@
             margin-right: auto;
             min-width: 100px;
         }
+
+
+        #loading {
+          display: inline-block;
+          width: 2rem;
+          height: 2rem;
+          border: 3px solid rgba(255,255,255,.3);
+          border-radius: 50%;
+          border-top-color: #fff;
+          animation: spin 1s ease-in-out infinite;
+          -webkit-animation: spin 1s ease-in-out infinite;
+        }
+        @-webkit-keyframes spin {
+          to { -webkit-transform: rotate(360deg); }
+        }
     </style>
 </head>
 
@@ -136,10 +153,12 @@
         <li><a id="chat_btn">Chat</a></li>
     </ul>
     <div class="main">
-        <div class="search">
+        <div class="search" id="search">
             <img src="/static/map/logo1.png" height=22% width=55%>
             <input onkeyup="enterkey();" type="text" placeholder="플레이어 이름과 태그를 입력해 주세요. (아이디#배틀태그)" id="battle_tag">
             <button id="sub_button" type="button" onclick="search()">검색</button>
+            <div id="target">
+            </div>
         </div>
     </div>
     <script>
