@@ -114,8 +114,16 @@
           display: inline;
         }
         #block {
-            float: left;
-            display: inline;
+          float: left;
+        max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+        }
+        #block ,img {
+          padding-right: 2%;
+
         }
     </style>
 </head>
@@ -137,16 +145,14 @@
         </div>
     </div>
     <div class="row small-up-5 medium-up-5 large-up-5">
-      
       <h5>
         {% for t in top %}
         <div class="animated bounceInRight" id="block">
           {% for i in image %}
                 <h4>{% if i.name[0:3] == t[0][0:3] %}</h4>
-                <img nowrap src="{{ i.image }}" /><br>&nbsp;&nbsp;{{ t[0] }}
+                <img src="{{ i.image }}" /><br><p>{{ t[0] }}</p>
             {% endif %}
           {% endfor %}
-          <br>
           <br>
           </div>
         {% endfor %}
@@ -208,9 +214,6 @@
                           GamesTied : {{ value2.get('GamesTied')|default('0') }}<br>
                           GamesWon : {{ value2.get('GamesWon')|default('0') }}<br>
                           SoloKills-Average : {{ value2.get('SoloKills-Average')|default('0') }}<br>
-                          평균 : {{ ((value2.get('DamageDone-Average'))|default('0')|string()|replace(',','')|float() +
-                                   (value2.get('Eliminations-Average'))|default('0')|string()|replace(',','')|float() +
-                                   (value2.get('SoloKills-Average'))|default('0')|string()|replace(',','')|float()*3)|int() }}<br>
                         {% else %}
                           None<br>
                         {% endif %}
