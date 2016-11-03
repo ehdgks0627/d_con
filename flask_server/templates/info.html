@@ -133,7 +133,7 @@
         {% for t in top %}
           {{ t[0] }} : {{ t[1] }} :
           {% for i in image %}
-            {% if i.name[0:2] == t[0][0:2] %}
+            {% if i.name[0:3] == t[0][0:3] %}
               <img src="{{ i.image }}" /><br>
             {% endif %}
           {% endfor %}
