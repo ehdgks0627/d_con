@@ -3,6 +3,7 @@ import os
 import json
 import random
 import time
+import sys
 from multiprocessing import Process, Queue, Manager, Value
 from flask import Flask, render_template, url_for, session
 from pprint import pprint
@@ -18,6 +19,7 @@ cookies = {}
 hero_datas = {}
 user_no = 1
 background_count = 7
+request_count = 0
 
 app = Flask(__name__)
 app.secret_key = 'this isssssssssssss secret!'
@@ -137,10 +139,13 @@ def chatting():
 
 @app.route('/info/<name>/')
 def info(name):
-#    try:
+    global request_count
+    request_count += 1
+    print(request_count)
+    #try:
     if True:
         name = name.replace('#','-')
-        if cookies.get(name) != None and (time.time() - cookies.get(name)) < 300:
+        if cookies.get(name) != None and (time.time() - cookies.get(name)) < 600:
             profile = profiles[name]
             quick_heros = quick_heroses[name]
             d = hero_datas[name]
@@ -158,13 +163,13 @@ def info(name):
             p[2].join()
             profiles[name] = d['1']
             quick_heroses[name] = d['2']
+            d.pop('1')
+            d.pop('2')
             for h in hero_list:
                 p[name] = Process(target=api_quick_hero,args=(name,h,d,count))
                 p[name].start()
             for h in hero_list:
                 p[name].join()
-            while count.value != len(hero_list)+2:
-                print(count.value)
             # Multri Processing End...
             profile = profiles[name]
             quick_heros = quick_heroses[name]
@@ -173,8 +178,8 @@ def info(name):
             cookies[name] = time.time()
             hero_datas[name] = d
         return render_template('info.html',random=random.randint(1,background_count),pro=profile['data'],qui=quick_heros,infos=[profile['data']['competitive']['rank_img'],profile['data']['level'],profile['data']['competitive']['rank'],profile['data']['username'],profile['data']['avatar']],hero_data=d)
-#    except:
-#        return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
+    #except:
+    #    return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
 
 @app.route('/heros/<name>/')
 def heros(name):
