@@ -6,13 +6,26 @@
     <title>Information</title>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/info.css">
     <script src='/static/js/Chart.min.js'></script>
     <link rel="stylesheet" type="text/css" href="/static/stylesheets/normalize.css">
     <link rel="stylesheet" type="text/css" href="/static/stylesheets/foundation.min.css">
     <link rel="stylesheet" type="text/css" href='/static/stylesheets/foundation-icons.css'>
     <link rel="stylesheet" type="text/css" href="/static/stylesheets/list.css">
     <link rel="shortcut icon" href="/static/favicon.ico">
+    
     <style>
+        #picture{
+             height:120px;
+            background:rgba(0,0,0,0.5);
+                border-radius: 1em;
+border-top-left-radius: 10em;
+border-top-right-radius: 10em;
+border-bottom-left-radius: 10em;
+border-bottom-right-radius: 10em;
+            border-color: aliceblue;
+            border-width:thick;
+        }
     .my-top-bar{
         position: fixed;
         width: 100%;
@@ -22,14 +35,34 @@
         margin: 2%;
         }
         body {
-            background-color: rgba(220,200,200, 0.9);
+            background-color:#6D8FB2;
             background-repeat: no-repeat;
             box-sizing: inherit;
         }
         .name_color {
           background: ;
         }
-        </style>
+        
+        #callout1{
+            height:160px;
+            background:rgba(0,0,0,0.35);
+                border-radius: 5em;
+border-top-left-radius: 2em;
+border-top-right-radius: 2em;
+border-bottom-left-radius: 2em;
+border-bottom-right-radius: 2em;
+            border-color: aliceblue;
+            border-width:thick;
+        }
+    </style>
+    
+    <style>
+      @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+h3 {font-family: 'Jeju Gothic', serif;}
+        p {font-family: 'Jeju Gothic', serif;}
+
+     
+    </style>
 </head>
 
 <body>
@@ -51,23 +84,26 @@
 <div class="row small-up-5 medium-up-5 large-up-5">
     {% for i in infos %}
       <div class="column">
-          <div class="callout">
-            {% if loop.index == 1 or loop.index == 5 %}
-              <p><img src="{{ i }}" style="height: 50%; width: 50%"></p>
+          
+          <div class="callout" id=callout1>
+            {% if loop.index == 1 or loop.index == 5 %}     
+                  <center><p id=picture><br/><img src="{{ i }}" style="height: 60%; width: 40%"></p></center>
             {% elif loop.index == 2 %}
-              <p><h2>Lv.{{ i }}</p></h2>
+              <center><p><br/><h3>Lv.{{ i }}</p></h3></center>
             {% elif loop.index == 3 %}
-              <p><h2>{{ i }}점</p></h2>
+          <center><p><h3>점수<br/>{{ i }}점</p></h3></center>
             {% elif loop.index == 4 %}
-            <p><h2>{{ i }}</p></h2>
+    <center><p><h3>닉네임<br/>{{ i }}</p></h3></center>
             {% endif %}
           </div>
       </div>
     {% endfor %}
 </div>
+
+
     <div class="row column">
         <!-- <canvas id="position_piegraph" style=" height: 50%;"></canvas> -->
-        <hr>
+        <hr><br/><br/>
     </div>
     <div class="row column">
     </div>
