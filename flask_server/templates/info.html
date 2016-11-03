@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/static/stylesheets/foundation.min.css">
     <link rel="stylesheet" type="text/css" href='/static/stylesheets/foundation-icons.css'>
     <link rel="stylesheet" type="text/css" href="/static/stylesheets/list.css">
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/animate.css">
     <link rel="shortcut icon" href="/static/favicon.ico">
     <style type="text/css">
         #picture {
@@ -109,6 +110,13 @@
             border-bottom-left-radius: 2em;
             border-bottom-right-radius: 2em;
         }
+        h4 {
+          display: inline;
+        }
+        #block {
+            float: left;
+            display: inline;
+        }
     </style>
 </head>
 
@@ -129,17 +137,21 @@
         </div>
     </div>
     <div class="row small-up-5 medium-up-5 large-up-5">
+      
       <h5>
         {% for t in top %}
-          {{ t[0] }} : {{ t[1] }} :
+        <div class="animated bounceInRight" id="block">
           {% for i in image %}
-            {% if i.name[0:3] == t[0][0:3] %}
-              <img src="{{ i.image }}" /><br>
+                <h4>{% if i.name[0:3] == t[0][0:3] %}</h4>
+                <img nowrap src="{{ i.image }}" /><br>&nbsp;&nbsp;{{ t[0] }}
             {% endif %}
           {% endfor %}
           <br>
+          <br>
+          </div>
         {% endfor %}
       </h5>
+      
         {% for i in infos %}
           <div class="column">
             {% if loop.index == 1 or loop.index == 5 %}
