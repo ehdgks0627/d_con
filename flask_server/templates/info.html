@@ -137,6 +137,21 @@
         #block ,img {
           padding-right: 0.0rem;
         }
+        @font-face {
+            font-family: "NanumBarunGothic";
+            src: url('/static/font/a/NanumBarunGothic.eot');
+            src: url('/static/font/a/NanumBarunGothic.eot?#iefix') format('embedded-opentype'), url('/static/font/a/NanumBarunGothic.woff') format('woff'), url('/facebook/font/NanumBarunGothic.ttf') format('truetype');
+            url('/facebook/font/NanumBarunGothic.svg#NanumBarunGothic') format('svg') src: local(※), url('/static/font/a/NanumBarunGothic.woff') format('woff');
+        }
+        @font-face {
+            font-family: "BMDOHYEON";
+            src: url('/static/font/a/BMDOHYEON_ttf.eot');
+            src: url('/static/font/a/BMDOHYEON_ttf.eot?#iefix') format('embedded-opentype'), url('/static/font/a/BMDOHYEON_ttf.woff') format('woff'), url('/static/font/a/BMDOHYEON_ttf.ttf') format('truetype');
+            src: local(※), url('/static/font/a/BMDOHYEON_ttf.woff') format('woff');
+        }
+        .font {
+          font-family: "NanumBarunGothic";
+        }
     </style>
 </head>
 
@@ -156,7 +171,7 @@
       <div id="tops"></div>
       <div class="row">
         {% for i in infos %}
-          <div class="column">
+          <div id="font" class="column">
             {% if loop.index == 1 or loop.index == 5 %}
               <div class="callout" id=callout2>
                 <center><p id=picture><br/><img src="{{ i }}" style="height: 60%; width: 40%"></p></center>
@@ -244,7 +259,7 @@
               </p>
           </div>
           {% else %}
-          <div class="callout" style="height: 18rem; background-color: #881133 box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);">
+          <div class="callout" style="height: 18rem; background-color: #881133; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);">
               <p class="name_color" style="font-size: 0rem;">{{ a.name }}</p>
               <div class="row">
                       <p><img src="{{ a.image }}" alt="{{ a.name }}"></p>
