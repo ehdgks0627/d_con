@@ -59,7 +59,6 @@
 
         input[type=text] {
             font-size: 15px;
-            font-family: "맑은 고딕";
             margin: 0;
             border-radius: 5px;
             padding-top: 10px;
@@ -67,15 +66,11 @@
         }
 
         input[type=submit] {
-
-            font-family: "BMDOHYEON";
             margin: 0;
             border-radius: 10px;
         }
 
         button[type=button] {
-
-            font-family: "BMDOHYEON";
             margin: 0;
             border-radius: 10px;
         }
@@ -86,7 +81,6 @@
 
         h1 {
             display: inline-block;
-            font-family: "BMDOHYEON";
         }
 
         @font-face {
@@ -205,8 +199,8 @@
             white-space: nowrap;
             text-overflow:ellipsis;overflow:hidden;
             word-wrap: normal;
-            font-size: 25px;
-            font-family: "NanumBarunpen";
+            font-size: 1.3rem;
+            text-align:left;
         }
         #fix{
            top:-0px;
@@ -238,7 +232,7 @@
             <h1 id="font_orange">방 제목 : </h1>&nbsp;
             <h1 id="font_black"> {{ login_name }}</h1>
         </div>
-        <div id="log" style="text-align:left;"></div>
+        <div id="log"></div>
         <form id="send_message" method="POST" action='#'>
             <br>
             <input type="text" name="send_nick" id="send_nick" placeholder="닉네임">

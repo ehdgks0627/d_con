@@ -195,7 +195,7 @@
     <div class="row small-up-1 medium-up-2 large-up-3">
         {% for q in qui %}
         <div class="column">
-            <div class="callout" style="background-color: #f0edf2; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);">
+            <div class="callout" style="height: 24rem; background-color: #f0edf2; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);">
                 <p class="name_color">{% if q.name[0] == "L" %} Lúcio {% elif q.name[0:3] == "Tor" %} Torbjörn {% else %} {{ q.name }} {% endif %}</p>
                 <div class="row">
                     <div class="medium-6 large-6 columns">
@@ -230,6 +230,39 @@
         </div>
         {% endfor %}
     </div>
+    <div class="row column">
+        <hr>
+        <br/>
+        <br/>
+    </div>
+  <div class="row small-up-1 medium-up-3 large-up-5">
+    {% for a in ach %}
+      {% if a.name != "?" %}
+      <div class="column">
+
+          {% if a.finished == True %}
+          <div class="callout" style="height: 18rem; background-color: #865ca2; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);">
+              <p class="name_color" style="font-size: 0rem;">{{ a.name }}</p>
+              <div class="row">
+                      <p><img src="{{ a.image }}" alt="{{ a.name }}"></p>
+              </div>
+              <p class="subheader">
+              </p>
+          </div>
+          {% else %}
+          <div class="callout" style="height: 18rem; background-color: #881133; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);">
+              <p class="name_color" style="font-size: 0rem;">{{ a.name }}</p>
+              <div class="row">
+                      <p><img src="{{ a.image }}" alt="{{ a.name }}"></p>
+              </div>
+              <p class="subheader">
+              </p>
+          </div>
+          {% endif %}
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
     <div class="row column">
         <a class="button hollow expanded">Copyright ⓒ 2016 새싹비빔밥</a>
     </div>

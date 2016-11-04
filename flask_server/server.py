@@ -19,6 +19,7 @@ quick_heroses = {}
 cookies = {}
 hero_datas = {}
 scores = {}
+achievs = {}
 user_no = 1
 background_count = 7
 request_count = 0
@@ -30,6 +31,29 @@ app.secret_key = 'this isssssssssssss secret!'
 
 server_domain = '0.0.0.0'
 server_port = 5000
+
+def api_origin_profile(name):
+    try:
+        h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/profile'%(name), 'GET')
+        j = json.loads(content.decode('utf-8'))
+        dic = {}
+        dic['levelFrame'] = j['data']['levelFrame']
+        dic['playtime_quick'] = j['data']['playtime']['quick']
+        dic['playtime_competitive'] = j['data']['playtime']['competitive']
+        dic['avatar'] = j['data']['avatar']
+        dic['username'] = j['data']['username']
+        dic['star'] = j['data']['star']
+        dic['level'] = str(j['data']['level'])
+        dic['games_quick_wins'] = j['data']['games']['quick']['wins']
+        dic['games_competitive_played'] = j['data']['games']['competitive']['played']
+        dic['games_competitive_lost'] = j['data']['games']['competitive']['lost']
+        dic['games_competitive_wins'] = j['data']['games']['competitive']['wins']
+        dic['competitive_rank_img'] = j['data']['competitive']['rank_img']
+        dic['competitive_rank'] = j['data']['competitive']['rank']
+        return j
+    except:
+        return False
 
 def api_profile(name,d,count,ident):
     try:
@@ -146,13 +170,15 @@ def info(name):
     global request_count
     request_count += 1
     print(request_count)
-    try:
+    #try:
+    if True:
         name = name.replace('#','-')
         if cookies.get(name) != None and (time.time() - cookies.get(name)) < 600:
             profile = profiles[name]
             quick_heros = quick_heroses[name]
             d = hero_datas[name]
             top_hero = scores[name]
+            achiev = achievs[name]
         else:
             # Multi Processing...
             manager = Manager()
@@ -182,6 +208,8 @@ def info(name):
             cookies[name] = time.time()
             hero_datas[name] = d
             scores[name] = {}
+            achiev = api_achievements(name)
+            achievs[name] = achiev
             for h in hero_list:
                 score = 0
                 try:
@@ -203,47 +231,22 @@ def info(name):
                 scores[name][h] = score
             top_hero = sorted(scores[name].items(),key=itemgetter(1),reverse=True)[0:5]
             scores[name] = top_hero
-        return render_template('info.html',random=random.randint(1,background_count),pro=profile['data'],qui=quick_heros,infos=[profile['data']['competitive']['rank_img'],profile['data']['level'],profile['data']['competitive']['rank'],profile['data']['username'],profile['data']['avatar']],hero_data=d,top=top_hero,image=images)
-    except:
-        return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
-
-@app.route('/heros/<name>/')
-def heros(name):
-    try:
-        name = name.replace('#','-')
-        profile = api_profile(name)
-        if profile == False:
-            return 'no username'
-        quick_heros = api_quick_heros(name)
-        competitive_heros = api_competitive_heros(name)
-        return render_template('heros.html',pro=profile,qui=quick_heros)
-    except:
-        pass
-
-@app.route('/allheros/<name>/')
-def allheros(name):
-    try:
-        name = name.replace('#','-')
-        profile = api_profile(name)
-        if profile == False:
-            return 'no username'
-        quick_allheors = api_quick_allheros(name)
-        competitive_allheros = api_competitive_allheros(name)
-        return render_template('allheros.html',qui=quick_allheors,com=competitive_allheros)
-    except:
-        pass
+        return render_template('info.html',random=random.randint(1,background_count),pro=profile['data'],qui=quick_heros,infos=[profile['data']['competitive']['rank_img'],profile['data']['level'],profile['data']['competitive']['rank'],profile['data']['username'],profile['data']['avatar']],hero_data=d,top=top_hero,image=images,ach=achiev)
+    #except:
+    #    return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
 
 @app.route('/achievements/<name>/')
 def achievements(name):
-    try:
+#    try:
+    if True:
         name = name.replace('#','-')
-        profile = api_profile(name)
+        profile = api_origin_profile(name)
         if profile == False:
             return 'no username'
         achievements = api_achievements(name)
         return render_template('achievements.html',ach=achievements)
-    except:
-        pass
+#    except:
+#        pass
 
 @app.route('/hero/<name>/<hero>/')
 def hero(name,hero):
