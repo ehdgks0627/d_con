@@ -170,8 +170,7 @@ def info(name):
     global request_count
     request_count += 1
     print(request_count)
-    #try:
-    if True:
+    try:
         name = name.replace('#','-')
         if cookies.get(name) != None and (time.time() - cookies.get(name)) < 600:
             profile = profiles[name]
@@ -232,8 +231,8 @@ def info(name):
             top_hero = sorted(scores[name].items(),key=itemgetter(1),reverse=True)[0:5]
             scores[name] = top_hero
         return render_template('info.html',random=random.randint(1,background_count),pro=profile['data'],qui=quick_heros,infos=[profile['data']['competitive']['rank_img'],profile['data']['level'],profile['data']['competitive']['rank'],profile['data']['username'],profile['data']['avatar']],hero_data=d,top=top_hero,image=images,ach=achiev)
-    #except:
-    #    return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
+    except:
+        return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
 
 @app.route('/achievements/<name>/')
 def achievements(name):

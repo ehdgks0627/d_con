@@ -46,7 +46,7 @@
         }
 
         #row {
-            margin: 2%;
+            margin: 3rem;
         }
 
         body {
@@ -151,12 +151,8 @@
     </div>
     <br>
     <div class="row" id="row">
-        <div class="medium-3 large-3 columns">
-        </div>
-        <div class="medium-6 large-6 columns">
-        </div>
     </div>
-    <div class="row small-up-5 medium-up-5 large-up-5">
+    <div class="row small-up-2 medium-up-3 large-up-5">
       <div id="tops"></div>
       <div class="row">
         {% for i in infos %}
@@ -183,7 +179,6 @@
       </div>
     </div>
     <div class="row column">
-        <!-- <canvas id="position_piegraph" style=" height: 50%;"></canvas> -->
         <hr>
         <center id="d_p"><button id="d_c" class="cal_btn" type="button" name="button" onclick="show_tops();">계산</button></center>
         </div>
@@ -239,7 +234,6 @@
     {% for a in ach %}
       {% if a.name != "?" %}
       <div class="column">
-
           {% if a.finished == True %}
           <div class="callout" style="height: 18rem; background-color: #865ca2; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);">
               <p class="name_color" style="font-size: 0rem;">{{ a.name }}</p>
@@ -250,7 +244,7 @@
               </p>
           </div>
           {% else %}
-          <div class="callout" style="height: 18rem; background-color: #881133; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);">
+          <div class="callout" style="height: 18rem; background-color: #881133 box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);">
               <p class="name_color" style="font-size: 0rem;">{{ a.name }}</p>
               <div class="row">
                       <p><img src="{{ a.image }}" alt="{{ a.name }}"></p>
@@ -282,7 +276,7 @@
         {
           document.getElementById('d_p').removeChild(document.getElementById('d_c'));
           document.getElementById('d_p').innerHTML = '<div id="loading"></div>';
-          var content = "{% for t in top %}<div class='animated bounceInRight' id='block'>{% for i in image %}{% if i.name[0:3] == t[0][0:3] %}<img src='{{ i.image }}' /><br><p>{{ t[0] }}</p>{% endif %}{% endfor %}<br></div>{% endfor %}";
+          var content = "{% for t in top %}<div class='animated bounceInRight' id='block'>{% for i in image %}{% if i.name[0:3] == t[0][0:3] %}<img src='{{ i.image }}' /><br><p>{{ t[0] }}</p>{% endif %}{% endfor %}<br></div>{% endfor %}<div class='row column-5'><hr></div><br/><br/></div>";
           setTimeout("document.getElementById('d_p').removeChild(document.getElementById('loading'));document.getElementById('tops').innerHTML = \"" + content + "\";",2000);
         }
         document.getElementById("home_btn").setAttribute("href", "http://" + document.domain + ":5000");
