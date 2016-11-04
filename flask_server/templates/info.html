@@ -115,15 +115,14 @@
         }
         #block {
           float: left;
-        max-width: 100%;
-    max-height: 100%;
-    display: block;
-    margin-left: 6.725rem;
-    margin-right: auto;
+          max-width: 100%;
+          max-height: 100%;
+          display: block;
+          margin-left: 6.725rem;
+          margin-right: auto;
         }
         #block ,img {
           padding-right: 0.0rem;
-
         }
     </style>
 </head>
@@ -145,19 +144,8 @@
         </div>
     </div>
     <div class="row small-up-5 medium-up-5 large-up-5">
-      <h5>
-        {% for t in top %}
-        <div class="animated bounceInRight" id="block">
-          {% for i in image %}
-                <h4>{% if i.name[0:3] == t[0][0:3] %}</h4>
-                <img src="{{ i.image }}" /><br><p>{{ t[0] }}</p>
-            {% endif %}
-          {% endfor %}
-          <br>
-          </div>
-        {% endfor %}
-      </h5>
-      
+      <div id="tops"></div>
+      <div class="row">
         {% for i in infos %}
           <div class="column">
             {% if loop.index == 1 or loop.index == 5 %}
@@ -179,10 +167,13 @@
             {% endif %}
           </div>
         {% endfor %}
+      </div>
     </div>
     <div class="row column">
         <!-- <canvas id="position_piegraph" style=" height: 50%;"></canvas> -->
         <hr>
+        <center id="d_p"><button id="d_c" class="cal_btn" type="button" name="button" onclick="show_tops();">계산</button></center>
+        </div>
         <br/>
         <br/>
     </div>
@@ -232,6 +223,11 @@
     <footer>
     </footer>
     <script>
+        function show_tops()
+        {
+          document.getElementById('d_p').removeChild(document.getElementById('d_c'));
+          document.getElementById('tops').innerHTML = '{% for t in top %}<div class="animated bounceInRight" id="block">{% for i in image %}{% if i.name[0:3] == t[0][0:3] %}<img src="{{ i.image }}" /><br><p>{{ t[0] }}</p>{% endif %}{% endfor %}<br></div>{% endfor %}';
+        }
         document.getElementById("home_btn").setAttribute("href", "http://" + document.domain + ":5000");
         document.getElementById("chat_btn").setAttribute("href", "http://" + document.domain + ":5001");
         /*var pieOptions = {
