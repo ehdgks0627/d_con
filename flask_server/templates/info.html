@@ -55,10 +55,6 @@
             box-sizing: inherit;
         }
 
-        .name_color {
-            background: ;
-        }
-
         .cal_btn {
             -moz-box-shadow: inset 0px -1px 18px 1px #fed897;
             -webkit-box-shadow: inset 0px -1px 18px 1px #fed897;
@@ -103,8 +99,8 @@
         }
 
         #callout1 {
+            background-color: ivory;
             height: 160px;
-            background: ivoryy;
             border-radius: 5em;
             border-top-left-radius: 2em;
             border-top-right-radius: 2em;
@@ -122,6 +118,7 @@
             border-top-right-radius: 2em;
             border-bottom-left-radius: 2em;
             border-bottom-right-radius: 2em;
+            color: black:
         }
         h4 {
           display: inline;
@@ -133,6 +130,7 @@
           display: block;
           margin-left: 6.725rem;
           margin-right: auto;
+          margin-top: 2rem;
         }
         #block ,img {
           padding-right: 0.0rem;
@@ -151,6 +149,24 @@
         }
         .font {
           font-family: "NanumBarunGothic";
+        }
+        @keyframes rainbowLink {
+         0% { border: 0.5rem solid #ff2a2a; }
+         15% { border: 0.5rem solid #ff7a2a; }
+         30% { border: 0.5rem solid #ffc52a }
+         45% { border: 0.5rem solid #43ff2a; }
+         60% { border: 0.5rem solid #2a89ff; }
+         75% { border: 0.5rem solid #202082; }
+         90% { border: 0.5rem solid #6b2aff; }
+         100% { border: 0.5rem solid #e82aff; }
+        }
+        #top1{
+          color: white;
+          margin-top: 1rem;
+          font-size: 1rem;
+          animation-duration: 3s;
+          animation-iteration-count: infinite;
+        }
         }
     </style>
 </head>
@@ -171,7 +187,7 @@
       <div id="tops"></div>
       <div class="row">
         {% for i in infos %}
-          <div id="font" class="column" style="color: white;">
+          <div id="font" class="column">
             {% if loop.index == 1 or loop.index == 5 %}
               <div class="callout" id=callout2>
                 <center><p id=picture><br/><img src="{{ i }}" style="height: 5rem; width: 5rem;"></p></center>
@@ -231,7 +247,6 @@
                         {% else %}
                           Not Played<br>
                         {% endif %}
-
                       {% endif %}
                     {% endfor %}
                   {% endfor %}
@@ -250,7 +265,7 @@
       {% if a.name != "?" %}
       <div class="column">
           {% if a.finished == True %}
-          <div class="callout" style="height: 18rem; background-color: #edd2ff; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);">
+          <div class="callout" style="height: 18rem; background-color: #bfd2df; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);">
               <p class="name_color" style="font-size: 0rem;">{{ a.name }}</p>
               <div class="row">
                       <p><img src="{{ a.image }}" alt="{{ a.name }}"></p>
@@ -262,7 +277,7 @@
           <div class="callout" style="height: 18rem; background-color: #ad4dee; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5);">
               <p class="name_color" style="font-size: 0rem;">{{ a.name }}</p>
               <div class="row">
-                      <p><img src="{{ a.image }}" alt="{{ a.name }}"></p>
+                    <p><img src="{{ a.image }}" alt="{{ a.name }}"></p>
               </div>
               <p class="subheader">
               </p>
@@ -278,21 +293,12 @@
     <footer>
     </footer>
     <script>
-    function sleep(num){	//[1/1000초]
-      var now = new Date();
-      var stop = now.getTime() + num;
-      while(true){
-      now = new Date();
-      if(now.getTime() > stop)
-        return;
-      }
-    }
         function show_tops()
         {
           document.getElementById('d_p').removeChild(document.getElementById('d_c'));
           document.getElementById('d_p').innerHTML = '<div id="loading"></div>';
-          var content = "{% for t in top %}<div class='animated bounceInRight' id='block'>{% for i in image %}{% if i.name[0:3] == t[0][0:3] %}<img src='{{ i.image }}' /><br><p>{{ t[0] }}</p>{% endif %}{% endfor %}<br></div>{% endfor %}<div class='row column-5'><hr></div><br/><br/></div>";
-          setTimeout("document.getElementById('d_p').removeChild(document.getElementById('loading'));document.getElementById('tops').innerHTML = \"" + content + "\";",2000);
+          var content = "<div class='row column-5' style='border: 0.5rem solid yellow;border-radius: 1rem;' id='top1'>{% for t in top %}<div class='animated bounceInRight' id='block'>{% for i in image %}{% if i.name[0:3] == t[0][0:3] %}<img src='{{ i.image }}' /><br><center><p id='tops'>{{ t[0] }}</p></center>{% endif %}{% endfor %}<br></div>{% endfor %}</div><hr><br/><br/></div>";
+          setTimeout("document.getElementById('d_p').removeChild(document.getElementById('loading'));document.getElementById('tops').innerHTML = \"" + content + "\";$('#top1').css('animation-name','rainbowLink');",2000);
         }
         document.getElementById("home_btn").setAttribute("href", "http://" + document.domain + ":5000");
         document.getElementById("chat_btn").setAttribute("href", "http://" + document.domain + ":5001");
