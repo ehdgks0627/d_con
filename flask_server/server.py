@@ -83,7 +83,7 @@ def api_profile(name,d,count,ident):
 def api_quick_allheros(name):
     try:
         h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
-        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/quick-play/allHeroes/'%(name), 'GET')
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/quickplay/allHeroes/'%(name), 'GET')
         return False
     except:
         pass
@@ -91,7 +91,7 @@ def api_quick_allheros(name):
 def api_competitive_allheros(name):
     try:
         h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
-        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive-play/allHeroes/'%(name), 'GET')
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive/allHeroes/'%(name), 'GET')
         return json.loads(content.decode('utf-8'))
     except:
         pass
@@ -108,7 +108,7 @@ def api_achievements(name):
 def api_quick_heros(name,d,count,ident):
     try:
         h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
-        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/quick-play/heroes'%(name), 'GET')
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/quickplay/heroes'%(name), 'GET')
         j = json.loads(content.decode('utf-8'))
         d[ident] = j
         count.value += 1
@@ -119,7 +119,7 @@ def api_quick_heros(name,d,count,ident):
 def api_competitive_heros(name):
     try:
         h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
-        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive-play/heroes'%(name), 'GET')
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive/heroes'%(name), 'GET')
         j = json.loads(content.decode('utf-8'))
         return j
     except:
@@ -128,7 +128,7 @@ def api_competitive_heros(name):
 def api_quick_hero(name, hero, d,count):
     try:
         h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
-        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive-play/hero/%s/'%(name,hero), 'GET')
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive/hero/%s/'%(name,hero), 'GET')
         j = json.loads(content.decode('utf-8'))
         d[hero] = j
         count.value += 1
@@ -139,7 +139,7 @@ def api_quick_hero(name, hero, d,count):
 def api_competitive_hero(name, hero):
     try:
         h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
-        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive-play/hero/%s/'%(name,hero), 'GET')
+        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive/hero/%s/'%(name,hero), 'GET')
         j = json.loads(content.decode('utf-8'))
         return j
     except:
@@ -170,7 +170,8 @@ def info(name):
     global request_count
     request_count += 1
     print(request_count)
-    try:
+    #try:
+    if True:
         name = name.replace('#','-')
         if cookies.get(name) != None and (time.time() - cookies.get(name)) < 600:
             profile = profiles[name]
@@ -231,8 +232,8 @@ def info(name):
             top_hero = sorted(scores[name].items(),key=itemgetter(1),reverse=True)[0:5]
             scores[name] = top_hero
         return render_template('info.html',random=random.randint(1,background_count),pro=profile['data'],qui=quick_heros,infos=[profile['data']['competitive']['rank_img'],profile['data']['level'],profile['data']['competitive']['rank'],profile['data']['username'],profile['data']['avatar']],hero_data=d,top=top_hero,image=images,ach=achiev)
-    except:
-        return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
+    #except:
+    #    return "<html><head><script>alert('no username');document.location='/'</script></head><body></body></html>"
 
 @app.route('/achievements/<name>/')
 def achievements(name):
