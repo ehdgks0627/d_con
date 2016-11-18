@@ -173,7 +173,7 @@ def info(name):
     #try:
     if True:
         name = name.replace('#','-')
-        if cookies.get(name) != None and (time.time() - cookies.get(name)) < 600:
+        if cookies.get(name) != None and (time.time() - cookies.get(name)) < 3600:
             profile = profiles[name]
             quick_heros = quick_heroses[name]
             d = hero_datas[name]
