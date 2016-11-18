@@ -228,6 +228,53 @@ def info(name):
                     score += float(d[h][h]['SoloKills-Average'].replace(',',''))*3
                 except:
                     pass
+                try:
+                    if h == 'Ana':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Bastion':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'DVa':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Genji':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Hanzo'
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Junkrat':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Lucio':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Mccree':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Mei':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Mercy':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Pharah':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Reaper':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Reinhardt':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Roadhog':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Soldier76':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Symmetra':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Torbjoern':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Tracer':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Widowmaker':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Winston':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Zarya':
+                        score += float(d[h][h][''].replace(',',''))
+                    elif h == 'Zenyatta':
+                        score += float(d[h][h][''].replace(',',''))
+                except:
+                    pass
                 scores[name][h] = score
             top_hero = sorted(scores[name].items(),key=itemgetter(1),reverse=True)[0:5]
             scores[name] = top_hero
