@@ -200,7 +200,7 @@ def info(name):
                 p[h].start()
             for h in hero_list:
                 p[h].join()
-            # Multri Processing End...
+            # Multi Processing End...
             profile = profiles[name]
             quick_heros = quick_heroses[name]
             if profile == False:
@@ -230,49 +230,45 @@ def info(name):
                     pass
                 try:
                     if h == 'Ana':
-                        score += float(d[h][h][''].replace(',',''))
-                    elif h == 'Bastion':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['HealingDone-Average'].replace(',',''))
                     elif h == 'DVa':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['DamageBlocked-Average'].replace(',',''))*0.5
                     elif h == 'Genji':
-                        score += float(d[h][h][''].replace(',',''))
-                    elif h == 'Hanzo'
-                        score += float(d[h][h][''].replace(',',''))
-                    elif h == 'Junkrat':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['ObjectiveKills-Average'].replace(',',''))*2000
+                    elif h == 'Hanzo':
+                        score += float(d[h][h]['FinalBlows-Average'].replace(',',''))*1000
                     elif h == 'Lucio':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['HealingDone-Average'].replace(',',''))
                     elif h == 'Mccree':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['FantheHammerKills-Average'].replace(',',''))*1000
                     elif h == 'Mei':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['BlizzardKills-Average'].replace(',',''))*1000
                     elif h == 'Mercy':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['HealingDone-Average'].replace(',',''))
                     elif h == 'Pharah':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['ObjectiveKills-Average'].replace(',',''))*2000
                     elif h == 'Reaper':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['ObjectiveKills-Average'].replace(',',''))*2000
                     elif h == 'Reinhardt':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['DeathBlossomKills-Average'].replace(',',''))*2000
                     elif h == 'Roadhog':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['HookAccuracy'].replace('%',''))*100
                     elif h == 'Soldier76':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['TacticalVisorKills-Average'].replace(',',''))*2000
                     elif h == 'Symmetra':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['ShieldsProvided-Average'].replace(',',''))*3000
                     elif h == 'Torbjoern':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['MoltenCoreKills-Average'].replace(',',''))*2000
                     elif h == 'Tracer':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['PulseBombsAttached-Average'].replace(',',''))*5000
                     elif h == 'Widowmaker':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['PulseBombsAttached-Average'].replace('%',''))*100
                     elif h == 'Winston':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['DamageBlocked-Average'].replace(',',''))
                     elif h == 'Zarya':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['DamageBlocked-Average'].replace(',',''))
                     elif h == 'Zenyatta':
-                        score += float(d[h][h][''].replace(',',''))
+                        score += float(d[h][h]['HealingDone-Average'].replace(',',''))
                 except:
                     pass
                 scores[name][h] = score
@@ -284,16 +280,15 @@ def info(name):
 
 @app.route('/achievements/<name>/')
 def achievements(name):
-#    try:
-    if True:
+    try:
         name = name.replace('#','-')
         profile = api_origin_profile(name)
         if profile == False:
             return 'no username'
         achievements = api_achievements(name)
         return render_template('achievements.html',ach=achievements)
-#    except:
-#        pass
+    except:
+        pass
 
 @app.route('/hero/<name>/<hero>/')
 def hero(name,hero):
