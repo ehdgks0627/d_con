@@ -4,6 +4,10 @@ import json
 import random
 import time
 import sys
+import lxml
+import requests
+import urllib
+from bs4 import BeautifulSoup
 from multiprocessing import Process, Queue, Manager, Value
 from flask import Flask, render_template, url_for, session
 from pprint import pprint
@@ -25,12 +29,33 @@ background_count = 7
 request_count = 0
 
 images = [{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000029.png','name':'Genji'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000042.png','name':'McCree'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000002.png','name':'Reaper'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000006E.png','name':'Soldier:76'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000007.png','name':'Reinhardt',},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000005.png','name':'Hanzo',},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000003.png','name':'Tracer'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000079.png','name':'L&#xFA;cio'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000040.png','name':'Roadhog'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000009.png','name':'Winston'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000065.png','name':'Junkrat'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000013B.png','name':'Ana'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000004.png','name':'Mercy'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000008.png','name':'Pharah'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E00000000000DD.png','name':'Mei'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000068.png','name':'Zarya'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000006.png','name':'Torbj&#xF6;rn'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000000A.png','name':'Widowmaker'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E000000000007A.png','name':'D.Va'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000020.png','name':'Zenyatta'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000015.png','name':'Bastion'},{'image':'https://blzgdapipro-a.akamaihd.net/game/heroes/small/0x02E0000000000016.png','name':'Symmetra'}]
+server_domain = '0.0.0.0'
+server_port = 5000
 
 app = Flask(__name__)
 app.secret_key = 'this isssssssssssss secret!'
 
-server_domain = '0.0.0.0'
-server_port = 5000
+
+
+def get_youtube_content():
+	html = requests.get('https://www.youtube.com/results?search_query=LW+nanohana+%EB%A7%A4%EB%93%9C%EB%AC%B4%EB%B9%84')
+	soup = BeautifulSoup(html.text, 'lxml')
+	results = soup.find_all('a', {'class':'yt-uix-sessionlink yt-uix-tile-link yt-ui-ellipsis yt-ui-ellipsis-2 spf-link '}, href=True)
+	lists = ''
+	data = ''
+	youtube_list = str('')
+	for link in results:
+		lists += (link['href'])
+		results_list = lists.split('/watch?v=')
+
+	a = results_list[1:]
+
+	for i in range(0,3):
+		youtube_list += ("<iframe width='260' height='260' src='https://www.youtube.com/embed/%s' frameborder='0' allowfullscreen></iframe>" % a[random.randrange(0,19)])
+		youtube_list += ','
+	final_results = youtube_list.split(',')
+	return final_results[:3]
+
 
 def api_origin_profile(name):
     try:
@@ -80,22 +105,6 @@ def api_profile(name,d,count,ident):
     except:
         return False
 
-def api_quick_allheros(name):
-    try:
-        h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
-        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/quickplay/allHeroes/'%(name), 'GET')
-        return False
-    except:
-        pass
-
-def api_competitive_allheros(name):
-    try:
-        h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
-        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive/allHeroes/'%(name), 'GET')
-        return json.loads(content.decode('utf-8'))
-    except:
-        pass
-
 def api_achievements(name):
     try:
         h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
@@ -115,15 +124,6 @@ def api_quick_heros(name,d,count,ident):
         return True
     except:
         return False
-
-def api_competitive_heros(name):
-    try:
-        h = httplib2.Http('.cache', disable_ssl_certificate_validation=True)
-        resp, content = h.request('https://api.lootbox.eu/pc/kr/%s/competitive/heroes'%(name), 'GET')
-        j = json.loads(content.decode('utf-8'))
-        return j
-    except:
-        pass
 
 def api_quick_hero(name, hero, d,count):
     try:
@@ -160,10 +160,10 @@ def before_request():
 
 @app.route('/')
 def chatting():
-    try:
-        return render_template('index.html',random=random.randint(1,background_count));
-    except:
-        pass
+#    try:
+        return render_template('index.html',random=random.randint(1,background_count),video_list=get_youtube_content())
+#    except:
+#        pass
 
 @app.route('/info/<name>/')
 def info(name):
@@ -201,6 +201,7 @@ def info(name):
             for h in hero_list:
                 p[h].join()
             # Multi Processing End...
+
             profile = profiles[name]
             quick_heros = quick_heroses[name]
             if profile == False:

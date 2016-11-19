@@ -5,7 +5,7 @@ from flask import Flask, render_template, session, request
 from flask_socketio import SocketIO, emit, disconnect
 from pymysql import connect
 
-# 채팅내역 DB 연동
+# DB
 async_mode = None
 
 server_domain = "0.0.0.0"

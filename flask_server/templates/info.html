@@ -195,11 +195,11 @@
               </div>
             {% elif loop.index == 2 %}
               <div class="callout" id=callout1>
-                <center><p><br/><h3>Lv.{{ i }}</p></h3></center>
+                <center><p><h3>--LV--<br/>{{ i }}</p></h3></center>
               </div>
             {% elif loop.index == 3 %}
               <div class="callout" id=callout1>
-                <center><p><h3>--Score--<br/>{{ i }}점</p></h3></center>
+                <center><p><h3>--Score--<br/>{{ i }}</p></h3></center>
               </div>
             {% elif loop.index == 4 %}
               <div class="callout" id=callout1>
@@ -223,16 +223,17 @@
         {% for q in qui %}
         <div class="column">
             <div class="callout" style="height: 24rem; background-color: #f0edf2; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5);">
-                <p class="name_color">{% if q.name[0] == "L" %} Lúcio {% elif q.name[0:3] == "Tor" %} Torbjörn {% else %} {{ q.name }} {% endif %}</p>
                 <div class="row">
                     <div class="medium-6 large-6 columns">
                         <p><img src="{{ q.image }}" alt="{{ q.name }}"></p>
                     </div>
-                    <div class="medium-6 large-6 columns">
-                        <p></p>
+					<div>
+               			 <p class="lead">{% if q.name[0] == "L" %} Lúcio {% elif q.name[0:3] == "Tor" %} Torbjörn {% else %} {{ q.name }} {% endif %}</p>
+					</div>
+                    <div>
+                		<p class="name_color">{{ q.playtime }} played</p>
                     </div>
                 </div>
-                <p class="lead">{{ q.playtime }} played</p>
                 <p class="subheader">
                   {% for key, value in hero_data.items() %}
                     {% for key2, value2 in value.items() %}
