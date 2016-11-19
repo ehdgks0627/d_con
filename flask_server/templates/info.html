@@ -50,7 +50,7 @@
         }
 
         body {
-			background-image: url('/static/map/wooden.jpg');
+            background-image: url('/static/map/wooden.jpg');
             background-repeat: repeat-x;
             background-repeat: repeat-y;
             box-sizing: inherit;
@@ -100,15 +100,17 @@
         }
 
         #callout1 {
-            background-color: ivory;
+            background: rgba(0, 0, 0, 0.0);
             height: 160px;
             border-radius: 5em;
             border-top-left-radius: 2em;
             border-top-right-radius: 2em;
             border-bottom-left-radius: 2em;
             border-bottom-right-radius: 2em;
-            border-color: aliceblue;
+            border-color: rgba(0, 0, 0, 0.0);
             border-width: thick;
+           color : floralwhite;
+            text-shadow: 1px 1px 5px orange;
         }
         #callout2 {
             background: rgba(0, 0, 0, 0.0);
@@ -119,7 +121,6 @@
             border-top-right-radius: 2em;
             border-bottom-left-radius: 2em;
             border-bottom-right-radius: 2em;
-            color: black:
         }
         h4 {
           display: inline;
@@ -199,11 +200,11 @@
               </div>
             {% elif loop.index == 3 %}
               <div class="callout" id=callout1>
-                <center><p><h3>Score<br/>{{ i }}점</p></h3></center>
+                <center><p><h3>--Score--<br/>{{ i }}점</p></h3></center>
               </div>
             {% elif loop.index == 4 %}
               <div class="callout" id=callout1>
-                <center><p><h3>Name<br/>{{ i }}</p></h3></center>
+                <center><p><h3>--Name--<br/>{{ i }}</p></h3></center>
               </div>
             {% endif %}
           </div>
@@ -304,5 +305,5 @@
         document.getElementById("home_btn").setAttribute("href", "http://" + document.domain + ":5000");
         document.getElementById("chat_btn").setAttribute("href", "http://" + document.domain + ":5001");
     </script>
-</body>
+  </body>
 </html>
