@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta property="og:title" content="오버워치 브라우저 결과 공유하기"> //공유할때 제목
-    <meta property="og:url" content="info.html">  // 공유할 주소
-    <meta property="og:description" content="자신의 결과 공유하기  .."> //제목 밑에 뜨는 글
-    <meta property="og:image" content="/static/map/logo.png"> // 글 왼쪽?에 뜨는 사진
+    <meta property="og:title" content="오버워치 브라우저 결과 공유하기">
+    <meta property="og:url" content="info.html">
+    <meta property="og:description" content="자신의 결과 공유하기  ..">
+    <meta property="og:image" content="/static/map/logo.png">
     <title>Information</title>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
@@ -18,7 +18,8 @@
     <link rel="shortcut icon" href="/static/favicon.ico">
     <script>
     function sharefacebook(url){
-        window.open("http://www.facebook.com/sharer/sharer.php?u=" + url);
+	      var Option = "width=500, height=360, resizable=no, scrollbars=no, status=no;";
+        window.open("http://www.facebook.com/sharer/sharer.php?u=" + url,"",Option);
     }
     </script>
     <style type="text/css">
@@ -187,7 +188,7 @@
             <b>
               <li><a id="home_btn">Home</a></li>
               <li><a id="chat_btn">Chat</a></li>
-                <li><a href="javascript:sharefacebook('info.html')">페이스북</a></li>
+                <li><a onclick="sharefacebook(document.location.href)">Share</a></li>
             </b>
         </ul>
     </div>

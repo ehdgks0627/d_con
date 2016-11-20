@@ -48,3 +48,6 @@ Temporary Items
 
 # cache folder
 /flask_server/.cache
+
+# pyc file
+*.pyc
